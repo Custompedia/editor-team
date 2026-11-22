@@ -26,6 +26,12 @@ Respond to the user in Indonesian.
 - Lead reviews each worker report critically (verify, don't relay) and records worker mistakes as rules for future briefs.
 - This team is ONLY for video editing.
 
+## Worker model (user requirement)
+- Spawn every worker with model **opus** (Opus 5.5) and effort **high**. An existing worker cannot change model/effort:
+  reuse an idle worker only if it was spawned that way; otherwise spawn a new one.
+- Style principles learned from the user's reference edits: /home/user/editkit/STYLE_NOTES.md (written by worker job01-v5).
+  Every worker brief must point to it. Principles, not a fixed template.
+
 ## Worker assignment rule: 1 link = 1 agent (reuse idle agents)
 - When the user sends multiple video links, each link is assigned to exactly ONE worker agent.
 - Before spawning a new agent, check the worker registry for an IDLE agent (finished its last task, no task running).

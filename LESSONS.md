@@ -22,4 +22,9 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
   Brand colour (#DE6B17) and site font (Poppins, static files) taken from the brand site → good match to "no fixed look".
 - Insert share only 15% (target 30-45% for Jualan) because real assets ran out; chose not to pad. Ask the user for more
   portfolio photos up front when they want denser visuals.
-- (pending) user feedback on v4.
+- User feedback on v4: "rada kurang". Wanted: more creative treatment (customer questions as left/right chat bubbles at the
+  open, dark/dim beat on the "gabisa" punchline), more and clearer visuals with judgement on when NOT to, good real images,
+  neat animation, deliberate full-screen vs not, and a full-screen Pinterest ending instead of a small IG chip.
+  The user shared reference edits (Drive 1WrAilhmWzUBkdZGg0X-5fp4JYrzF8UlT) → distilled into editkit/STYLE_NOTES.md.
+- Lesson: "clean" must not mean "sparse". Guide density targets matter; a 15% insert share read as flat to the user.
+- Worker requirement: Opus 5.5, effort high.
