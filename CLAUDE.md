@@ -41,6 +41,11 @@ Respond to the user in Indonesian.
   sentence being spoken; real sources first; few cuts, never mid-sentence; look at your own output; revisions touch only
   what was asked; clean and true to the real world.
 
+## Names / spelling (lesson from job01)
+- Whisper large-v3 cannot know coined brand names (job01: "PARCELIN" was heard as Parcelon/Parcellen even with a vocab prompt).
+- Ask the user for brand/handle/names in the brief. If not given, the worker MUST web-search several spelling variants
+  of what it heard (e.g. -on/-en/-in endings) before saying "not found", and must fix subtitles via text/script.
+
 ## User style preferences (apply to EVERY video; tell workers explicitly)
 - **No fixed look.** The guide's yellow accent (#FFD60A), fonts and UI are only neutral defaults. Colours, accent,
   text colour pattern and fonts must follow the brief, the brand and the footage — decide per video, never one-size-fits-all.
