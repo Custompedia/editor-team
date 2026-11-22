@@ -1,0 +1,36 @@
+{
+  "fps": 30,
+  "clips": {"A": "take1", "B": "take3"},
+  "segments": [
+    {"clip": "B", "in": 12.4, "out": 16.85},
+    {"clip": "A", "in": 0.62, "out": 21.3},
+    {"clip": "A", "in": 27.95, "out": 44.1},
+    {"clip": "B", "in": 20.15, "out": 41.7}
+  ],
+  "framing": {"B": {"scale": 1.05, "y": -40}},
+  "timing": {"A": {"3": [0.7, 1.18]}},
+  "text": {"A": {"12": "*Rp10 juta", "30": ""}},
+  "script": {"B": [{"from": 42, "text": "Gaji naik, tapi *tabungan tetap *nol."}]},
+  "keep_case": ["BPS", "Instagram"],
+  "sub_max_chars": 24,
+  "sub_max_words": 4,
+  "outro_frames": 60,
+  "music": {"src": "music/bed.mp3", "volume": 0.06},
+  "events": [
+    {"type": "title", "start": 4, "end": ["B", 54], "line1": "KENAPA GAJI", "line2": "Selalu habis"},
+    {"type": "bubbles", "start": ["A", 8, -2], "end": ["A", 24, 4], "items": [
+      {"at": ["A", 8, -2], "text": "Gaji segini kok nggak pernah cukup ya?", "img": "photos/wallet.jpg", "side": "l"},
+      {"at": ["A", 16, -2], "text": "Nanti aja nabungnya kalau gaji naik", "side": "r", "x_at": ["A", 24]}]},
+    {"type": "screenshot", "start": ["A", 30, -3], "end": ["A", 44, -4], "img": "shots/article.png", "img_w": 1080, "img_h": 1600, "source": "NAMA MEDIA · 12 Mei 2025", "highlights": [{"x": 32, "y": 404, "w": 272, "h": 60}, {"x": 233, "y": 719, "w": 410, "h": 30}]},
+    {"type": "custom", "name": "bars", "start": ["A", 44, -4], "end": ["A", 52, -3], "label": "PENGELUARAN / BULAN", "sub": "angka dari ucapan pembicara", "values": [{"name": "makan", "n": 3.5, "text": "Rp3,5jt"}, {"name": "cicilan", "n": 2.8, "text": "Rp2,8jt"}, {"name": "nongkrong", "n": 1.9, "text": "Rp1,9jt"}]},
+    {"type": "photo", "start": ["A", 52, -3], "end": ["A", 60, -3], "img": "photos/coffee.jpg", "num": "01", "label": "LATTE FACTOR", "sub": "kecil tapi tiap hari", "pos": "50% 40%"},
+    {"type": "clip", "start": ["A", 60, -3], "end": ["A", 68, -2], "src": "broll/shopping.mp4", "from": 1.0, "num": "02", "label": "CHECKOUT IMPULSIF"},
+    {"type": "split", "start": ["A", 74, -3], "end": ["A", 88], "img": "shots/app.png", "fit": "contain", "caption": "aplikasi pencatat keuangan", "click": {"x": 540, "y": 520}, "click_at": ["A", 82]},
+    {"type": "split", "start": ["A", 88], "end": ["A", 96], "src": "broll/saving.mp4", "from": 0.5, "caption": "tabung di awal bulan"},
+    {"type": "chips", "start": ["A", 100, -4], "end": ["A", 125, 8], "items": [
+      {"at": ["A", 100, -4], "n": "1", "text": "Catat 30 hari"},
+      {"at": ["A", 112, -4], "n": "2", "text": "Tabung di awal"}]},
+    {"type": "screenshot", "start": ["B", 100, -4], "end": ["B", 118, 2], "img": "shots/profile.png", "img_w": 1080, "img_h": 1600, "click": {"x": 880, "y": 96}, "click_at": ["B", 108]},
+    {"type": "outro", "start": ["B", 128, -5], "end": "end", "img": "photos/desk.jpg", "logo": "logo.png", "handle": "@namaakun", "cta": "follow buat tips berikutnya"}
+  ]
+}
