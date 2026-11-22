@@ -29,8 +29,12 @@ Respond to the user in Indonesian.
 ## Worker model (user requirement)
 - Spawn every worker with model **opus** (Opus 5.5) and effort **high**. An existing worker cannot change model/effort:
   reuse an idle worker only if it was spawned that way; otherwise spawn a new one.
-- Style principles learned from the user's reference edits: /home/user/editkit/STYLE_NOTES.md (written by worker job01-v5).
-  Every worker brief must point to it. Principles, not a fixed template.
+- STYLE_NOTES (MANDATORY): /home/user/editkit/STYLE_NOTES.md = the user's quality bar, distilled from their reference edits
+  (Drive 1WrAilhmWzUBkdZGg0X-5fp4JYrzF8UlT). Every worker must read it fully before Tahap 6, plan visuals with its rules
+  (P1-P18), and pass its section 4 "Quality bar" checklist before the full render. Principles, not a fixed template.
+  Lead rejects an edit that passes technical QA but fails the quality bar (job01 v4 lesson: clean != sparse).
+- Density baseline from the references: ~1 visual beat every ~5 s, full-screen ~30-40%, no face-only stretch > ~7 s,
+  a punchline beat (dim/B&W) 1-2x per video, opening customer quotes as stacked chat bubbles, full-screen real ending.
 
 ## Worker assignment rule: 1 link = 1 agent (reuse idle agents)
 - When the user sends multiple video links, each link is assigned to exactly ONE worker agent.

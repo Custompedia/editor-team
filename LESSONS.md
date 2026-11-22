@@ -28,3 +28,13 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
   The user shared reference edits (Drive 1WrAilhmWzUBkdZGg0X-5fp4JYrzF8UlT) → distilled into editkit/STYLE_NOTES.md.
 - Lesson: "clean" must not mean "sparse". Guide density targets matter; a 15% insert share read as flat to the user.
 - Worker requirement: Opus 5.5, effort high.
+
+## Reference study (after job01 v4)
+- Reference vs v4 (same footage): ~25 visual beats vs 13; full-screen ~35% vs 15%; longest face-only 6-7 s vs 16 s.
+- Biggest gap was not colour/font (reference used kit defaults) but visual thinking: illustrate the CONCEPT spoken
+  (3D box for "ukuran", hands folding for "desain", gold foil macro for "finishing"), quotes as stacked chat bubbles with
+  thumbnails, B&W/dim beat on "nggak bisa", price tags on the object, strike READY STOCK -> CUSTOM, spec form that fills in,
+  third-party article proof with highlight, big full-screen ending.
+- Brand naming seen in references: "Parcelinpack" (JPNN article) and IG @parcelinpack (~132k followers); v4 used
+  @parcelincompany from the website footer -> confirm with user; prefer the account the brand itself shows in its videos.
+- Gap list of components to build is in editkit/STYLE_NOTES.md section 5 (pingrid, grade, tags, stamp, form, box3d, ...).
