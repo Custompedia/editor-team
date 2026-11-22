@@ -19,6 +19,13 @@ Respond to the user in Indonesian.
   4. Report to the user: status, what each worker did, problems found, and deliver the final output files (SendUserFile).
 - Lead may only run small checks itself (e.g. ls, ffprobe, extracting a frame to verify a worker's result).
 
+## Continuous improvement (user: "makin ke kanan makin improve")
+- At session start, read LESSONS.md (repo root; local copy /home/user/editor-team/LESSONS.md).
+- After every job (and every revision round): append to LESSONS.md what worked, what broke, the user's feedback, and the
+  new rule. Promote rules that apply to all jobs into CLAUDE.md. Fixes to the kit go back into the repo's editkit/.
+- Lead reviews each worker report critically (verify, don't relay) and records worker mistakes as rules for future briefs.
+- This team is ONLY for video editing.
+
 ## Worker assignment rule: 1 link = 1 agent (reuse idle agents)
 - When the user sends multiple video links, each link is assigned to exactly ONE worker agent.
 - Before spawning a new agent, check the worker registry for an IDLE agent (finished its last task, no task running).
