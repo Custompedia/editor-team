@@ -318,7 +318,8 @@ kecuali user menolak atau isinya memang lebih kuat tanpa musik (tulis alasannya)
 lagu bebas royalti yang lisensinya mengizinkan pemakaian komersial di platform tujuan (catat judul, pembuat, URL, lisensi, dan
 atribusi yang diminta); kalau tidak ada sumber yang bisa dijangkau dari container ini, laporkan ke lead dan jangan memakai lagu
 berhak cipta. Memilih: tulis dulu nada tiap bagian naskah (pembuka, isi, belokan, ajakan), lalu pilih lagu yang nadanya cocok dengan
-bagian terpanjang dan tidak melawan belokan. "Sesuai momen" berarti musik ikut berubah di belokan naskah: turun atau berhenti sesaat
+bagian terpanjang dan tidak melawan belokan. Jangan berlebihan (pemilik, job03: "musik bebas, senyambungnya saja, jangan spam musik"): satu lagu yang menyatu dengan isi,
+tidak menarik perhatian, tidak berganti-ganti, dan efek suara hanya yang menandai sesuatu. "Sesuai momen" berarti musik ikut berubah di belokan naskah: turun atau berhenti sesaat
 di kalimat pembalik, naik lagi di ajakan, selesai bersama penutup (bukan terpotong). Kit sekarang hanya punya satu lagu dengan satu
 volume dan fade di awal dan akhir (`edit-json.md`, `music`): perubahan per momen butuh komponen generik kecil (kebijakan kode) dan
 dilaporkan ke lead. Agent tidak mendengar: periksa lagu dengan angka (durasi, kenyaringan, bagian yang berubah lewat envelope) dan

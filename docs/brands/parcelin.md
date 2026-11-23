@@ -40,6 +40,10 @@ brand ini. Bukan aturan untuk video lain.
   cepat lebih baik" → **animasi closing logo Parcelin "dkk"** (logo brand dan tanda brand lain; isi persisnya BELUM dikonfirmasi:
   tanyakan di awal, juga file logonya). Kartu profil **@prahenditaputri** (komponen kit `igprofile`, dari screenshot user: avatar dan
   tile = crop asli, teks diketik ulang persis) hanya dipakai kalau pembicara menutup dengan "hubungi aku".
+- **Penutup "hubungi aku" (job03):** profil Instagram @prahenditaputri DIBANGUN DENGAN KODE, rapi dan 100% sama dengan screenshot
+  (kata pemilik: "buat sendiri aja desainnya yang rapi dan 100% sama, with code, nanti dianimasikan"), dengan tombol Ikuti / Kirim
+  pesan dan tap di Kirim pesan. Angka profil berubah: minta screenshot terbaru tiap job, atau konfirmasi angka lama masih boleh dipakai.
+- **Musik:** "bebas, senyambungnya saja, jangan spam musik".
 - Penutup Pinterest brand layar penuh (permintaan job01) tetap pilihan lain untuk video jualan yang menutup dengan hasil kerja.
 - **Sedikit cut, gambar mengalir** (job02 v4 dinilai "kebanyakan cut… patah-patah"), **backsound sesuai momen**, durasi visual pas.
 - **"Abis Natal, terus Lebaran"** dan penyebutan hari raya lain → foto nyata momennya, layar penuh, bukan packaging brand.

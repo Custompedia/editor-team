@@ -170,6 +170,14 @@ ini milik siapa (`SKILL.md`, "Berlaku untuk siapa saja").
 
 - Kasus asal: kalimat terakhir "Karena lebih cepat lebih baik" (slogan) ditutup dengan kartu profil Instagram pembicara. Pemilik:
   "harusnya animasi closing logo [brand] dkk; kalau ada 'hubungi aku' di akhir, baru bisa pakai approach yang sekarang".
+- **Profil akun pemilik yang dibangun dengan kode (pengecualian, hanya atas permintaan pemilik).** Untuk penutup "hubungi aku",
+  pemilik (job03) memilih: "SS profile mending kamu buat sendiri aja desainnya yang rapi dan 100% sama, with code, nanti
+  dianimasikan". Tampilan aplikasi biasanya tidak digambar ulang; ini boleh karena tiga syarat terpenuhi sekaligus: (1) itu akun
+  milik pemilik video sendiri, (2) dipakai sebagai TEMPAT yang dituju penonton, bukan sebagai bukti, (3) pemilik memintanya.
+  Aturannya: setiap fakta dibaca dari screenshot asli dan sama persis (nama, angka, bio, label tombol; teks terpotong dibiarkan
+  terpotong; tidak ada angka, status, atau post karangan); foto profil, sampul sorotan, dan tile grid tetap crop asli; tampilannya
+  mengikuti screenshot; dilaporkan sebagai UI buatan kode beserta still pembanding. Tanpa permintaan pemilik: pakai screenshot asli
+  satu layar penuh, atau kartu yang tidak meniru aplikasi. Untuk akun atau aplikasi pihak lain, dan untuk bukti: tidak pernah.
 - Isi closing (logo mana, akun mana, situs) ditanyakan ke user di awal (`workflow.md` Tahap 0), bukan diputuskan sendiri di akhir.
   Logo selalu file asli dari user atau bahan resmi; kalau tidak ada, closing memakai nama dalam huruf video dan dilaporkan.
 

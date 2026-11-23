@@ -78,3 +78,17 @@ masukan ini permanen disimpannya."
     (job02: closing content, logo file, music and the moment photos were all decided by assumption).
 Also from this message: the visual design of job02 was judged "already better, keep improving" (3): the look decisions of job02
 (theme from the footage, chat bubbles, grey beat, timeline) are a baseline to build on, not a template.
+
+## Added by the owner (2026-11-23, start of job03)
+"Video digunakan untuk keperluan konten Parcelin. SS profile mending kamu buat sendiri aja desainnya yang rapi dan 100% sama, with
+code, nanti dianimasikan. Musik bebas, senyambungnya saja, jangan spam musik. Ukurannya Reels Instagram, dan lakukan langsung."
+Earlier in the same job: "output akhir hanya 1 video siap pakai yang rapi; di akhir 'hubungi aku' memakai IG @prahenditaputri;
+pastikan tidak too much cut, biarkan videonya mengalir dengan enak didengar; hasil harus rapi dan urut" and "ada UI message /
+follow, click message, hubungi aku gitu".
+
+19. A "CONTACT ME" ENDING SHOWS THE REAL PLACE AND THE ACTION: the owner's profile with its Follow / Message buttons and a tap on
+    Message. The owner may ask for that profile to be rebuilt in code, tidy and 100% identical to the real screenshot, then
+    animated. Allowed only for the owner's own account, as a destination, on the owner's request; never as evidence, never for
+    someone else's account (visual-thinking.md 3).
+20. MUSIC IS RESTRAINED: one bed that fits, "jangan spam musik" (refines 13). The same restraint applies to sound effects.
+21. IN ORDER ("urut"): keep the order in which things were said; no reshuffling of sentences for effect unless the owner asks.
