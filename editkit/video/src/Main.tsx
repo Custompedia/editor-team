@@ -7,7 +7,11 @@ const data = raw as any;
 const isFull = (e: any) => data.fullTypes.includes(e.type);
 const fulls = data.events.filter(isFull);
 const splits = data.events.filter((e: any) => e.type === 'split');
-const overs = data.events.filter((e: any) => !isFull(e) && e.type !== 'split');
+const overs = data.events.filter((e: any) => !isFull(e) && e.type !== 'split' && e.type !== 'mood');
+/* mood (generic): {type:"mood", gray?: 0..1, dim?: 0..1} turns the SPEAKER layer grey/darker over a range (a tonal turn),
+   4-frame ramp in/out. Only the speaker changes; inserts, overlays and subtitles keep their colour. */
+const moods = data.events.filter((e: any) => e.type === 'mood');
+const moodK = (frame: number) => moods.map((e: any) => ({e, k: Math.min(interpolate(frame, [e.f - 1, e.f + 3], [0, 1], cl), interpolate(frame, [e.t - 4, e.t], [1, 0], cl))})).reduce((a: any, b: any) => (b.k > a.k ? b : a), {e: null, k: 0});
 const chainedAfter = (e: any) => fulls.some((x: any) => x.f === e.t); // another insert starts exactly when this one ends
 const chainedBefore = (e: any) => fulls.some((x: any) => x.t === e.f);
 
@@ -22,7 +26,7 @@ const speakerShift = (frame: number) => Math.max(0, ...splits.map((e: any) => sp
 /* 0..1: how much of the frame is a BRIGHT full-screen insert ("light": true) right now -> dark subtitles, no bottom darkening */
 const lightK = (frame: number) => Math.max(0, ...fulls.filter((e: any) => e.light).map((e: any) => Math.min(
   chainedBefore(e) ? interpolate(frame, [e.f, e.f + 12], [0, 1], cl) : interpolate(frame, [e.f, e.f + 7], [0, 1], cl),
-  chainedAfter(e) ? interpolate(frame, [e.t, e.t + 12], [1, 0], cl) : interpolate(frame, [e.t - 6, e.t], [1, 0], cl))));
+  e.hold_end ? 1 : chainedAfter(e) ? interpolate(frame, [e.t, e.t + 12], [1, 0], cl) : interpolate(frame, [e.t - 6, e.t], [1, 0], cl))));
 
 /* Layer 1: the speaker (A-roll), cut into segments, with zoom levels and a slow drift */
 const Speaker: React.FC = () => {
@@ -35,8 +39,10 @@ const Speaker: React.FC = () => {
   const next = data.shots[si + 1]?.f ?? data.total;
   const drift = interpolate(frame, [shot.f, next], [0, 0.035], cl);
   const down = speakerShift(frame);
+  const md = moodK(frame);
+  const mf = md.k > 0 ? `grayscale(${md.k * (md.e.gray ?? 1)}) brightness(${1 - md.k * (md.e.dim ?? 0.3)}) contrast(${1 + 0.08 * md.k})` : undefined;
   return (
-    <AbsoluteFill style={{backgroundColor: '#000'}}>
+    <AbsoluteFill style={{backgroundColor: '#000', filter: mf}}>
       {data.segs.map((s: any, i: number) => {
         const fr = data.framing[s.k] || {}; // per-clip reframing so the face sits in the same place in every clip
         const z = (fr.scale || 1) * (shot.z + drift);

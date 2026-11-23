@@ -91,7 +91,8 @@ Overlay (pembicara tetap terlihat):
 |---|---|---|
 | `title` | `line1`, `line2` | Judul di 3 sampai 5 detik pertama |
 | `bubbles` | `items`: `at`, `text`, `img` (opsional), `side` `"l"`/`"r"`, `x_at` (opsional: tanda silang merah) | Kutipan atau pertanyaan orang lain |
-| `chips` | `items`: `at`, `n` (opsional), `text` | Poin bernomor yang muncul saat disebut |
+| `chips` | `items`: `at`, `n` (opsional), `text`; opsional `top` (bawaan 140), `step` (bawaan 138), `scale` (bawaan 1) | Poin bernomor yang muncul saat disebut. Kalau tumpukan menyentuh wajah (pembicara mendekat ke kamera), kecilkan dan naikkan dengan `top`/`step`/`scale`, lalu cek still di item terakhir |
+| `mood` | `gray` (0..1, bawaan 1), `dim` (0..1, bawaan 0.3) | Lapisan PEMBICARA menjadi abu-abu/lebih gelap selama rentang (belokan nada). Insert, overlay, dan subtitle tetap berwarna. Tanpa sfx. Paling banyak di belokan utama (`visual-thinking.md` 2.0) |
 
 Insert layar penuh:
 
@@ -100,10 +101,12 @@ Insert layar penuh:
 | `photo` | `img`, `label`, `num`, `sub`, `pos`, `dim` (semua opsional kecuali `img`) | Foto asli atau gambar buatan, zoom pelan |
 | `clip` | `src`, `from` (detik), `label`, `num`, `sub`, `pos`, `dim` | Footage B-roll atau rekaman layar, tanpa suara |
 | `screenshot` | `img`, `img_w`, `img_h`, `source` (opsional: label "SUMBER" + teks), `highlights` [`x`,`y`,`w`,`h`, `at`], `scroll`, `click` {`x`,`y`}, `click_at` | Halaman asli sebagai kartu. Stabilo, scroll, dan kursor yang mengklik. `highlights[].at` = frame sejak awal event (bukan jangkar; bawaan 20, 46, 72...): hitung dari laporan build |
-| `custom` | `name` + field bebas | Diagram SVG sendiri. `bars` sudah tersedia |
+| `custom` | `name` + field bebas | Diagram SVG sendiri. Tersedia: `bars`; `timeline` (`label`, `event`, `months`, `after`, `items`: `at`, `from`, `text`: garis "N bulan sebelum <event>", batang tumbuh mundur dari event saat tiap rentang disebut); `igprofile` (kartu penutup akun Instagram dari screenshot user: `avatar`, `handle`, `verified`, `full_name`, `stats` [[angka, label]], `role`, `bio` [baris; kata `@akun` ditebalkan], `link`, `tiles` [gambar, baris berisi 3], `row2_at`). **`name` dipakai kit untuk memilih komponen**: data isi tidak boleh memakai field bernama `name` (pakai `full_name` dan sejenisnya) |
 | `outro` | `img`, `logo`, `handle`, `cta` | Kartu penutup |
 
-Field `light: true` pada insert layar penuh berarti latarnya terang: subtitle berubah gelap dan gradasi gelap di bawah dimatikan. `custom` otomatis `light` (diagram bawaan berlatar terang). Tulis `"light": false` kalau komponen buatanmu berlatar gelap, dan `"light": true` pada `photo` yang hampir putih.
+Field `hold_end: true` pada insert layar penuh terakhir (kartu penutup yang berjalan sampai `"end"`) mematikan fade keluar, supaya frame terakhir video bukan frame setengah pudar.
+
+Field `light: true` pada insert layar penuh berarti latarnya terang (pada `photo`, gradasi gelap di atas juga dimatikan): subtitle berubah gelap dan gradasi gelap di bawah dimatikan. `custom` otomatis `light` (diagram bawaan berlatar terang). Tulis `"light": false` kalau komponen buatanmu berlatar gelap, dan `"light": true` pada `photo` yang hampir putih.
 
 Layar terbagi (visual di atas, pembicara tetap terlihat di bawah):
 

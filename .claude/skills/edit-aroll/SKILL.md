@@ -82,7 +82,7 @@ Agent tidak bisa memutar video. Hasil yang flat hampir selalu terjadi karena age
 
 ### 1.3 Cara kerja bertahap
 
-Kerjakan tahap 0 sampai 10 berurutan (Bagian 3). Setiap tahap menulis hasilnya ke file di `work/`, dan punya **gate**: daftar cek yang harus lolos sebelum lanjut. Setelah setiap tahap, perbarui `work/STATE.md` (tahap terakhir yang selesai, keputusan, asumsi, hal yang belum beres). Kalau konteks percakapan terpotong, baca `work/STATE.md` dan file tahap terakhir, lalu lanjutkan dari sana. Jangan mulai ulang.
+Kerjakan tahap 0 sampai 10 berurutan (Bagian 3). Setiap tahap menulis hasilnya ke file di `work/`, dan punya **gate**: daftar cek yang harus lolos sebelum lanjut. Setelah setiap tahap, perbarui `work/STATE.md` (tahap terakhir yang selesai, keputusan, asumsi, hal yang belum beres). Kalau konteks percakapan terpotong, baca `work/STATE.md` dan file tahap terakhir, lalu lanjutkan dari sana. Jangan mulai ulang. **Perbarui `work/STATE.md` juga sebelum setiap render dan setiap putaran revisi dimulai** (versi yang sedang dibuat, apa yang diubah, alasan): sesi worker bisa terhenti di tengah render (job02: batas pemakaian), dan lead melanjutkan dari file ini.
 
 ## Peta 11 tahap (detail dan gate lengkap: `reference/workflow.md`)
 

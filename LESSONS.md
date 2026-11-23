@@ -79,3 +79,36 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Owner-specific wishes for one brand go to docs/brands/<brand>.md, not into the general guide.
 - Not proven yet: the new guide on a real job; weaker models; kit primitives the benchmark uses but the kit lacks
   (hard cut / blur-in entries, speaker B&W, headline strip under the chin, caption modes, highlight anchored to words).
+
+## job02 — "Box Lebaran" (2 klip = 2 take naskah yang sama, akun @prahenditaputri / Parcelin)
+- Delivered final_v4 (52.7 s) in one working session: v1 internal (leftover word at a join), v2 rejected by the lead, v3 superseded by
+  the worker itself, v4 delivered. Kit install from an empty container ~10 min; one 53 s render ~12 min.
+- What worked: density. 31 visual changes, longest unchanged stretch 4.5 s, 0 quiet_ok, speaker-only 28% (job01 v4: 16 s without a
+  change). The quiet gate + per-sentence plan did their job; the lead found no sparse or crowded stretch on the contact sheet.
+- Lead rejected v2 on accuracy, not looks. The worker had "corrected" Whisper's "Juli pasir" to "dulu di Parcelin" (a brand name on a
+  guess) and showed a subtitle "dulu." for a word that the cut had removed. Found by diffing `text` overrides against work/tx/*.json and
+  the re-transcription of the final. -> worker rule in reference/workflow.md (Tahap 5) and lead test T24.
+- The lead guessed too: from the syllable count I told the user it was probably "dulu, pasti". Prompt-free re-transcription then heard
+  "Parselen / Parsel / parser", so the brand probably IS said. Rule for the lead: an envelope tells you where a word is and whether a text
+  fits, not what the word is. Do not offer the user a replacement word; say "unverified", blank it, and ask the one person who can listen.
+- The lead also judged a join "clean" from the envelope and a Whisper "Kamu," as a timing artefact: wrong, the word was fully audible
+  (slices starting at the cut heard it 4/4). When a re-transcription of the FINAL has an extra word at a join, believe it until a slice
+  test says otherwise. Asking for that slice test (R6) is what caught it.
+- Prompt-free slices at 0.7x speed hallucinate ("Tunggu", "Jangan lupa", "Sampai jumpa di video selanjutnya"): use x1 as the main
+  evidence, 0.7x only as a second opinion, and never a run with the vocab prompt as proof of a name.
+- User input mid-job: an Instagram profile screenshot ("output akhir untuk Instagram seperti ini, dirapikan, dianimasikan bebas") and
+  "aset cari aja di internet". Lead stated its reading (ending = that profile, account = that handle) and went on; the user did not
+  object. Ending built as `igprofile`: real crops for avatar/tiles, text re-typeset exactly, not an imitation of the app.
+- A 1069x830 desktop screenshot is too small for a 1080x1920 end card (tiles upscaled ~1.9x, soft). Ask for a phone screenshot up front.
+- Usage limit killed the worker right after the v4 render, before its QA and before STATE.md was updated (it still ended at v2).
+  Nothing on disk was lost; SendMessage after the reset resumed it. Rule: worker updates STATE.md BEFORE each render starts; the lead,
+  on resume, checks out/ and the newest logs before assuming where the worker stopped.
+- Brand site trap: the "Hampers Idul Fitri" product page on parcelin.id uses a "Gemini_Generated_Image" photo and lorem ipsum. The
+  worker caught it by file name. Portfolio photos show client products (JNE, L'Oreal): reported to the user, not silently used.
+- Kit: ported from the job into editkit after the render proved them: event `mood` (speaker grey/dim beat), custom `timeline` and
+  `igprofile`, `hold_end`, chips `top/step/scale`, no dark top gradient on `light` photos. Fixed `sheet.py video` crashing on a sample
+  at the last frame. Known: a `custom` event's own data must not use a field called `name` (documented in edit-json.md).
+- Not verified by anyone: the audio. Flagged to the user: 0:35.4 (tight join "…Lebaran" -> "Kalian", possible <0.1 s residue), the
+  two unsubtitled words at 0:36, 0:31.1, and the sung opener.
+- Open for next time: the new subtitle-evidence rule and T24 are untested on a fresh worker; the eid photo got only 0.9 s because the
+  screenshot needed lead-in for the cursor (acceptable here, check T12 when a visual is squeezed by its neighbour).

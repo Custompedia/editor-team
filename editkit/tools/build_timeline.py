@@ -210,6 +210,7 @@ for e in events:
     if e["type"] == "split":
         sfx.append({"f": e["f"], "k": "swish"})
         if "click_at" in e: sfx.append({"f": e["click_at"], "k": "click"})
+    elif e["type"] == "mood": pass          # speaker grey/dim beat is silent
     elif e["type"] not in FULL_TYPES:
         sfx += [{"f": it["f"], "k": "pop"} for it in e.get("items", []) if "f" in it] or [{"f": e["f"], "k": "pop"}]
 

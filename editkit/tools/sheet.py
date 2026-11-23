@@ -34,7 +34,7 @@ elif mode == "assets":
 elif mode == "video":
     video, prefix = sys.argv[2], sys.argv[3]; every = float(sys.argv[4]) if len(sys.argv) > 4 else 1.0
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", video], capture_output=True, text=True).stdout)
-    times = [i * every for i in range(int(dur / every) + 1)]
+    times = [t for t in (i * every for i in range(int(dur / every) + 1)) if t < dur - 2 / 30]   # job02: a sample on/after the last frame crashed ffmpeg
     for part in range(0, len(times), 44):
         grid([(grab(video, round(t * 30), W=270, H=480), "%.0fs" % t) for t in times[part:part + 44]], f"{prefix}_{part // 44}.jpg", 11, 270, 480)
 elif mode == "strips":
