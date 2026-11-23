@@ -42,6 +42,11 @@ Syarat pemilik: 1 kapan visual · 2 kapan memotong · 3 posisi rapi · 4 layar p
 | T21 | Ucapan orang lain (pelanggan, komentar) terbedakan dari suara pembicara, dan momen lain dipakai (nama → bendanya, daftar → bertambah)? | Ya, atau alasan tertulis | 10 |
 | T22 | Look diputuskan dengan alasan dari brand/footage/nada (baris `theme:` di log sama dengan `work/brief.md`)? | Ya | 3 (kerapian), preferensi user |
 | T23 | Daftar "Butuh dari user" dilaporkan di Tahap 0, dan cadangannya jujur (bukan versi palsu, bukan visual yang dikecilkan)? | Ya | 7 |
+| T24 | Setiap koreksi subtitle yang mengubah bunyi kata punya bukti? | Lead membandingkan `text`/`script` di `edit.json` dengan `work/tx/*.json` dan dengan transkrip ulang final di log QA 4: tidak ada nama, angka, atau kata yang ditulis padahal kedua transkrip mendengar hal lain; tidak ada kata di tepi potongan yang tampil tetapi terpotong dari audio | akurasi (job02) |
 
-**Tolak** edit yang lolos QA teknis tetapi gagal T1, T3, T5, T19, atau yang terasa jarang di contact sheet (job01 v4: 16 dtk tanpa perubahan).
+Cara cepat T24 dan sambungan (lead, tanpa mendengar): cetak kata transkrip sumber di sekitar setiap `in`/`out` dan setiap koreksi, lalu
+envelope 20 ms dari `work/tx/<klip>.wav` di rentang itu. Blok nyaring = suku kata; hitung apakah teks subtitle muat. Transkrip ulang final
+yang berbeda dari subtitle (kata tambahan di sambungan, kata hilang) selalu ditanyakan ke worker, bukan diabaikan.
+
+**Tolak** edit yang lolos QA teknis tetapi gagal T1, T3, T5, T19, T24, atau yang terasa jarang di contact sheet (job01 v4: 16 dtk tanpa perubahan).
 Saat menolak, sebut nomor tes dan frame/baris rencananya, supaya revisi hanya menyentuh itu.

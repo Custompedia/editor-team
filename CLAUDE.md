@@ -16,8 +16,8 @@ This file is for the LEAD (the main session). Worker-facing rules live in the sk
 - Plan first: present the plan and open questions to the user before work starts. If the user is waiting for the result,
   continue on clearly marked assumptions (`ASUMSI`) instead of stalling, and list them in the report.
 - Review critically before relaying: verify files, specs and `Made with Remotion` tag, open a contact sheet yourself, check the
-  brand spelling in subtitles. Run `docs/review-tests.md` (T1–T23) on your own contact sheet and the build log.
-  **Reject an edit that passes technical QA but fails T1, T3, T5 or T19, or reads thin or crowded** (job01 v4: clean ≠ sparse).
+  brand spelling in subtitles. Run `docs/review-tests.md` (T1–T24) on your own contact sheet and the build log.
+  **Reject an edit that passes technical QA but fails T1, T3, T5, T19 or T24 (a subtitle word nobody verified), or reads thin or crowded** (job01 v4: clean ≠ sparse).
   Never forward a worker's claim you did not check.
 - Deliver finals with SendUserFile + a short report: what was cut, visuals and sources, assumptions, what is unverified
   (nobody listened to the audio — ask the user to watch once with sound).

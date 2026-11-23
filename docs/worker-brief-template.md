@@ -42,5 +42,5 @@ Do not claim anything you did not check.
 ## Lead checks before relaying (do them yourself)
 - `ffprobe` specs + `TAG:comment=Made with Remotion`, loudness, `blackdetect` = 0.
 - Own contact sheet (`tools/sheet.py video <final> <scratch>/lead 2`) — look at it: density, layouts, ending, brand spelling.
-- Run the review tests in `docs/review-tests.md` (T1–T23) on your own contact sheet and the build log; send it back if it is
-  technically clean but fails T1, T3, T5 or T19, or reads as visually thin or crowded. Name the test and the frame/plan row.
+- Run the review tests in `docs/review-tests.md` (T1–T24) on your own contact sheet and the build log; send it back if it is
+  technically clean but fails T1, T3, T5, T19 or T24, or reads as visually thin or crowded. Name the test and the frame/plan row.
