@@ -51,3 +51,12 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Workers read the skill at /home/user/editkit/skill (symlink to the repo). No global ~/.claude/skills copy.
 - Not yet proven on a real job: confirm on the next job that the worker reads the reference files at the named stages
   (STATE.md must list them); if a worker skips them, tighten SKILL.md.
+
+## 2026-11-23 — parallel team (5 workers) on benchmark study + guide rewrite
+- BUG found by running workers in parallel: tools/sheet.py, scene_check.py, verify_audio.py use fixed /tmp paths
+  (/tmp/_frame.jpg, /tmp/_scene.txt, /tmp/_final.wav). Parallel jobs overwrite each other -> a contact sheet contained
+  frames of another video. Until the fix is merged: never run these tools in two jobs at once; re-check sheets made in parallel.
+- Subagents in a long session keep the instruction files as loaded at session start: a deleted/stale CLAUDE.md still
+  reaches them. After changing instructions mid-session, say in the brief which file is authoritative.
+- PM pattern that worked: one shared framework file for parallel study workers, one output file per worker, nobody edits
+  the repo, lead integrates.
