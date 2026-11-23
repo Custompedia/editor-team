@@ -25,7 +25,7 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - User feedback on v4: "rada kurang". Wanted: more creative treatment (customer questions as left/right chat bubbles at the
   open, dark/dim beat on the "gabisa" punchline), more and clearer visuals with judgement on when NOT to, good real images,
   neat animation, deliberate full-screen vs not, and a full-screen Pinterest ending instead of a small IG chip.
-  The user shared reference edits (Drive 1WrAilhmWzUBkdZGg0X-5fp4JYrzF8UlT) → distilled into .claude/skills/edit-aroll/reference/style-notes.md.
+  The user shared reference edits (Drive 1WrAilhmWzUBkdZGg0X-5fp4JYrzF8UlT) → study archived in docs/reference-studies/parcelin-study.md.
 - Lesson: "clean" must not mean "sparse". Guide density targets matter; a 15% insert share read as flat to the user.
 - Worker requirement: Opus 5.5, effort high.
 
@@ -37,7 +37,8 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
   third-party article proof with highlight, big full-screen ending.
 - Brand naming seen in references: "Parcelinpack" (JPNN article) and IG @parcelinpack (~132k followers); v4 used
   @parcelincompany from the website footer -> confirm with user; prefer the account the brand itself shows in its videos.
-- Gap list of components to build is in .claude/skills/edit-aroll/reference/style-notes.md section 5 (pingrid, grade, tags, stamp, form, box3d, ...).
+- Kit backlog: generic primitives only, see docs/reference-studies/BENCHMARK_NOTES.md §7 and reference/visual-craft.md §9
+  (content-specific items from the first gap list such as form, box3d, dmchat were dropped).
 
 ## 2026-11-23 — repo becomes source of truth
 - Pushed kit to Custompedia/editor-team. Verified a from-scratch install using only the repo (fresh venv + node_modules):
@@ -60,3 +61,21 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
   reaches them. After changing instructions mid-session, say in the brief which file is authoritative.
 - PM pattern that worked: one shared framework file for parallel study workers, one output file per worker, nobody edits
   the repo, lead integrates.
+
+## 2026-11-23 — guide rewrite from the owner's audit + second benchmark
+- Owner's audit goal: the guide must teach HOW TO THINK (any model), not fixed looks. My first "quality bar" was a template
+  of one editor's solutions and I had made it mandatory: wrong. Replaced by reference/visual-thinking.md (why / per-sentence
+  chain / situations / real assets / code policy / look / self-check as questions) and reference/visual-craft.md (news
+  cut-outs, when to cut, position, timing, motion, captions, sparse vs crowded, what the kit can do).
+- 11 owner requirements recorded (docs/review-tests.md maps tests to them): when to visualise, when to cut, tidy position,
+  full screen vs not, the visual fits, never sparse for long, real assets first, smooth fitting motion, timing understood,
+  creative use of moments (chat bubbles for speech = fine; fake app/article as evidence = never), not too much either.
+- Second benchmark (3 TikToks, different editor): density and layout differ hugely per video (speaker hidden 52% / 67% / 1%),
+  so full-screen % is NOT a target. Constant across both editors: visual on the word, real evidence, one focus per frame,
+  face never covered, no long quiet stretch, opinion goes back to the face, tonal turns marked briefly.
+  "Not quiet" does not always mean graphics: punch-ins, angle changes and big text count.
+- Words lose against code: the kit's default theme and the absence of any density check shaped job01 more than the guide did.
+  Now enforced in the kit: required `theme` (no default look) and a quiet-stretch gate (job01 v4 would have failed at 0:27-0:44).
+- Owner-specific wishes for one brand go to docs/brands/<brand>.md, not into the general guide.
+- Not proven yet: the new guide on a real job; weaker models; kit primitives the benchmark uses but the kit lacks
+  (hard cut / blur-in entries, speaker B&W, headline strip under the chin, caption modes, highlight anchored to words).

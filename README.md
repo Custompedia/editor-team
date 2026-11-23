@@ -31,13 +31,19 @@ LESSONS.md                     pelajaran per job (makin ke kanan makin improve)
   reference/
     workflow.md                11 tahap lengkap dengan gate
     edit-json.md               format work/edit.json dan jenis event
-    style-notes.md             standar kualitas dari video referensi user + quality bar
-    design.md                  standar desain bawaan + per jenis roll
+    visual-thinking.md         kapan/apa/dari mana visual, aturan kode, look per video, uji diri
+    visual-craft.md            berita, kapan memotong, posisi, timing, gerak, kemampuan kit
+    design.md                  struktur cerita per jenis roll, suara, format
     kit.md                     menyiapkan job, struktur folder, daftar skrip
     troubleshooting.md         masalah cloud + masalah umum
 editkit/                       skrip, template Remotion, font, efek suara, new_job.sh (satu-satunya tempat kode)
 setup/install.sh               instalasi idempoten;  setup/cloud-setup-script.sh  untuk Setup script environment
 docs/worker-brief-template.md  template instruksi worker
+docs/owner-requirements.md     11 syarat dari pemilik (kata-kata pemilik)
+docs/review-tests.md           uji yang dijalankan lead sebelum hasil dikirim
+docs/decisions/                keputusan terbuka, rencana uji lintas model, catatan perubahan kit
+docs/brands/                   profil per brand (ejaan, akun, permintaan pemilik)
+docs/reference-studies/        arsip studi referensi dan benchmark
 docs/GUIDE-original.md         arsip guide asli (tidak dibaca secara default)
 ```
 

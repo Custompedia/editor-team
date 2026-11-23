@@ -1,11 +1,13 @@
 """Find every abrupt picture change in the rendered video and compare with the planned ones.
 Any hard change that is NOT explained by the plan is a bug (flash, popped zoom, wrong frame).
 Usage: python3 tools/scene_check.py <file.mp4> [threshold=0.08]"""
-import sys, re, json, subprocess
+import sys, re, json, os, subprocess, tempfile
 video = sys.argv[1]; th = sys.argv[2] if len(sys.argv) > 2 else "0.08"
-subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", video, "-vf",
-                f"scale=270:480,select='gt(scene,{th})',metadata=print:file=/tmp/_scene.txt", "-an", "-f", "null", "-"], check=True)
-found = [(round(float(a) * 30), float(b)) for a, b in re.findall(r"pts_time:([\d.]+)\n.*?scene_score=([\d.]+)", open("/tmp/_scene.txt").read())]
+with tempfile.TemporaryDirectory(prefix="scene_") as td:          # per-process temp file: parallel jobs never share it
+    txt = os.path.join(td, "scene.txt")
+    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", video, "-vf",
+                    f"scale=270:480,select='gt(scene,{th})',metadata=print:file={txt}", "-an", "-f", "null", "-"], check=True)
+    found = [(round(float(a) * 30), float(b)) for a, b in re.findall(r"pts_time:([\d.]+)\n.*?scene_score=([\d.]+)", open(txt).read() if os.path.exists(txt) else "")]
 d = json.load(open("video/src/data.json"))
 fulls = [e for e in d["events"] if e["type"] in d["fullTypes"]]
 planned = {}

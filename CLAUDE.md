@@ -7,7 +7,7 @@ This file is for the LEAD (the main session). Worker-facing rules live in the sk
 1. Check the kit: `test -f /home/user/editkit/.venv/bin/activate && cd /home/user/editkit && source .venv/bin/activate && python3 tools/doctor.py | tail -1`
 2. Not READY or missing → run `bash setup/install.sh` (from this repo) in the background, log `/tmp/editor-team-install.log`,
    and wait. ~2 min with warm caches; longer in an empty container (Whisper large-v3 ≈ 3 GB). No editing job before READY.
-3. Read `LESSONS.md`. Skim `.claude/skills/edit-aroll/reference/style-notes.md` (the user's quality bar).
+3. Read `LESSONS.md`. Skim `.claude/skills/edit-aroll/reference/visual-thinking.md` and `docs/review-tests.md` (the owner's bar).
 4. Tell the user in one line that the kit is ready (or what failed).
 
 ## Role: lead, not worker
@@ -16,8 +16,9 @@ This file is for the LEAD (the main session). Worker-facing rules live in the sk
 - Plan first: present the plan and open questions to the user before work starts. If the user is waiting for the result,
   continue on clearly marked assumptions (`ASUMSI`) instead of stalling, and list them in the report.
 - Review critically before relaying: verify files, specs and `Made with Remotion` tag, open a contact sheet yourself, check the
-  brand spelling in subtitles. **Reject an edit that passes technical QA but fails the style-notes quality bar**
-  (job01 v4: clean ≠ sparse). Never forward a worker's claim you did not check.
+  brand spelling in subtitles. Run `docs/review-tests.md` (T1–T23) on your own contact sheet and the build log.
+  **Reject an edit that passes technical QA but fails T1, T3, T5 or T19, or reads thin or crowded** (job01 v4: clean ≠ sparse).
+  Never forward a worker's claim you did not check.
 - Deliver finals with SendUserFile + a short report: what was cut, visuals and sources, assumptions, what is unverified
   (nobody listened to the audio — ask the user to watch once with sound).
 
@@ -30,12 +31,22 @@ This file is for the LEAD (the main session). Worker-facing rules live in the sk
 - One job = one folder `/home/user/jobs/<job-id>/`, created with `bash /home/user/editkit/new_job.sh <job-id>`.
 - 4 vCPU, ~15 GiB RAM, no GPU: heavy steps (transcribe, verify_audio, stills, render) run one at a time across all jobs via
   `flock /home/user/jobs/.heavy.lock` (the skill tells workers). Light steps may run in parallel.
+- If `docs/brands/<brand>.md` exists, name it in the brief; after a job, record brand facts and the owner's wishes for
+  that brand there (not in the general guide).
 - Method is the skill `edit-aroll`. Workers read it at the stable path `/home/user/editkit/skill/SKILL.md`
   (symlink to `.claude/skills/edit-aroll/` in this repo) plus the `reference/` files it names. Do not paste the guide into briefs.
 
 ## What to ask the user for (saves a full revision round)
-Brand name + exact spelling, IG/TikTok handle, logo, brand colours, portfolio/product photos, platform, CTA, reference video.
+Brand name + exact spelling, IG/TikTok handle, logo, brand colours, portfolio/product photos, platform, CTA, reference video,
+and a screen recording or screenshot of any logged-in app the speaker mentions (Instagram DM, WhatsApp): those cannot be
+opened from this container and are never faked.
 Whisper cannot know coined names (job01: PARCELIN heard as Parcelon/Parcellen).
+
+## Kit gates (know them before reviewing)
+- No default look: `work/edit.json` needs a `theme` block with a reason, or the build stops.
+- Quiet gate: a stretch longer than `max_quiet_s` (default 6 s) with no visual change stops the build unless a visual is added
+  or a `quiet_ok` entry gives the reason. Read the QUIET CHECK numbers in the worker's report and question weak reasons.
+- Kit capabilities and gaps: `reference/visual-craft.md` section 9. Backlog of generic primitives: `docs/reference-studies/BENCHMARK_NOTES.md` §7.
 
 ## Continuous improvement ("makin ke kanan makin improve")
 - After every job and every revision round: append to `LESSONS.md` what worked, what broke, the user's feedback, the new rule.
@@ -43,8 +54,11 @@ Whisper cannot know coined names (job01: PARCELIN heard as Parcelon/Parcellen).
 - Commit and push so the next chat starts from the improved state. Job folders and rendered videos are NOT in the repo.
 
 ## Repo map
-- `.claude/skills/edit-aroll/` — `SKILL.md` (map + rules) and `reference/` (workflow, edit-json, style-notes, design, kit, troubleshooting).
+- `.claude/skills/edit-aroll/` — `SKILL.md` (map + rules) and `reference/` (workflow, edit-json, visual-thinking, visual-craft,
+  design, kit, troubleshooting).
 - `editkit/` — scripts, Remotion template, fonts, sfx, `new_job.sh` (installed to `/home/user/editkit`; code lives only here).
 - `setup/install.sh` — idempotent installer; `setup/cloud-setup-script.sh` — optional environment Setup script.
-- `docs/` — `worker-brief-template.md`, `GUIDE-original.md` (archive of the user's original guide; not read by default).
+- `docs/` — `owner-requirements.md` (the owner's 11 requirements, in their words), `worker-brief-template.md`,
+  `review-tests.md` (lead's checks), `decisions/` (open questions, kit change log), `brands/` (per-brand profiles),
+  `reference-studies/` (evidence archive of the reference and benchmark studies), `GUIDE-original.md` (archive; not read by default).
 - `LESSONS.md` — lessons per job.

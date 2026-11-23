@@ -4,17 +4,20 @@
 
 | Gejala | Penyebab | Perbaikan |
 |---|---|---|
-| Render macet: `delayRender() ... not cleared after 28000ms`, selalu setelah ±90 frame per tab | Web font (`@remotion/google-fonts`, `@remotion/fonts`, `FontFace`) membuat renderer Chrome hang di environment ini | Jangan pernah memuat web font. Font dipasang sebagai font SISTEM: taruh `.ttf/.otf` statis di `/home/user/editkit/fonts`, jalankan `bash /home/user/editkit/tools/install_fonts.sh`, cek `fc-list \| grep -i <nama>`, pakai nama keluarganya di `theme.ts` |
+| Render macet: `delayRender() ... not cleared after 28000ms`, selalu setelah ±90 frame per tab | Web font (`@remotion/google-fonts`, `@remotion/fonts`, `FontFace`) membuat renderer Chrome hang di environment ini | Jangan pernah memuat web font. Font dipasang sebagai font SISTEM: taruh `.ttf/.otf` statis di `/home/user/editkit/fonts`, jalankan `bash /home/user/editkit/tools/install_fonts.sh`, cek `fc-list : family \| grep -i <nama>`, tulis nama family itu di `theme` pada `work/edit.json` (`edit-json.md` 4.5) |
 | `stills.mjs`/render: `NetworkError` | Browser render tidak lewat proxy; ada aset/font yang diambil dari internet saat render | Semua aset harus file lokal di `video/public/`; font lihat baris di atas |
 | `transcribe.py`: `open() got an unexpected keyword argument 'metadata_errors'` | PyAV ≥17 tidak cocok dengan faster-whisper 1.2.1 | `pip install "av<17"` di `/home/user/editkit/.venv` (sudah dikunci di `setup/install.sh`) |
 | Playwright: `Executable doesn't exist` | Versi paket Python `playwright` tidak sama dengan browser bawaan di `/opt/pw-browsers` | Pasang versi yang sama dengan Node playwright global (dikerjakan `setup/install.sh`). JANGAN `playwright install` |
 | `stock.py photo/video`: `nothing found` | Pexels menolak browser otomatis | Jangan ditembus. Pakai halaman resmi brand, `stock.py open` (Openverse), atau aset user |
 | `stock.py commons`: `HTTP 429` terus-menerus | Wikimedia membatasi akses dari container ini | Jangan ditembus. Logo dari situs resmi brand / user |
 | `yt-dlp`: `Sign in to confirm you're not a bot` | YouTube menolak tanpa login | Minta file mp4 ke user. Tanpa cookie, tanpa akal-akalan |
-| Instagram/Pinterest menampilkan dinding login di `shot.py` | Halaman butuh login | Cari halaman publik lain (situs resmi, halaman pin, profil publik). Jangan login |
+| Instagram/Pinterest menampilkan dinding login di `shot.py` | Halaman butuh login | Cari halaman publik lain (situs resmi, halaman pin, profil publik). Jangan login. Untuk tampilan IG/TikTok/aplikasi: minta screenshot atau rekaman layar ke user lewat lead (daftar "Butuh dari user"); jangan menggambar UI-nya dengan kode |
 | `gdown: command not found` | venv belum aktif | `source .venv/bin/activate && gdown ...` |
 | Satu frame hitam di hasil render | Glitch render Remotion (job01 v2) | Render ulang; `blackdetect` wajib di QA 1 |
 | Subtitle telat/terlalu cepat >0,2 dtk di banyak kata | Waktu kata Whisper meleset (job01 v3) | Kerjakan QA 5 SEBELUM render penuh; betulkan lewat `timing` |
+| `build_timeline.py`: `ERROR: work/edit.json has no "theme" block` atau `invalid "theme"` | Tampilan belum diputuskan, atau isinya salah | Isi blok `theme` (`edit-json.md` 4.5) dengan alasan di `why` |
+| Still/render: `data.json has no "theme"` | `data.json` lama | Jalankan `python3 tools/build_timeline.py` |
+| `build_timeline.py`: `stretch(es) longer than ...s with no visual change` | Rentang sepi terlalu panjang | Tambah visual yang menggambarkan kalimatnya, atau `quiet_ok` dengan alasan (`edit-json.md` 4.6). Bukan hiasan |
 | Semua job melambat / RAM habis | Dua perintah berat jalan bersamaan | Selalu `flock /home/user/jobs/.heavy.lock ...`; render `CONCURRENCY=2` |
 | `rm -rf` folder job ditolak pengaman | Folder kerja dilindungi | Laporkan ke lead; jangan diakali |
 
@@ -22,7 +25,7 @@
 
 | Gejala | Penyebab | Perbaikan |
 |---|---|---|
-| Video terasa flat walau banyak animasi | Visualnya hiasan, tidak menggambarkan kalimat | Ulangi tahap 6.1. Setiap visual harus punya kata yang digambarkan dan sebaiknya dari sumber nyata |
+| Video terasa flat walau banyak animasi | Visualnya hiasan, tidak menggambarkan kalimat | Ulangi rantai keputusan (`visual-thinking.md` Bagian 2). Setiap visual harus punya kata yang digambarkan dan, sebisanya, aset nyata |
 | Visual muncul terlambat atau terlalu cepat | Frame diketik tangan, atau jangkar ke kata yang salah | Pakai jangkar kata. Cek indeks di `work/tx/*.txt`. Mulai 3 frame sebelum kata |
 | Pembicara berkedip di antara dua insert | Ada celah beberapa frame | Rantaikan (jangkar sama) atau beri jarak minimal 24 frame |
 | Zoom meloncat setelah insert hilang | Zoom berganti saat pembicara terlihat | Sudah ditangani `build_timeline.py`. Jangan menambah zoom manual |
@@ -46,7 +49,7 @@
 | Playwright: `Executable doesn't exist` | Chromium belum diunduh | `python3 -m playwright install chromium` |
 | Render mati di tengah, `Killed`, atau komputer macet | RAM habis | `CONCURRENCY=2 bash tools/render.sh v1`, tutup aplikasi lain |
 | Transkrip sangat lambat atau kehabisan RAM | Model besar di mesin kecil | `WHISPER_MODEL=medium`. Kalau ada GPU NVIDIA: `WHISPER_DEVICE=cuda WHISPER_COMPUTE=float16` |
-| Teks tampil dengan font bawaan | Font Google gagal diunduh saat render | Pastikan ada internet saat render. Offline: ganti font di `theme.ts` dengan font lokal |
+| Teks tampil dengan font bawaan | Nama family di `theme` tidak sama dengan yang terpasang | Cloud: font hanya sebagai font sistem (lihat A); salin nama persis dari `fc-list : family` ke `theme` di `work/edit.json`. Jangan memuat font Google |
 | `stock.py`: `nothing found`, atau Pexels menampilkan pemeriksaan bot | Kata kunci terlalu sempit, atau situs menolak browser otomatis | Kata kunci lain, `open` atau `commons`, atau minta user mengunduh. Jangan ditembus |
 | Wikimedia `HTTP 429` | Mengunduh file asli atau ukuran thumbnail tidak standar | `stock.py commons` sudah memakai ukuran standar. Tunggu sebentar, kurangi `-n` |
 | Situs efek suara atau musik menolak unduhan (`HTTP 403`) | Situs memblokir unduhan otomatis | Pakai `tools/make_sfx.sh`. Musik dari user |

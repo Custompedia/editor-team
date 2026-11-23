@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Audio, Easing, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import raw from './data.json';
 import {Insert, Overlay, SplitPanel} from './Visuals';
-import {SANS, SERIF, ACCENT, INK, FPS, cl, sp} from './theme';
+import {SANS, SERIF, EMPH_STYLE, ACCENT, INK, FPS, cl, sp} from './theme';
 const data = raw as any;
 const isFull = (e: any) => data.fullTypes.includes(e.type);
 const fulls = data.events.filter(isFull);
@@ -82,7 +82,7 @@ const Subs: React.FC = () => {
         </div>
       )}
       {c.big.length > 0 && (
-        <div style={{fontFamily: SERIF, fontStyle: 'italic', fontWeight: 800, fontSize: 112, color: ink ? INK : ACCENT, textShadow: sh, lineHeight: 1.0, marginTop: c.small.length ? 2 : 0, textAlign: 'center', letterSpacing: -1.5, whiteSpace: 'nowrap', fontVariantNumeric: 'lining-nums'}}>
+        <div style={{fontFamily: SERIF, fontStyle: EMPH_STYLE, fontWeight: 800, fontSize: 112, color: ink ? INK : ACCENT, textShadow: sh, lineHeight: 1.0, marginTop: c.small.length ? 2 : 0, textAlign: 'center', letterSpacing: -1.5, whiteSpace: 'nowrap', fontVariantNumeric: 'lining-nums'}}>
           {c.big.map((w: any, i: number) => {
             const p = sp(frame, w.f - 2, {damping: 14, stiffness: 220, mass: 0.6});
             return <span key={i} style={{display: 'inline-block', marginRight: 22, opacity: Math.min(1, p * 1.5), transform: `scale(${0.7 + 0.3 * p})`}}>{clean(w.t)}</span>;
