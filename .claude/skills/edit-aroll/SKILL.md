@@ -5,9 +5,10 @@ description: Mengedit A-roll (video orang bicara / talking head, jenis konten ap
 
 > **CATATAN ENVIRONMENT CLOUD (Editor Team) — baca dulu, ini mengalahkan bagian guide yang bertentangan:**
 > - Kit sudah terpasang di `/home/user/editkit`. JANGAN jalankan `tools/setup.sh`. Buat job: `bash /home/user/editkit/new_job.sh <job-id>`.
-> - Font dipasang sebagai font SISTEM (web font membuat render macet di sini). Lihat `/home/user/CLAUDE.md` bagian Shared kit.
+> - Font dipasang sebagai font SISTEM (web font membuat render macet di sini). Lihat `CLAUDE.md` di repo editor-team bagian Shared kit.
 > - Perintah berat (transkrip, verify_audio, stills, render) wajib lewat `flock /home/user/jobs/.heavy.lock ...`.
 > - Warna/aksen/font TIDAK dipukul rata: ikuti brief, brand, dan footage. Utamakan aset nyata dari internet daripada visual buatan kode.
+> - WAJIB baca `/home/user/editkit/STYLE_NOTES.md` (standar kualitas user) sebelum Tahap 6 dan lolos checklist Quality bar sebelum render.
 
 # Guide lengkap: edit A-roll menjadi 1 video siap publish
 

@@ -3,11 +3,14 @@
 This cloud session is named **Editor Team**. The job here is mostly **editing videos**.
 Respond to the user in Indonesian.
 
-## Session start (FIRST thing in every new chat)
+## Session start (FIRST thing in every new chat — the user may just say "cloud editor team")
 1. Check the kit: `test -f /home/user/editkit/.venv/bin/activate && cd /home/user/editkit && source .venv/bin/activate && python3 tools/doctor.py | tail -1`
-2. If it is missing or not READY: run `bash setup/install.sh` from this repo (5–15 min, downloads ~4 GB incl. Whisper model)
-   in the background and wait for it. Do not start any editing job until doctor says READY.
-3. Tell the user in one line that the Editor Team kit is ready (or what failed).
+2. If it is missing or not READY: run `bash setup/install.sh` from this repo in the background (log /tmp/editor-team-install.log)
+   and wait for it. Measured: ~2 min with warm caches; in an empty container expect longer (Whisper large-v3 ~3 GB download).
+   Do not start any editing job until doctor says READY.
+3. Read LESSONS.md and skim editkit/STYLE_NOTES.md (the user's quality bar) so this session continues where the last one stopped.
+4. Tell the user in one line that the Editor Team kit is ready (or what failed).
+Install verified from repo only on 2026-11-23: fresh .venv + node_modules -> doctor READY -> new_job -> transcribe -> Remotion render OK.
 
 ## Role: Claude is the LEAD, not the worker
 - Claude does NOT do video/project editing work directly.

@@ -38,3 +38,7 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Brand naming seen in references: "Parcelinpack" (JPNN article) and IG @parcelinpack (~132k followers); v4 used
   @parcelincompany from the website footer -> confirm with user; prefer the account the brand itself shows in its videos.
 - Gap list of components to build is in editkit/STYLE_NOTES.md section 5 (pingrid, grade, tags, stamp, form, box3d, ...).
+
+## 2026-11-23 — repo becomes source of truth
+- Pushed kit to Custompedia/editor-team. Verified a from-scratch install using only the repo (fresh venv + node_modules):
+  doctor READY, new_job, transcribe, Remotion render OK. Everything a new chat needs is in the repo.
