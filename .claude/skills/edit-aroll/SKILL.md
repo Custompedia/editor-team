@@ -142,7 +142,7 @@ Kerjakan tahap 0 sampai 10 berurutan (Bagian 3). Setiap tahap menulis hasilnya k
 - Ejaan nama yang hanya terdengar di audio bisa salah. Selalu laporkan sebagai asumsi.
 - Yang sudah dijalankan pada project nyata: output 9:16 (1080x1920 dan skala lebih besar), Linux. Yang belum: output 16:9, macOS dan Windows/WSL2, GPU. Di sana, jalankan `doctor.py` dan loop still lebih teliti.
 - Dari container ini Instagram/TikTok/Facebook (login), Pexels dan Wikimedia (diblokir), dan YouTube tidak bisa dipakai. Tampilan aplikasi berlogin datang dari rekaman atau screenshot user, bukan digambar ulang (`visual-thinking.md` 4).
-- Beberapa teknik editor acuan (masuk langsung tanpa fade, punch-in di kata pilihan, strip judul di bawah dagu, volume musik per momen, halaman penuh dengan kursor) belum ada di kit: lihat `visual-craft.md` 9.
+- Beberapa teknik editor acuan (masuk langsung tanpa fade, punch-in di kata pilihan, strip judul di bawah dagu) belum ada di kit: lihat `visual-craft.md` 9.
 - Selera (warna, font, seberapa ramai) berbeda tiap orang. Versi pertama adalah usulan. Revisi dikerjakan dengan aturan tahap 10.
 - Guide ini membuat prosesnya bisa diulang. Kualitas akhir tetap bergantung pada apakah setiap gate benar-benar dikerjakan dan setiap gambar QA benar-benar dibuka.
 

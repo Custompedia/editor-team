@@ -168,7 +168,7 @@ potongan di `script.md`, tulis tiga hal:
    Bukan alasan: menghemat setengah detik, kalimat di take lain sedikit lebih rapi, jeda napas, kata pengisi yang wajar.
 2. **Apa yang terlihat di sambungan.** Pilihan, urut dari yang terbaik: (a) tidak dipotong (biarkan jeda atau kata pengisinya);
    (b) sambungan tertutup visual layar penuh yang MEMANG menggambarkan kalimat di situ, sudah penuh di layar sebelum potongan dan
-   masih ada sesudahnya; (c) sambungan jatuh di pergantian yang memang terlihat sebagai pergantian (pindah tempat, pindah bagian
+   masih ada sesudahnya (job03: 2 potongan dalam 125 dtk, keduanya tertutup foto di kata yang sedang diucapkan; pemilik: "bagus"); (c) sambungan jatuh di pergantian yang memang terlihat sebagai pergantian (pindah tempat, pindah bagian
    dengan judul); (d) sambungan terbuka dengan alasan tertulis (`cut_ok`). Visual yang dipasang hanya untuk menutup potongan, tanpa
    hubungan dengan kalimatnya, adalah hiasan dan ditolak: kalau tidak ada visual yang cocok di situ, kurangi potongannya.
 3. **Frame di kedua sisi.** Buka frame terakhir sebelum dan pertama sesudah potongan (contact sheet Tahap 1 atau `sheet.py`): kalau
@@ -268,13 +268,14 @@ Kalau pembicara menyebut aplikasi, situs, chat, atau notifikasi, penonton harus 
 3. UI karangan (kartu bergaya dashboard, layar chat buatan sebagai bukti, ikon generik, latar dekoratif) tidak dipakai. Gelembung chat
    untuk menggambarkan apa yang DIUCAPKAN seseorang boleh: itu ilustrasi ucapan, bukan bukti.
 
-**Yang belum terbukti dari container ini (cek di awal Tahap 6, catat hasilnya di laporan):** sumber MUSIK bebas royalti dan sumber
-FOOTAGE video bebas lisensi belum pernah berhasil diunduh di job nyata (Pexels dan Wikimedia diblokir; Openverse memberi foto dan
-audio, belum diuji untuk musik). Coba sekali tiap sumber yang masuk akal, jangan mengakali blokir; kalau tidak ada yang terjangkau,
-laporkan ke lead SEGERA supaya user bisa mengirim file, dan pakai foto nyata (bukan video) untuk momen yang butuh gambar.
-Lisensi: video untuk perusahaan atau akun yang dimonetisasi butuh lisensi yang mengizinkan pemakaian komersial (CC0, CC BY dengan
-atribusi, atau lisensi situs yang menyebut komersial). Lisensi NC tidak dipakai untuk video perusahaan; untuk video tanpa
-perusahaan tetap dihindari kalau ada pilihan lain, dan selalu dilaporkan.
+**Sumber berlisensi yang terbukti terjangkau dari container ini (job03, 2026-11-23):** Openverse API (`api.openverse.org`) untuk
+foto DAN audio. Musik: hasil Openverse yang berkasnya di Freesound (`cdn.freesound.org`, banyak yang CC0) dan Jamendo (CC BY) bisa
+diunduh; incompetech (CC BY) merespons. Foto: filter `license=cc0,pdm` memberi foto tanpa kewajiban kredit (Flickr CC0, rawpixel,
+StockSnap). Footage VIDEO bebas lisensi belum terbukti: pakai foto nyata, atau footage milik user. Pexels dan Wikimedia tetap diblokir.
+**Utamakan CC0/domain publik daripada CC BY:** CC BY mewajibkan pemilik menulis kredit di setiap unggahan, dan kewajiban itu mudah
+terlupa (job03: foto parfum CC BY diganti CC0 saat review). Kalau hanya ada CC BY, tulis baris kredit yang harus ditempel user di
+laporan. Video untuk perusahaan atau akun yang dimonetisasi butuh lisensi yang mengizinkan pemakaian komersial; NC tidak dipakai.
+Foto stok lama sering beresolusi kecil: cek ketajaman di still setelah di-crop memenuhi layar.
 
 **Foto dan footage stok, tanpa API key**
 
@@ -320,9 +321,8 @@ atribusi yang diminta); kalau tidak ada sumber yang bisa dijangkau dari containe
 berhak cipta. Memilih: tulis dulu nada tiap bagian naskah (pembuka, isi, belokan, ajakan), lalu pilih lagu yang nadanya cocok dengan
 bagian terpanjang dan tidak melawan belokan. Jangan berlebihan (pemilik, job03: "musik bebas, senyambungnya saja, jangan spam musik"): satu lagu yang menyatu dengan isi,
 tidak menarik perhatian, tidak berganti-ganti, dan efek suara hanya yang menandai sesuatu. "Sesuai momen" berarti musik ikut berubah di belokan naskah: turun atau berhenti sesaat
-di kalimat pembalik, naik lagi di ajakan, selesai bersama penutup (bukan terpotong). Kit sekarang hanya punya satu lagu dengan satu
-volume dan fade di awal dan akhir (`edit-json.md`, `music`): perubahan per momen butuh komponen generik kecil (kebijakan kode) dan
-dilaporkan ke lead. Agent tidak mendengar: periksa lagu dengan angka (durasi, kenyaringan, bagian yang berubah lewat envelope) dan
+di kalimat pembalik, naik lagi di ajakan, selesai bersama penutup (bukan terpotong). Kit memutar satu lagu dengan fade di awal dan akhir, dan `music.points` menurunkan atau menaikkan
+volumenya di kata tertentu (`edit-json.md`, `music`); berganti lagu di tengah video tidak didukung dan tidak diinginkan. Agent tidak mendengar: periksa lagu dengan angka (durasi, kenyaringan, bagian yang berubah lewat envelope) dan
 katakan di laporan bahwa rasa musiknya belum dinilai telinga. Teknis: taruh file di `video/public/music/`, isi `music` di
 `edit.json`, volume 0,05 sampai 0,08 (jauh di bawah suara). Jangan mengunduh lagu berhak cipta.
 

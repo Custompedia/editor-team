@@ -225,7 +225,220 @@ const IgProfile: React.FC<{e: any}> = ({e}) => {
     </AbsoluteFill>
   );
 };
-const CUSTOM: Record<string, React.FC<{e: any}>> = {bars: Bars, timeline: Timeline, igprofile: IgProfile};
+/* ---------- shared: a touch point that moves in and taps (phone-style, no mouse arrow) ----------
+   x, y = target in frame px; at = local frame of the press. Visible from at-22 to at+26. */
+export const Tap: React.FC<{x: number; y: number; at: number}> = ({x, y, at}) => {
+  const f = useCurrentFrame();
+  if (f < at - 22 || f > at + 30) return null;
+  const mv = interpolate(f, [at - 22, at - 3], [0, 1], {...cl, easing: Easing.bezier(0.3, 0, 0.2, 1)});
+  const press = interpolate(f, [at - 1, at + 2, at + 8], [0, 1, 0], cl);
+  const ring = interpolate(f, [at, at + 18], [0, 1], cl);
+  const op = Math.min(interpolate(f, [at - 22, at - 15], [0, 1], cl), interpolate(f, [at + 16, at + 26], [1, 0], cl));
+  const cx = interpolate(mv, [0, 1], [x + 170, x]), cy = interpolate(mv, [0, 1], [y + 230, y]);
+  return (
+    <div style={{position: 'absolute', left: 0, top: 0, width: 1080, height: 1920, pointerEvents: 'none'}}>
+      <div style={{position: 'absolute', left: x - 60 * (0.6 + ring), top: y - 60 * (0.6 + ring), width: 120 * (0.6 + ring), height: 120 * (0.6 + ring), borderRadius: '50%',
+        border: '4px solid rgba(255,255,255,0.8)', opacity: f >= at ? (1 - ring) * 0.9 : 0}} />
+      <div style={{position: 'absolute', left: cx - 38, top: cy - 38, width: 76, height: 76, borderRadius: 38, background: 'rgba(255,255,255,0.42)',
+        border: '3px solid rgba(255,255,255,0.95)', boxShadow: '0 6px 18px rgba(0,0,0,0.35)', opacity: op, transform: `scale(${1 - 0.22 * press})`}} />
+    </div>
+  );
+};
+
+/* ---------- page (job03): a REAL page screenshot shown as the page itself, full screen (not a card) ----------
+   For a site/app the viewer is sent to (owner ruling: "halaman sebagai halaman").
+   {type:"custom", name:"page", img, img_w, img_h, light?, scroll_to?: image px, scroll_at?: anchor, scroll_dur?: frames (40),
+    mark?: {x,y,w,h} image px + mark_at?: anchor (rounded outline in the accent), tap?: {x,y} image px + tap_at?: anchor} */
+const Page: React.FC<{e: any}> = ({e}) => {
+  const f = useCurrentFrame();
+  const S = 1080 / e.img_w;
+  const sAt = e.scroll_at !== undefined ? e.scroll_at - e.f : null;
+  const scroll = sAt !== null ? interpolate(f, [sAt, sAt + (e.scroll_dur || 40)], [0, e.scroll_to || 0], {...cl, easing: Easing.inOut(Easing.cubic)}) * S : 0;
+  const z = interpolate(f, [0, e.t - e.f], [1.0, 1.025]);
+  const mAt = e.mark_at !== undefined ? e.mark_at - e.f : null;
+  const mk = mAt !== null ? sp(f, mAt, {damping: 16, stiffness: 160, mass: 0.7}) : 0;
+  return (
+    <AbsoluteFill style={{background: e.bg || '#fff', overflow: 'hidden'}}>
+      <div style={{position: 'absolute', left: 0, top: -scroll, width: 1080, transform: `scale(${z})`, transformOrigin: '50% 0%'}}>
+        <Img src={staticFile(e.img)} style={{width: 1080, display: 'block'}} />
+        {e.mark && mAt !== null ? (
+          <div style={{position: 'absolute', left: e.mark.x * S - 14, top: e.mark.y * S - 10, width: e.mark.w * S + 28, height: e.mark.h * S + 20, borderRadius: 18,
+            border: `6px solid ${ACCENT}`, opacity: Math.min(1, mk * 1.4), transform: `scale(${1.15 - 0.15 * mk})`}} />
+        ) : null}
+      </div>
+      {e.tap && e.tap_at !== undefined ? <Tap x={e.tap.x * S} y={e.tap.y * S - scroll} at={e.tap_at - e.f} /> : null}
+    </AbsoluteFill>
+  );
+};
+
+/* ---------- gallery (job03): several REAL photos that appear one by one on the video's light panel ----------
+   For "many different X" or "same thing, different Y": the photos themselves show it.
+   {type:"custom", name:"gallery", cols?: 2, top?: 170, ratio?: 1.25 (h/w), gap?: 30, zoom?: 1 (crop into each photo), items:[{at: anchor, img, pos?}]} */
+const Gallery: React.FC<{e: any}> = ({e}) => {
+  const f = useCurrentFrame();
+  const cols = e.cols || 2, gap = e.gap ?? 30, W = (1080 - 2 * 60 - (cols - 1) * gap) / cols, H = W * (e.ratio || 1.25);
+  const rows = Math.ceil(e.items.length / cols);
+  const top = e.top ?? Math.max(150, (1250 - rows * H - (rows - 1) * gap) / 2);
+  return (
+    <AbsoluteFill style={{background: LIGHT}}>
+      {e.items.map((it: any, i: number) => {
+        const p = sp(f, it.f - e.f, {damping: 15, stiffness: 160, mass: 0.7});
+        const r = Math.floor(i / cols), c = i % cols;
+        return (
+          <div key={i} style={{position: 'absolute', left: 60 + c * (W + gap), top: top + r * (H + gap), width: W, height: H, borderRadius: 22, overflow: 'hidden',
+            boxShadow: '0 16px 40px rgba(0,0,0,0.18)', opacity: Math.min(1, p * 1.4), transform: `translateY(${(1 - p) * 50}px) scale(${0.94 + 0.06 * p})`}}>
+            <Img src={staticFile(it.img)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: it.pos || '50% 50%', display: 'block',
+              transform: `scale(${(e.zoom || 1) * interpolate(f, [0, e.t - e.f], [1.0, 1.05])})`}} />
+          </div>
+        );
+      })}
+    </AbsoluteFill>
+  );
+};
+
+/* ---------- measure (job03): a REAL photo with dimension lines drawn on it, one per item, as the size is spoken ----------
+   Code adds only what the photo lacks (the measuring lines). No push-in, so lines stay on the object.
+   {type:"custom", name:"measure", img, pos?, light?: false, items:[{at: anchor, x1,y1,x2,y2 (frame px)}]} */
+const Measure: React.FC<{e: any}> = ({e}) => {
+  const f = useCurrentFrame();
+  return (
+    <AbsoluteFill style={{background: '#000'}}>
+      <Img src={staticFile(e.img)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: e.pos || '50% 50%'}} />
+      <svg width={1080} height={1920} style={{position: 'absolute'}}>
+        {e.items.map((it: any, i: number) => {
+          const d = interpolate(f, [it.f - e.f, it.f - e.f + 12], [1, 0], {...cl, easing: ease});
+          const ang = Math.atan2(it.y2 - it.y1, it.x2 - it.x1), nx = -Math.sin(ang) * 22, ny = Math.cos(ang) * 22;
+          const tk = interpolate(f, [it.f - e.f + 8, it.f - e.f + 14], [0, 1], cl);
+          const line = (w: number, c: string) => (
+            <g>
+              <path d={`M${it.x1} ${it.y1} L${it.x2} ${it.y2}`} stroke={c} strokeWidth={w} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={d} />
+              <path d={`M${it.x1 - nx} ${it.y1 - ny} L${it.x1 + nx} ${it.y1 + ny} M${it.x2 - nx} ${it.y2 - ny} L${it.x2 + nx} ${it.y2 + ny}`} stroke={c} strokeWidth={w} strokeLinecap="round" opacity={tk} />
+            </g>
+          );
+          return <g key={i} opacity={f >= it.f - e.f ? 1 : 0}>{line(16, 'rgba(0,0,0,0.35)')}{line(9, ACCENT)}</g>;
+        })}
+      </svg>
+    </AbsoluteFill>
+  );
+};
+
+/* ---------- igpage (job03): an Instagram profile REBUILT IN CODE from the user's screenshot, at the owner's request ----------
+   "SS profile mending kamu buat sendiri aja desainnya yang rapi dan 100% sama, with code, nanti dianimasikan" (owner, job03).
+   Every text/number comes from edit.json (typed 1:1 from the screenshot); avatar, highlight cover, emoji and post tiles are REAL crops.
+   Same element order as the screenshot (desktop dark mode): avatar | handle+badge+more, full name, stats, role, bio, links;
+   buttons row; highlight; tab row; post grid in the screenshot's own 6 columns x 2 rows. Colours/font come from the event (c, font).
+   {type:"custom", name:"igpage", light:false, hold_end, font, c:{bg,text,sub,mention,link,primary,secondary,pressed,tab_off,divider},
+    avatar, handle, verified, full_name, stats:[[n,label]], role, bio:[{emoji?, parts:[[text, kind?("mention"|"more")]]}],
+    links:[{icon, text, kind?:"link"}], follow, message, highlight:{img,label}, tiles:[12 imgs], tap_at: anchor, hl_at?: anchor (soft ring on the message button), push_at?: anchor} */
+const IgIcon: React.FC<{k: string; c: string; s?: number}> = ({k, c, s = 40}) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    {k === 'grid' ? <g><rect x={3} y={3} width={18} height={18} rx={2} /><path d="M9 3v18M15 3v18M3 9h18M3 15h18" /></g> : null}
+    {k === 'reels' ? <g><rect x={3} y={3} width={18} height={18} rx={4} /><path d="M3 8h18M9 3l3 5M14 3l3 5" /><path d="M10.5 11.5v5l4-2.5z" fill={c} /></g> : null}
+    {k === 'repost' ? <g><path d="M17 2l3 3-3 3" /><path d="M4 11V9a4 4 0 0 1 4-4h12" /><path d="M7 22l-3-3 3-3" /><path d="M20 13v2a4 4 0 0 1-4 4H4" /></g> : null}
+    {k === 'tagged' ? <g><rect x={3} y={3} width={18} height={18} rx={3} /><circle cx={12} cy={10} r={3} /><path d="M6.5 21a6 6 0 0 1 11 0" /></g> : null}
+    {k === 'addp' ? <g><circle cx={13} cy={8} r={3.5} /><path d="M7.5 20a5.5 5.5 0 0 1 11 0z" /><path d="M5 9v5M2.5 11.5h5" /></g> : null}
+    {k === 'link' ? <g><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1" /><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1" /></g> : null}
+  </svg>
+);
+const IgPage: React.FC<{e: any}> = ({e}) => {
+  const f = useCurrentFrame();
+  const C = e.c, FONT = `'${e.font}', sans-serif`;
+  const tapF = e.tap_at !== undefined ? e.tap_at - e.f : 99999;
+  const pushF = e.push_at !== undefined ? e.push_at - e.f : tapF + 20;
+  const d = e.t - e.f;
+  const z = interpolate(f, [0, tapF], [1.0, 1.01], cl) + interpolate(f, [pushF, Math.max(pushF + 1, d)], [0, 0.03], {...cl, easing: Easing.inOut(Easing.quad)});
+  const up = (at: number) => { const p = sp(f, at, {damping: 18, stiffness: 150, mass: 0.7}); return {opacity: Math.min(1, p * 1.3), transform: `translateY(${(1 - p) * 26}px)`}; };
+  const press = interpolate(f, [tapF - 1, tapF + 2, tapF + 12], [0, 1, 0], cl);
+  const X0 = 60, COL = 330, BTN_Y = 548, BTN_H = 74, TOP = 130;
+  const txt = (size: number, weight: number, color: string): React.CSSProperties => ({fontFamily: FONT, fontSize: size, fontWeight: weight, color, lineHeight: 1.2, whiteSpace: 'nowrap'});
+  const tiles: string[] = e.tiles || [];
+  const TW = (1080 - 2 * 24 - 5 * 4) / 6, TH = TW * 213 / 160, GY = 890;
+  const msgX = 477, msgW = 469;
+  // second, calm emphasis on the message button (job03 R4): a soft ring that settles around it at hl_at and stays
+  const hlF = e.hl_at !== undefined ? e.hl_at - e.f : null;
+  const hp = hlF !== null ? sp(f, hlF, {damping: 20, stiffness: 120, mass: 0.8}) : 0;
+  return (
+    <AbsoluteFill style={{background: C.bg, transform: `scale(${z})`, transformOrigin: '50% 40%'}}>
+      {/* avatar */}
+      <div style={{...up(0), position: 'absolute', left: X0, top: TOP + 46, width: 230, height: 230, borderRadius: 115, overflow: 'hidden'}}>
+        <Img src={staticFile(e.avatar)} style={{width: 230, height: 230, display: 'block'}} />
+      </div>
+      {/* name block */}
+      <div style={{position: 'absolute', left: COL, top: TOP}}>
+        <div style={{...up(2), display: 'flex', alignItems: 'center', gap: 14}}>
+          <span style={txt(44, 700, C.text)}>{e.handle}</span>
+          {e.verified ? (
+            <svg width={38} height={38} viewBox="0 0 40 40"><path d="M20 2l4.2 3.1 5.2-.4 1.9 4.9 4.9 1.9-.4 5.2L38 20l-3.1 4.2.4 5.2-4.9 1.9-1.9 4.9-5.2-.4L20 38l-4.2-3.1-5.2.4-1.9-4.9-4.9-1.9.4-5.2L2 20l3.1-4.2-.4-5.2 4.9-1.9 1.9-4.9 5.2.4z" fill="#0095F6" /><path d="M13 20.5l4.8 4.6L27.5 15" stroke="#fff" strokeWidth={3.6} fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          ) : null}
+          <span style={{...txt(40, 700, C.text), marginLeft: 6, letterSpacing: 2, marginTop: -16}}>···</span>
+        </div>
+        <div style={{...up(4), ...txt(29, 400, C.text), marginTop: 10}}>{e.full_name}</div>
+        <div style={{...up(6), display: 'flex', gap: 34, marginTop: 20}}>
+          {(e.stats || []).map((s: any, i: number) => <span key={i} style={txt(30, 400, C.text)}><b style={{fontWeight: 700}}>{s[0]}</b> {s[1]}</span>)}
+        </div>
+        <div style={{...up(8), ...txt(27, 400, C.sub), marginTop: 26}}>{e.role}</div>
+        {(e.bio || []).map((ln: any, i: number) => (
+          <div key={i} style={{...up(9 + i * 2), display: 'flex', alignItems: 'center', marginTop: 5, ...txt(28, 400, C.text)}}>
+            {ln.emoji ? <Img src={staticFile(ln.emoji)} style={{width: 31, height: 31, marginRight: ln.gap ? 9 : 2}} /> : null}
+            {ln.parts.map((p: any, j: number) => <span key={j} style={{color: p[1] === 'mention' ? C.mention : p[1] === 'more' ? C.sub : C.text, whiteSpace: 'pre'}}>{p[0]}</span>)}
+          </div>
+        ))}
+        <div style={{...up(18), display: 'flex', alignItems: 'center', gap: 30, marginTop: 10}}>
+          {(e.links || []).map((l: any, i: number) => (
+            <span key={i} style={{display: 'flex', alignItems: 'center', gap: 8}}>
+              {l.icon === 'link' ? <IgIcon k="link" c={C.link} s={30} /> : <Img src={staticFile(l.icon)} style={{width: 30, height: 30}} />}
+              <span style={txt(28, 700, l.kind === 'link' ? C.link : C.text)}>{l.text}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+      {/* buttons */}
+      <div style={{...up(20), position: 'absolute', left: X0, top: BTN_Y, width: 406, height: BTN_H, borderRadius: 18, background: C.primary, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <span style={txt(29, 700, '#fff')}>{e.follow}</span>
+      </div>
+      <div style={{...up(21), position: 'absolute', left: msgX, top: BTN_Y, width: msgW, height: BTN_H, borderRadius: 18, overflow: 'hidden',
+        background: press > 0 ? C.pressed : C.secondary, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `${up(21).transform} scale(${1 - 0.04 * press})`}}>
+        <span style={txt(29, 700, C.text)}>{e.message}</span>
+      </div>
+      <div style={{...up(22), position: 'absolute', left: 957, top: BTN_Y, width: 63, height: BTN_H, borderRadius: 18, background: C.secondary, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <IgIcon k="addp" c={C.text} s={34} />
+      </div>
+      {/* highlight */}
+      {e.highlight ? (
+        <div style={{...up(24), position: 'absolute', left: X0 + 8, top: 640, width: 136, textAlign: 'center'}}>
+          <div style={{width: 136, height: 136, borderRadius: 68, border: `4px solid ${C.divider}`, padding: 7, boxSizing: 'border-box'}}>
+            <Img src={staticFile(e.highlight.img)} style={{width: 114, height: 114, borderRadius: 57, display: 'block', objectFit: 'cover'}} />
+          </div>
+          <div style={{...txt(25, 700, C.text), marginTop: 14}}>{e.highlight.label}</div>
+        </div>
+      ) : null}
+      {/* tabs */}
+      <div style={{...up(26), position: 'absolute', left: 0, top: 800, width: 1080}}>
+        {['grid', 'reels', 'repost', 'tagged'].map((k, i) => (
+          <div key={k} style={{position: 'absolute', left: 320 + i * 146 - 22, top: 12}}><IgIcon k={k} c={i === 0 ? C.text : C.tab_off} s={44} /></div>
+        ))}
+        <div style={{position: 'absolute', left: 24, right: 24, top: 78, height: 2, background: C.divider}} />
+        <div style={{position: 'absolute', left: 320 - 60, width: 120, top: 76, height: 4, background: C.text}} />
+      </div>
+      {/* grid */}
+      {tiles.map((src, i) => {
+        const r = Math.floor(i / 6), c = i % 6;
+        const p = sp(f, 26 + r * 4 + c * 2, {damping: 18, stiffness: 150, mass: 0.7});
+        return (
+          <div key={i} style={{position: 'absolute', left: 24 + c * (TW + 4), top: GY + r * (TH + 4), width: TW, height: TH, overflow: 'hidden', opacity: Math.min(1, p * 1.3), transform: `translateY(${(1 - p) * 30}px)`}}>
+            <Img src={staticFile(src)} style={{width: TW, height: TH, objectFit: 'cover', display: 'block'}} />
+          </div>
+        );
+      })}
+      {hlF !== null && f >= hlF ? (
+        <div style={{position: 'absolute', left: msgX - 10, top: BTN_Y - 10, width: msgW + 20, height: BTN_H + 20, borderRadius: 26, boxSizing: 'border-box',
+          border: `4px solid ${C.text}`, boxShadow: `0 0 34px ${C.text}55`, opacity: 0.85 * Math.min(1, hp), transform: `scale(${1.08 - 0.08 * hp})`}} />
+      ) : null}
+      {e.tap_at !== undefined ? <Tap x={msgX + msgW / 2 + 40} y={BTN_Y + BTN_H / 2 + 6} at={tapF} /> : null}
+    </AbsoluteFill>
+  );
+};
+const CUSTOM: Record<string, React.FC<{e: any}>> = {bars: Bars, timeline: Timeline, igprofile: IgProfile, page: Page, gallery: Gallery, measure: Measure, igpage: IgPage};
 
 /* ---------- outro: brand/creator end card over an image ----------
    {type:"outro", img, logo?, handle?, cta?} */

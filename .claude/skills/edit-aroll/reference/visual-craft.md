@@ -133,6 +133,10 @@ gabungkan keduanya, atau buang salah satunya. Baca kolom durasi di laporan build
 footage yang harus dikenali butuh kira-kira 1,2 dtk ke atas, yang harus dibaca mengikuti rumus T12, dan tidak ada yang tinggal
 setelah topiknya selesai.
 
+**Layar penuh berarti penuh (job03).** Foto atau footage yang ditampilkan layar penuh mengisi seluruh 1080x1920 (crop "cover",
+subjek tetap terlihat). Foto mendatar yang ditaruh sebagai pita di tengah dengan latar buram di atas dan bawah terbaca setengah jadi:
+crop sampai penuh, atau pilih gambar lain. Cek still tiap foto di ukuran HP, termasuk ketajamannya setelah diperbesar.
+
 ## 6. Gerak: apa artinya, dan cara memastikan halus
 
 Setiap jenis masuk/keluar punya arti. Pilih karena artinya, lalu pakai arti itu secara konsisten di seluruh video.
@@ -226,8 +230,10 @@ event yang ada. **Belum** = butuh komponen kecil generik di `video/src` job itu 
 | Penutup = profil akun dari screenshot user | Sekarang | `custom` `igprofile` + `hold_end`. Avatar dan tile = crop asli screenshot; teks diketik ulang PERSIS dari screenshot; tidak meniru tampilan aplikasi. Screenshot kecil (lebar ~1000 px) membuat tile lunak: minta screenshot HP |
 | Penutup di atas foto (logo, akun, ajakan) | Sekarang | `outro` (`img`, `logo`, `handle`, `cta`) |
 | Logo di belakang kepala pembicara | Tidak praktis | Butuh pemisahan pembicara per frame (terlalu berat di CPU ini). Pakai ruang kosong di samping kepala atau logo layar penuh singkat |
-| Halaman situs/aplikasi satu layar penuh (bukan kartu) | Perkiraan | Tangkap viewport HP 9:16 dengan `shot.py`, tampilkan sebagai `photo` (`light: true` bila terang) atau `clip` rekaman scroll. Kursor klik di atas halaman penuh: belum (`screenshot` selalu berupa kartu; pemilik menilai kartu di tengah "aneh" untuk halaman yang dituju penonton) |
-| Musik latar | Sekarang (satu lagu, satu volume) | `music` (`src`, `volume`), fade awal dan akhir. Turun/naik per momen naskah: belum (komponen generik kecil: titik volume berjangkar kata) |
+| Halaman situs/aplikasi satu layar penuh (bukan kartu) | Sekarang | `custom` `page`: tangkapan panjang halaman asli (`shot.py`), scroll ke bagian yang disebut, garis di sekeliling nama/tombol (`mark`), titik sentuh (`tap`). `screenshot` (kartu) tetap untuk kutipan |
+| Beberapa foto asli muncul bergantian; garis ukur di atas foto | Sekarang | `custom` `gallery`; `custom` `measure` |
+| Profil akun pemilik dibangun dengan kode (penutup "hubungi aku") | Sekarang, hanya atas permintaan pemilik | `custom` `igpage` + `hold_end`; semua teks dari screenshot, foto = crop asli, tap di tombol pesan |
+| Musik latar | Sekarang | `music` (`src`, `volume`, `points` berjangkar kata untuk turun/naik per momen), fade awal dan akhir. Satu lagu; berganti lagu: tidak |
 | Gerbang potongan gambar (sambungan terbuka) | Sekarang | Laporan CUT CHECK; sambungan dengan pembicara terlihat di kedua sisi menghentikan build kecuali ada `cut_ok` beralasan (`edit-json.md`) |
 | Gerbang rentang sepi + porsi layar | Sekarang | `max_quiet_s`, `quiet_ok`, laporan QUIET CHECK (`edit-json.md` 4.6) |
 | Durasi tiap visual | Sekarang | Daftar event di akhir laporan build; onset terhadap kata dicek dengan still |
