@@ -126,6 +126,13 @@ Laporan build mencetak durasi tiap event: cek setiap visual terhadap resep ini.
 
 ---
 
+**Visual yang terjepit tetangganya (syarat pemilik 14, job02).** Kalau visual berikutnya butuh waktu masuk lebih awal (kursor yang
+harus sempat bergerak, kartu yang harus sudah penuh di kata), jangan memendekkan visual sebelumnya di bawah waktu kenalnya: job02 v4
+menyisakan 0,9 dtk untuk sebuah foto dan pemilik menilainya terlalu pendek. Pilih salah satu: geser jangkar visual berikutnya,
+gabungkan keduanya, atau buang salah satunya. Baca kolom durasi di laporan build untuk SETIAP event sebelum render: foto atau
+footage yang harus dikenali butuh kira-kira 1,2 dtk ke atas, yang harus dibaca mengikuti rumus T12, dan tidak ada yang tinggal
+setelah topiknya selesai.
+
 ## 6. Gerak: apa artinya, dan cara memastikan halus
 
 Setiap jenis masuk/keluar punya arti. Pilih karena artinya, lalu pakai arti itu secara konsisten di seluruh video.
