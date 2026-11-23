@@ -52,7 +52,7 @@ project/
   .venv/               lingkungan Python (dibuat setup.sh)
 ```
 
-Satu-satunya file yang diedit tangan untuk mengubah video adalah `work/edit.json` (keputusan edit) dan, kalau butuh visual baru, `video/src/Visuals.tsx`.
+Satu-satunya file yang diedit tangan untuk mengubah video adalah `work/edit.json` (keputusan edit dan tampilan) dan, kalau butuh visual baru, `video/src/Visuals.tsx`.
 
 ## 2.3 Isi kit
 
@@ -77,13 +77,13 @@ Baca `tools/build_timeline.py`, `video/src/Main.tsx`, dan `video/src/Visuals.tsx
 | `video/stills.mjs` | render frame tunggal tanpa render video. |
 | `video/src/index.ts` | titik masuk Remotion. |
 | `video/src/Root.tsx` | komposisi `Edit`, 1080x1920. |
-| `video/src/theme.ts` | satu tempat untuk font, warna, dan gerak. Ganti di sini kalau user punya brand kit. |
+| `video/src/theme.ts` | membaca `theme` dari `data.json` (tampilan diputuskan per video di `work/edit.json`, `edit-json.md` 4.5) dan menyediakan token warna, font, dan gerak untuk komponen. Tidak berisi nilai tampilan. |
 | `video/src/Main.tsx` | susunan layer: pembicara, panel layar terbagi, overlay, insert layar penuh, gradasi, efek suara, musik, subtitle. |
 | `video/src/Visuals.tsx` | semua jenis visual dan satu pembungkus transisi. |
 | `work/edit.example.json` | contoh `edit.json` lengkap (dijelaskan di Bagian 4). Blok kodenya ada di Bagian 4.1 dan ikut terekstrak. |
 | `tools/install_fonts.sh` | (cloud) memasang font di `/home/user/editkit/fonts` sebagai font sistem. |
 
-`video/src/theme.ts` di kit ini sudah versi cloud (font sistem, tanpa `loadFont`). Jangan dikembalikan ke versi guide asli.
+`video/src/theme.ts` di kit ini sudah versi cloud (font sistem, tanpa `loadFont`, nilai dari `theme` di `edit.json`). Jangan dikembalikan ke versi guide asli dan jangan menulis warna atau font di sana.
 
 ### 2.4 Kenapa arsitekturnya begini
 
@@ -93,3 +93,19 @@ Baca `tools/build_timeline.py`, `video/src/Main.tsx`, dan `video/src/Visuals.tsx
 - **Insert berurutan saling menyambung.** Kalau insert B mulai di frame yang sama dengan berakhirnya insert A, B menggeser masuk di atas A dan pembicara tidak muncul sekilas di antaranya.
 - **Tiga tata letak dalam satu sistem.** Pembicara penuh dengan overlay kecil, insert layar penuh, dan layar terbagi (`split`: visual di atas, pembicara di bawah). Subtitle, zoom, dan efek suara menyesuaikan sendiri di ketiganya, sehingga tata letak bisa berganti dari scene ke scene tanpa kode baru.
 - **Subtitle menyesuaikan latar.** Di atas insert terang (`light`), teks berubah gelap dan gradasi gelap di bawah dimatikan. Di layar terbagi, subtitle ikut turun supaya tetap di bawah dagu.
+
+### 2.5 Perilaku tampilan bawaan kit (fakta, bukan standar gaya)
+
+Yang dilakukan komponen sekarang, supaya rencana visual tidak mengandalkan sesuatu yang tidak ada (daftar teknik lengkap: `visual-craft.md` 9):
+
+- **Subtitle:** pita di sekitar dua pertiga sampai empat perlima tinggi layar, tengah; baris kecil = frasa yang diucapkan (kata yang belum diucapkan
+  setengah transparan), baris besar = kata bertanda `*`. Maksimal `sub_max_words`/`sub_max_chars` per potong. Di atas insert `light: true` teks
+  berubah gelap dan penggelapan bawah dimatikan. Di layar terbagi, subtitle ikut turun.
+- **Insert layar penuh** (`Insert`): masuk fade 7 frame dengan skala sedikit mengecil, keluar fade 6 frame; dua insert berantai = yang baru
+  menggeser masuk 12 frame. Semua insert sama, jadi gerak masuk/keluar konsisten. Butiran halus di atas semua insert.
+- **Foto** selalu didorong pelan (zoom kecil terus-menerus). **Screenshot** tampil sebagai kartu bersudut bulat dengan bayangan di atas versi buram
+  gambarnya; stabilo menyapu 14 frame.
+- **Overlay** (`title`, `bubbles`, `chips`) di sepertiga atas, muncul dengan pegas (pop), keluar fade 7 frame.
+- **Split:** panel turun dari atas dan pembicara turun bersamaan (`shift`); `shift: 0` = pembicara tidak bergerak.
+- **Zoom pembicara** berganti otomatis hanya saat tertutup insert atau di sambungan potongan yang terlihat (punch-in); tidak ada punch-in di kata pilihan.
+- **Efek suara** otomatis: `whoosh` insert masuk, `swish` rantai dan split, `pop` overlay, `click` kursor.

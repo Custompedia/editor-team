@@ -1,13 +1,12 @@
-# STYLE NOTES — kenapa edit referensi user lebih bagus, dan cara menerapkannya di roll APA PUN
+# Studi kasus: edit referensi Parcelin vs job01 v4 (2026-11-22)
 
-Ditulis 2026-11-22 dari studi 3 video referensi user (dikirim setelah user menilai job01 final_v4 "jujur rada kurang").
-Baca setelah `SKILL.md` dan `workflow.md`. Kalau bertentangan: preferensi user di `SKILL.md` > catatan ini > `design.md`/guide.
-
-**Ini PRINSIP, bukan template.** Jangan menyalin warna kuning, font Playfair, chat bubble, atau layar hitam-putih ke setiap video.
-Yang disalin adalah *cara memutuskan*: kalimat mana yang diberi visual, visual jenis apa, seberapa besar, berapa lama, dan bagaimana
-masuk-keluarnya. Warna/font/gaya tetap diputuskan per video dari brief, brand, dan footage.
-
----
+> **Arsip untuk lead dan uji model, bukan bacaan worker.** Dulu `.claude/skills/edit-aroll/reference/style-notes.md` (lihat riwayat git,
+> commit `c0eae84`). Prinsipnya sudah diubah menjadi cara memutuskan di `reference/visual-thinking.md` dan `reference/visual-craft.md`;
+> "Quality bar" lama dikonversi menjadi uji diri (`visual-thinking.md` 8) dan tes lead (`docs/review-tests.md`); permintaan khusus brand ada di
+> `docs/brands/parcelin.md`. Yang disimpan di sini: bahan, angka, dan perbandingan per kalimat (bahan terbaik untuk menguji apakah sebuah
+> model memahami panduan). Bentuk visual di bawah adalah jawaban editor itu untuk footage itu, bukan resep.
+>
+> Path file `/home/user/jobs/job01/...` ada di container sesi lama, tidak di repo. Video referensinya di Drive `1WrAilhmWzUBkdZGg0X-5fp4JYrzF8UlT`.
 
 ## 0. Bahan yang dipelajari
 
@@ -49,7 +48,38 @@ konsep** yang diucapkan (bukan sekadar "foto produk brand").
 
 ---
 
-## 2. Prinsip (dengan contoh dan kesalahan v4)
+## 3. Perbandingan per kalimat: Hardbox ref v3 vs v4
+
+| Kalimat | Ref v3 (detik → visual) | v4 (detik → visual) |
+|---|---|---|
+| "aku sering banget ditanyain" | 0,3–2,8 judul CARA HITUNG HARGA / Hardbox | 0–3 judul PACKAGING CUSTOM / harganya berapa? |
+| "Mbak, mau pesen packaging ini… berapa?" | 3,0 bubble 1 + thumbnail tube box | subtitle saja |
+| "Mbak, mau pesen softbox… berapa?" | 6,2 bubble 2 + thumbnail softbox; box hijau di tangan tetap terlihat | subtitle saja (box di tangan terlihat) |
+| "Gimana? Nggak bisa… dijawab" | 10,3–12,9 hitam-putih, bubble hilang, kata besar "nggak bisa" | subtitle saja |
+| "Karena Parcelin itu jual custom packaging" | 12,9–16,6 artikel JPNN + stabilo | 13,4–16,1 screenshot parcelin.id |
+| "faktornya/variabelnya banyak banget" | wajah + kata besar | wajah |
+| "ukuran / desain / finishing" | 20,6–26,7 diagram box 3D → foto tangan melipat → makro foil, berantai | 21,3–27,7 3 kartu foto portofolio |
+| "Apa aja… buat ngitung harga" | wajah + kata besar "harga" | wajah |
+| "oh ini 10.000, oh ini 20.000" | 31,3–33,4 box hitam + label harga pop | kata besar |
+| "nggak jual ready stock" | 33,5–34,7 gudang + cap READY STOCK dicoret + "CUSTOM" | kata besar |
+| "harus ada spesifikasi lengkapnya" | 37,2–39,9 formulir kosong + "WAJIB ADA" | kata besar |
+| "aku belum tau mbak… ini itunya" | 44–47 2 bubble | 44–48 1 bubble |
+| "nyebutin budgetnya ada berapa" | 48,5–51,2 foto uang + label BUDGET | (take B) kata besar |
+| "packaging reguler, misalnya parfum… 10 ribu" | 53–55 box putih "REGULER"; 60,5 tag Rp10.000/pcs | 53,6–59,8 split foto Full Moon Box |
+| "packaging premium… budgetnya berapa" | 62–64 box hijau foil "PREMIUM" | (dalam split di atas) |
+| "konsultasi dulu sama aku" | wajah + kata besar | wajah + kata besar |
+| "Mbak, budget 20 ribu… modelnya gimana" | 69–74 2 bubble | 62–67 1 bubble |
+| "kirimin gambar di Pinterest… referensi banyak" | 74,5–81,7 grid pin besar, scroll, "Simpan" | 69,7–75,2 screenshot profil Pinterest (pin kecil) |
+| "bantu hitungin… budget sekian… kuantiti… inner" | 89–93 kurva budget⇄quantity; 93–94 foto inner | 80–87 chip teks 1 desain/2 kuantiti/3 inner |
+| "ngasih rekomendasi packaging" | wajah + kata besar | 88,4–91,5 split foto portofolio |
+| "budgetnya / spesifikasi lengkap… memudahkan" | 102–106 formulir yang sama terisi + LENGKAP ✓ | kata besar |
+| recap "jangan langsung tanya… nggak bisa… spesifikasi atau budget" | 109,8–117 bubble callback + silang + 2 chip | dibuang |
+| "DM aja, nanti aku bantu konsultasi" | 120,2–122,8 profil IG + pil DM + kursor klik | 103–109 chip kecil "DM IG @…" |
+| "packaging sesuai impian kamu" | 125,4–128,4 foto brand layar penuh + logo + handle + CTA | wajah; lalu 109,6–112 kartu krem logo |
+
+---
+
+## Lampiran: prinsip P1–P18 apa adanya (arsip)
 
 Format: **Aturan** → kapan / kapan tidak → durasi → contoh referensi (detik) → kesalahan v4.
 
@@ -215,134 +245,3 @@ Semua elemen muncul **tepat di kata** yang digambarkannya (jangkar kata, offset 
 - Hardbox ref memakai kuning + navy/hijau gelap/cokelat gelap; Lebaran & MOQ memakai palet brand (oranye #DE6B17-ish, cokelat, krem) +
   Plus Jakarta Sans. Ketiganya bersih: sedikit elemen, satu aksen. Ikuti brand bila ada (CLAUDE.md), tetapi **variasikan latar scene**
   supaya tidak terasa satu template krem.
-
----
-
-## 3. Perbandingan per kalimat: Hardbox ref v3 vs v4
-
-| Kalimat | Ref v3 (detik → visual) | v4 (detik → visual) |
-|---|---|---|
-| "aku sering banget ditanyain" | 0,3–2,8 judul CARA HITUNG HARGA / Hardbox | 0–3 judul PACKAGING CUSTOM / harganya berapa? |
-| "Mbak, mau pesen packaging ini… berapa?" | 3,0 bubble 1 + thumbnail tube box | subtitle saja |
-| "Mbak, mau pesen softbox… berapa?" | 6,2 bubble 2 + thumbnail softbox; box hijau di tangan tetap terlihat | subtitle saja (box di tangan terlihat) |
-| "Gimana? Nggak bisa… dijawab" | 10,3–12,9 hitam-putih, bubble hilang, kata besar "nggak bisa" | subtitle saja |
-| "Karena Parcelin itu jual custom packaging" | 12,9–16,6 artikel JPNN + stabilo | 13,4–16,1 screenshot parcelin.id |
-| "faktornya/variabelnya banyak banget" | wajah + kata besar | wajah |
-| "ukuran / desain / finishing" | 20,6–26,7 diagram box 3D → foto tangan melipat → makro foil, berantai | 21,3–27,7 3 kartu foto portofolio |
-| "Apa aja… buat ngitung harga" | wajah + kata besar "harga" | wajah |
-| "oh ini 10.000, oh ini 20.000" | 31,3–33,4 box hitam + label harga pop | kata besar |
-| "nggak jual ready stock" | 33,5–34,7 gudang + cap READY STOCK dicoret + "CUSTOM" | kata besar |
-| "harus ada spesifikasi lengkapnya" | 37,2–39,9 formulir kosong + "WAJIB ADA" | kata besar |
-| "aku belum tau mbak… ini itunya" | 44–47 2 bubble | 44–48 1 bubble |
-| "nyebutin budgetnya ada berapa" | 48,5–51,2 foto uang + label BUDGET | (take B) kata besar |
-| "packaging reguler, misalnya parfum… 10 ribu" | 53–55 box putih "REGULER"; 60,5 tag Rp10.000/pcs | 53,6–59,8 split foto Full Moon Box |
-| "packaging premium… budgetnya berapa" | 62–64 box hijau foil "PREMIUM" | (dalam split di atas) |
-| "konsultasi dulu sama aku" | wajah + kata besar | wajah + kata besar |
-| "Mbak, budget 20 ribu… modelnya gimana" | 69–74 2 bubble | 62–67 1 bubble |
-| "kirimin gambar di Pinterest… referensi banyak" | 74,5–81,7 grid pin besar, scroll, "Simpan" | 69,7–75,2 screenshot profil Pinterest (pin kecil) |
-| "bantu hitungin… budget sekian… kuantiti… inner" | 89–93 kurva budget⇄quantity; 93–94 foto inner | 80–87 chip teks 1 desain/2 kuantiti/3 inner |
-| "ngasih rekomendasi packaging" | wajah + kata besar | 88,4–91,5 split foto portofolio |
-| "budgetnya / spesifikasi lengkap… memudahkan" | 102–106 formulir yang sama terisi + LENGKAP ✓ | kata besar |
-| recap "jangan langsung tanya… nggak bisa… spesifikasi atau budget" | 109,8–117 bubble callback + silang + 2 chip | dibuang |
-| "DM aja, nanti aku bantu konsultasi" | 120,2–122,8 profil IG + pil DM + kursor klik | 103–109 chip kecil "DM IG @…" |
-| "packaging sesuai impian kamu" | 125,4–128,4 foto brand layar penuh + logo + handle + CTA | wajah; lalu 109,6–112 kartu krem logo |
-
----
-
-## 4. Quality bar — wajib lolos sebelum render penuh
-
-Tulis jawabannya di `work/visual_plan.md` (satu baris per butir).
-
-1. [ ] Hook: judul/topik dalam 0,5 s; perubahan visual kedua ≤ 3,5 s; ada beat (bubble/punchline/insert) sebelum 13 s.
-2. [ ] Setiap kutipan orang lain = bubble; pertanyaan tentang benda pakai thumbnail benda itu.
-3. [ ] Ada tepat 1–2 beat punchline (dim/BW/zoom) di kalimat pembalik utama — tidak lebih.
-4. [ ] Setiap angka, istilah teknis, dan item daftar punya visual yang **memperlihatkan konsepnya** (tes: tutup subtitle, apakah gambarnya
-       masih menjelaskan kata itu?).
-5. [ ] Tidak ada >7 s wajah tanpa elemen apa pun; tidak ada >50% layar penuh. Target jualan/edukasi: layar penuh 30–40%, beat tiap ±5 s.
-6. [ ] Tiap keputusan tata letak punya alasan dari tabel P4 (wajah / overlay / panel / inverted split / layar penuh). Minimal 3 tata letak
-       dipakai, dan latar insert tidak sama semua.
-7. [ ] Platform yang disebut tampil dari aslinya, isinya besar (bukan header), dan ada aksi bila diucapkan aksi (klik, DM, simpan).
-8. [ ] Klaim brand/waktu punya bukti dengan stabilo di kalimat yang tepat.
-9. [ ] Penutup: CTA layar penuh/inverted split dengan aksi + showcase brand layar penuh dengan logo/handle di atasnya. Tidak ada chip kecil
-       sebagai CTA utama. Handle sudah dikonfirmasi.
-10. [ ] Callback: kalau ada recap, visual pembuka (bubble/formulir) kembali dengan status baru (silang / terisi).
-11. [ ] Semua gambar lolos P11 (satu subjek, terbaca di HP, tanpa watermark asing, bergerak pelan) dan sumber + lisensinya tercatat.
-12. [ ] Gerak: semua elemen muncul di kata yang digambarkannya; transisi dari tabel P16; tidak ada elemen berkedip terus.
-13. [ ] Still diambil di tengah SETIAP beat dan di 2–3 frame awal/akhirnya; semua dibuka. QA5 (subtitle vs suara) sudah dicek dengan still
-       sebelum render penuh.
-
----
-
-## 5. Gap list — kit sekarang vs yang perlu komponen baru
-
-### Sudah bisa dengan kit (`video/src` Main.tsx / Visuals.tsx)
-| Kebutuhan | Event kit | Catatan |
-|---|---|---|
-| Judul pembuka + stabilo | `title` (line1, line2) | stabilo menyapu sudah ada |
-| Chat bubble kiri/kanan + thumbnail + silang merah | `bubbles` (`side`, `img`, `x_at`) | thumbnail & silang sudah ada; ukuran bubble di kit agak besar (font 40, img 132) — perkecil per job bila perlu |
-| Chip bernomor muncul satu per satu | `chips` | |
-| Artikel/halaman asli + stabilo + kursor klik + scroll | `screenshot` (`highlights`, `scroll`, `click`, `click_at`) | profil IG + klik "DM" bisa (kalau screenshot publik ada) |
-| Insert berantai geser 12 frame | jangkar `end` = `start` berikutnya | |
-| Foto layar penuh, push pelan, label bernomor + sub | `photo` (`num`, `label`, `sub`, `pos`, `dim`) | dipakai untuk desain/finishing/uang/gudang/reguler/premium |
-| B-roll | `clip` | |
-| Panel atas + wajah turun (gambar diam/video) | `split` | panel hanya gambar/video; tidak bisa berisi daftar yang tumbuh |
-| Grafik batang | `custom` `bars` | |
-| Kartu penutup di atas foto (logo bulat, handle, pil CTA) | `outro` (`img`, `logo`, `handle`, `cta`) | ini persis pola penutup ref Hardbox; ganti `img` dengan foto brand terbaik |
-| Kata besar beraksen | `*kata` di `text`/`script` | |
-| Kartu foto di latar terang, kartu logo | job01 `custom card`, `endcard` (hanya di job01/video/src) | |
-
-### Perlu komponen baru (bangun di `video/src` job yang membutuhkannya; semua digerakkan `useCurrentFrame`, tanpa CSS animation)
-1. **`grade` — beat punchline (BW / dim) di atas pembicara.** Event non-layar-penuh `{type:"grade", start, end, mode:"bw"|"dim",
-   amount?:1, vignette?:0.35}`. Implementasi: di `Main.tsx` Speaker, hitung k(frame) = 1 di [f,t) (hard cut; opsional fade 3 frame di
-   akhir), terapkan `filter: grayscale(k) brightness(1-0.25k) contrast(1+0.1k)` pada layer video + vinyet ekstra. Overlay lain yang
-   aktif boleh diberi `fade_at` agar menghilang 0,4 s setelah grade mulai. Subtitle tidak ikut di-grade.
-2. **`tags` — label harga/sticker yang menempel di gambar atau di samping wajah.** `{type:"tags", items:[{at, text:"Rp10.000",
-   sub?:"/pcs", x, y, rot?:-8}]}`; pil aksen dengan titik/lubang tag, pop overshoot 5 frame. Bisa sebagai overlay (di atas wajah) dan
-   sebagai child di dalam `photo` (`e.tags`), koordinat dalam px layar.
-3. **`stamp` — cap/coret di atas foto.** Field opsional di `photo`: `{stamp:{text:"READY STOCK", at, strike_at, after:{text:"CUSTOM ·
-   dibuat per pesanan", at}}}`: kotak bergaris putih miring −4°, garis coret merah menyapu 8 frame, label pengganti pop di bawahnya.
-   Juga dipakai untuk cap "WAJIB ADA"/"LENGKAP ✓" di komponen form.
-4. **`form` — formulir spesifikasi yang terisi.** `custom` `{name:"form", title, sub, logo?, rows:[{label, at, value?, value_at?,
-   check_at?}], stamp?:{text, at, color}}` kartu krem 820 px di latar gelap brand; baris muncul di `at`, nilai "tulisan tangan" (font
-   script sistem bila ada, kalau tidak serif miring) di `value_at`, centang hijau pop di `check_at`, cap di akhir. Pakai dua kali
-   (kosong → terisi) untuk callback.
-5. **`box3d` — diagram dimensi P×L×T.** `custom` `{name:"box3d", label, sub, color?}` isometrik SVG: kerangka digambar
-   (strokeDashoffset 10 frame) → sisi terisi warna karton → garis ukur + bulatan P, L, T pop berurutan. Latar gelap (navy/brand).
-6. **`curve` — kurva hubungan dua besaran.** `custom` `{name:"curve", label, sub, x_label, y_label, ticks:[...], mark:{x, y, label_x,
-   label_y, at}}` sumbu digambar → kurva menurun digambar mengikuti kata → garis putus-putus + 2 label di `mark.at`. Tulis "contoh
-   ilustrasi" bila angkanya tidak dari ucapan.
-7. **`pingrid` — showcase grid Pinterest/portofolio layar penuh (PENUTUP yang diminta user).** `custom` `{name:"pingrid", imgs:[...8–14
-   pin asli], header:{logo:"logos/pinterest.png"?, query?:"hardbox parfum custom", profile?:"Parcelin Company"}, scroll:px, save_at?:[{i,
-   at}], end:{logo, handle, cta, at}}`. Masonry 2 kolom (lebar 500 px, sudut 24, gap 16) dengan tinggi mengikuti rasio asli; scroll
-   pelan ke atas sepanjang durasi; pil merah "Simpan" pop di pin `i` saat `at`; di akhir (`end.at`) grid sedikit di-dim + blur 8 px dan
-   logo bulat + handle + pil CTA muncul di tengah (pola `outro`). Header hanya penanda platform (tinggi ≤ 140 px). Hanya pin asli publik.
-8. **`topsheet` — panel atas yang barisnya bertambah (MOQ/timeline).** Varian `split` dengan isi komponen, bukan gambar:
-   `{type:"split", h:560, body:{name:"rows", title, rows:[{at, img?, text, sub?, badge}]}}` atau `{name:"months", items, fill:[{at, from,
-   to, label}]}`. Perlu perubahan kecil di `SplitPanel`: bila `e.body`, render `CUSTOM[e.body.name]` di dalam panel (latar `bg`).
-9. **`invsplit` — wajah di atas kecil, UI besar di bawah.** `{type:"invsplit", start, end, h_top:620, body:{...}}`: Speaker diskalakan
-   0.55 dan dipusatkan di 0–620 px (crop wajah), panel bawah 620–1920 berisi screenshot/komponen. Subtitle pindah ke y ≈ 540. Masuk:
-   panel naik dari bawah 12 frame dengan pegas, wajah mengecil bersamaan.
-10. **`dmchat` — percakapan DM/WA yang mengetik.** `custom` atau body `invsplit`: header profil asli (avatar logo, nama, centang)
-    dari screenshot nyata sebagai acuan; teks diketik per karakter (`text.slice(0, n(frame))`), tombol kirim diklik kursor, bubble
-    terkirim pop, indikator "…" lalu balasan. Tampilan harus meniru UI asli (warna IG/WA), bukan karangan.
-11. **`brandchip` — lower-third nama brand/akun.** Overlay kecil `{type:"brandchip", logo, name, verified?, sub:"@handle · Custom
-    Packaging"}` di bawah subtitle area atas atau tepat di atas subtitle, pop masuk, 3–5 s, saat brand pertama kali disebut.
-12. **`laptop` — mockup perangkat untuk situs.** Bingkai laptop/HP SVG sederhana yang membungkus `screenshot` (dengan scroll & klik)
-    dan bisa berganti halaman (`pages:[{img, at}]`), plus deret checklist chip di bawahnya (`checks:[{text, at}]`).
-13. **(Opsional) gaya subtitle "kalimat"** (Lebaran/MOQ): sentence case + tanda baca, kata kunci diwarnai dalam baris, tanpa baris kata
-    besar. Flag `sub_style:"inline"` di `edit.json` → cabang di `Subs`.
-
-Urutan prioritas membangun (dampak terbesar dulu): 7 `pingrid` (penutup) → 1 `grade` → 2 `tags` + 3 `stamp` → 4 `form` → 9 `invsplit`
-+ 10 `dmchat` → 5/6 diagram → sisanya.
-
----
-
-## 6. Fakta yang ditemukan dan perlu dikonfirmasi user (job01 / Parcelin)
-
-- **Handle Instagram:** ketiga referensi memakai **@parcelinpack** (profil IG "parcelinpack", "ParcelinPack | Custom Packaging | PR Packaging |
-  Hardbox", ±132 rb pengikut, terlihat di ref Hardbox 120–123 s dan MOQ 81 s). v4 memakai **@parcelincompany** (dari tautan footer
-  parcelin.id). Konfirmasi ke user sebelum dipakai lagi.
-- Nama brand di berita JPNN: "Parcelinpack". Di video: "Parcelin". Situs: "Parcelin Company".
-- Judul ref Hardbox = nama folder Drive user: "Cara Hitung Harga Hardbox".
-- Ref Hardbox memakai kuning + serif miring (default kit), Lebaran/MOQ memakai palet brand → user menerima keduanya; yang dinilai adalah
-  kepadatan, ketepatan visual, dan kerapian, bukan warna.

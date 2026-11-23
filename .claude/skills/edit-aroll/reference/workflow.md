@@ -6,13 +6,15 @@
 > - Perintah BERAT wajib antre: `flock /home/user/jobs/.heavy.lock <perintah>`: `transcribe.py`, `verify_audio.py`,
 >   `node stills.mjs`, `render.sh`. Render: `CONCURRENCY=2 flock /home/user/jobs/.heavy.lock bash tools/render.sh vN`
 >   (video 112 dtk ≈ 25 menit; satu putaran QA gagal ≈ 30 menit terbuang).
-> - Sebelum Tahap 6: baca `style-notes.md` sampai habis. Sebelum render penuh (Tahap 9): lolos "Quality bar" di style-notes.md
->   bagian 4, DAN kerjakan QA 5 (subtitle vs suara) lebih dulu lewat still + transkrip supaya tidak membuang satu render.
+> - Sebelum menulis brief (Tahap 0): baca `visual-thinking.md` Bagian 6 (look) dan Bagian 4 (yang bisa dijangkau dari sini).
+>   Sebelum Tahap 6: baca `visual-thinking.md` dan `visual-craft.md` sampai habis. Sebelum render penuh (Tahap 9): jawab uji diri
+>   `visual-thinking.md` Bagian 8 dengan bukti, DAN kerjakan QA 5 (subtitle vs suara) lebih dulu lewat still + transkrip supaya
+>   tidak membuang satu render.
 > - QA 1 ditambah deteksi frame hitam: `ffmpeg -i out/final_vN.mp4 -vf blackdetect=d=0.03:pix_th=0.05 -an -f null - 2>&1 | grep -c black_start` harus 0.
 > - Nama brand/orang: Whisper tidak mengenal nama buatan. Kalau brief tidak memberi ejaan, cari beberapa varian ejaan di web
 >   sebelum menyimpulkan "tidak ditemukan"; tandai ASUMSI.
-> - Sumber: Pexels (cek bot) dan Wikimedia (HTTP 429) tidak bisa dipakai dari sini; YouTube butuh login. Jangan diakali.
->   Pakai halaman resmi brand (situs, Pinterest publik) lewat `shot.py`, Openverse (hindari lisensi NC untuk video brand), atau aset user.
+> - Sumber yang bisa dan tidak bisa dijangkau dari container ini, dan cara meminta ke user: `visual-thinking.md` Bagian 4. Yang
+>   diblokir (Pexels, Wikimedia, YouTube, halaman berlogin) tidak diakali.
 
 Ringkasan urutan dan file yang dihasilkan:
 
@@ -48,7 +50,13 @@ Folder privat tidak bisa diunduh: minta user membuka aksesnya ("siapa saja yang 
 - Siapa penontonnya.
 - Nama brand, orang, akun, dan istilah khusus beserta ejaan yang benar. Daftar ini dipakai sebagai kosakata untuk Whisper.
 - CTA di akhir, logo, warna brand kalau ada.
-- Referensi gaya kalau ada. Referensi adalah patokan rasa (kepadatan visual, gaya subtitle), bukan untuk ditiru persis.
+- **Look video** (warna penekanan, warna panel dan teks, font, gaya penekanan): diputuskan di sini dengan cara di `visual-thinking.md`
+  Bagian 6. Tulis pilihan, alasan, dan yang ditolak. Nilainya nanti ditulis di blok `theme` di `work/edit.json` (`edit-json.md` 4.5);
+  build menolak job tanpa `theme`. Pasang font yang dipilih sebagai font sistem sekarang, supaya tidak tertunda di Tahap 7.
+- **Butuh dari user:** daftar semua yang hanya bisa didapat dari user (rekaman layar aplikasi yang disebut, screenshot profil berlogin,
+  logo, foto produk, ejaan nama, akun). Tulis di `work/STATE.md` bagian "Butuh dari user" dan laporkan ke lead SEKARANG, bukan di Tahap 6.
+  Lanjutkan dengan cadangan bertanda `ASUMSI` selama menunggu.
+- Referensi gaya kalau ada: dipelajari untuk memahami KENAPA sebuah keputusan bekerja, bukan untuk ditiru bentuknya.
 - Apa pun yang tidak disebut user: isi dengan default dan tandai `ASUMSI`.
 
 Kalau user memberi video referensi:
@@ -58,11 +66,11 @@ mkdir -p work/ref && yt-dlp -f "mp4/best" -o "work/ref/ref.%(ext)s" "<url>"
 python3 tools/sheet.py video work/ref/ref.mp4 work/ref/sheet 1
 ```
 
-Buka `work/ref/sheet_*.jpg` dan catat: posisi dan gaya subtitle, seberapa sering visual muncul, jenis visualnya, tata letaknya (layar penuh atau terbagi), cara masuk dan keluarnya. Kalau unduhan gagal karena video diblokir wilayah, privat, atau butuh login: **jangan diakali** (tanpa VPN, proxy, cookie pinjaman). Minta user mengirim file mp4-nya, dan lanjutkan dulu dengan default di guide ini.
+Buka `work/ref/sheet_*.jpg` dan catat: posisi dan gaya subtitle, seberapa sering visual muncul, jenis visualnya, tata letaknya (layar penuh atau terbagi), cara masuk dan keluarnya, dan untuk tiap pola: kenapa itu cocok untuk isi video referensi itu. Kalau unduhan gagal karena video diblokir wilayah, privat, atau butuh login: **jangan diakali** (tanpa VPN, proxy, cookie pinjaman). Minta user mengirim file mp4-nya, dan lanjutkan dulu dengan default di guide ini.
 
 Preferensi desain yang pernah dinyatakan user (di percakapan ini, di file catatan project, atau di memori agent) dicatat di brief dan berlaku untuk seluruh video.
 
-**Gate:** klip ada di `raw/`. Jenis konten, durasi target, dan CTA terisi. Semua asumsi ditandai.
+**Gate:** klip ada di `raw/`. Jenis konten, durasi target, dan CTA terisi. Look diputuskan dengan alasan. Daftar "Butuh dari user" sudah dilaporkan (atau tertulis "tidak ada"). Semua asumsi ditandai.
 
 ### Tahap 1. Normalisasi dan melihat footage
 
@@ -118,7 +126,9 @@ Urutan berpikir:
 3. Pilih hook: kalimat paling kuat yang membuat orang mau mendengar lanjutannya. Hook berada di 3 detik pertama. Hook boleh diambil dari tengah roll dan dipindah ke depan, asal kalimat itu berdiri sendiri dan tidak terdengar janggal saat diulang nanti. Kalau roll sudah dibuka dengan kuat, jangan dipindah-pindah.
 4. Susun sisanya mengikuti urutan bicara asli sebisa mungkin. Memindahkan kalimat hanya kalau membuat cerita lebih jelas.
 5. Buang: take ulang yang kalah, salah ucap, mulai ulang, basa-basi pembuka, kalimat yang mengulang isi kalimat sebelumnya, dan menyimpang dari pesan utama.
-6. Pertahankan: jeda napas wajar, kata sambung yang membuat kalimat terdengar alami, dan gaya bicara pembicara. Ini video orang bicara, bukan teks yang dibacakan.
+6. Sebelum membuang pengulangan di akhir, tanyakan apakah itu kesimpulan yang bisa menyambung ke visual awal (`visual-thinking.md` 2.2).
+   Take dengan audio terbaik tetapi gambar bermasalah boleh dipakai kalau gambarnya akan tertutup visual yang memang relevan.
+7. Pertahankan: jeda napas wajar, kata sambung yang membuat kalimat terdengar alami, dan gaya bicara pembicara. Ini video orang bicara, bukan teks yang dibacakan.
 
 Uji sambungan: baca naskah final dari atas ke bawah. Di setiap pergantian segmen, cek tiga hal. Pertama, kalimat sesudah potongan tidak merujuk ke sesuatu yang ikut terbuang ("yang tadi", "itu", "kedua" tanpa "pertama"). Kedua, tata bahasanya nyambung, tidak ada kata sambung menggantung. Ketiga, tidak ada informasi yang disebut dua kali.
 
@@ -154,7 +164,7 @@ Kalau sebuah kata tersendat ada di tengah segmen dan terlalu pendek untuk dipoto
 Subtitle dibuat otomatis dari kata transkrip yang lolos potongan. Tugas di tahap ini adalah membetulkan teks dan memilih kata penting.
 
 - **Ejaan dan salah dengar**: perbaiki lewat `text` (per kata) atau `script` (satu rentang kalimat sekaligus). Subtitle harus sama dengan yang diucapkan. Jangan memperhalus bahasa pembicara.
-- **Kata penting**: beri awalan `*`. Kata bertanda tampil besar dengan font serif miring berwarna aksen. Pilih 1 sampai 2 kata per kalimat, dan hanya kata yang membawa makna: angka, nama, kata kunci topik, kata yang ditekan pembicara. Kalau semua ditandai, tidak ada yang menonjol.
+- **Kata penting**: beri awalan `*`. Kata bertanda tampil di baris besar dengan font dan warna penekanan dari `theme`. Pilih 1 sampai 2 kata per kalimat, dan hanya kata yang membawa makna: angka, nama, kata kunci topik, kata yang ditekan pembicara. Kalau semua ditandai, tidak ada yang menonjol.
 - **Kata yang disembunyikan**: isi `""` di `text`, atau `_` di `script`, untuk kata tersendat yang masih terdengar tapi tidak perlu dibaca.
 - **Waktu kata yang salah**: kalau subtitle muncul terlalu cepat atau lambat dibanding suaranya (biasanya kata pertama setelah potongan), betulkan waktunya di `timing` berdasarkan envelope.
 - **Huruf besar**: subtitle ditampilkan huruf kecil semua kecuali kata yang diawali entri `keep_case` (nama brand, singkatan). Kalau user ingin huruf besar normal, ubah fungsi `clean` di `Main.tsx`.
@@ -167,44 +177,22 @@ Jalankan `python3 tools/build_timeline.py` dan baca seluruh daftar subtitle yang
 
 #### 6.1 Putuskan per kalimat
 
-Tulis `work/visual_plan.md` sebagai tabel: kalimat, indeks kata, keputusan, jenis visual, sumber aset, alasan. Untuk setiap kalimat pilih satu dari empat:
+Jalankan rantai keputusan `visual-thinking.md` Bagian 2 untuk setiap kalimat naskah, lalu lintasan keseluruhan (2.2). Tulis
+`work/visual_plan.md` dengan format 2.3. Peluang per situasi: Bagian 3. Yang bisa dijangkau dari sini: Bagian 4. Kapan memakai kode:
+Bagian 5. Cara menyajikan, kapan memotong, posisi, timing, gerak: `visual-craft.md`. Apa yang kit bisa sekarang: `visual-craft.md` 9.
 
-- **Tetap di pembicara.** Untuk hook, opini pribadi, emosi, kalimat penghubung, dan saat pembicara menunjukkan benda. Ini pilihan default.
-- **Overlay kecil di atas pembicara** (judul, gelembung kutipan, chip poin bernomor). Untuk kutipan orang lain, daftar poin, dan penanda bagian. Wajah tetap terlihat.
-- **Layar terbagi** (`split`: visual di panel atas, pembicara tetap terlihat di bawah). Untuk hal yang perlu dilihat **sambil** melihat pembicara: ia bereaksi, menjelaskan sambil menunjuk, atau kontak matanya penting. Juga untuk logo, tampilan aplikasi, dan foto yang tidak perlu memenuhi layar.
-- **Insert layar penuh** (screenshot, foto, klip B-roll, diagram). Untuk hal yang lebih jelas dilihat daripada didengar.
-
-Tabel pemetaan isi kalimat ke visual:
-
-| Yang diucapkan | Visual | Sumber |
-|---|---|---|
-| Fakta, berita, klaim, tren, statistik dari pihak lain | Screenshot artikel atau halaman asli, kalimat pentingnya distabilo | `tools/shot.py` |
-| Menyebut aplikasi, website, platform, akun | Screenshot halaman aslinya, layar penuh atau di panel `split`. Kalau ada aksi (cari, klik, DM, WhatsApp, follow), kursor bergerak ke tombol lalu klik | `tools/shot.py` dengan `--find` |
-| Menyebut orang, tokoh, perusahaan, produk | Foto atau logo asli. Logo paling rapi di panel `split` dengan `fit: "contain"` | `tools/stock.py commons`, situs resmi |
-| Angka, perbandingan, kenaikan/penurunan, ukuran | Diagram SVG buatan sendiri yang digambar bertahap | Komponen `custom` |
-| Langkah, daftar, syarat ("ada tiga hal") | Chip bernomor yang muncul satu per satu tepat saat tiap poin disebut | Overlay `chips` |
-| Kutipan atau pertanyaan orang lain ("orang sering nanya...") | Gelembung chat | Overlay `bubbles` |
-| Benda, tempat, suasana, aktivitas | Foto atau klip footage stok yang benar-benar memperlihatkan hal itu | `tools/stock.py photo` / `video`, lalu `photo`, `clip`, atau `split` |
-| Benda spesifik yang tidak ada foto stoknya | Gambar hasil image generation, gaya foto realistis | Image generation, kalau tersedia (6.2) |
-| Cara pakai aplikasi atau langkah di layar | Rekaman layar asli sebagai klip | `clip` |
-| CTA di akhir | Screenshot profil asli dengan kursor mengklik tombol, lalu kartu penutup berlogo | `screenshot` + `outro` |
-| Opini, cerita pribadi, emosi, hook | Tidak ada. Tetap di pembicara, kata kuncinya dibesarkan di subtitle | |
-
-Aturan kepadatan dan waktu:
-
-- Insert layar penuh menutup kira-kira 20 sampai 45% durasi. Di atas 50%, video terasa seperti slideshow. Di bawah 15% untuk video informatif, terasa flat.
-- Jangan lebih dari sekitar 8 detik tanpa perubahan visual apa pun (insert, overlay, kata besar, atau punch-in).
-- 3 sampai 5 detik pertama: pembicara dan judul. Jangan langsung menutup wajah dengan insert.
-- Durasi insert: 1,5 sampai 4 detik. Screenshot dengan teks yang harus dibaca: minimal 2,5 detik.
-- Insert mulai 2 sampai 4 frame **sebelum** kata yang digambarkannya (offset `-3`), dan berakhir saat topik kalimatnya selesai.
-- Daftar yang disebut berurutan ("ukuran, desain, finishing") memakai insert berantai: akhir insert pertama dan awal insert kedua memakai jangkar yang sama, sehingga bergeser langsung dari satu ke berikutnya.
-- Di antara dua insert yang tidak berantai, pembicara terlihat minimal 24 frame. Kurang dari itu terlihat seperti kedipan.
-- Variasi jenis: jangan memakai jenis visual yang sama tiga kali berturut-turut.
-- Variasi tata letak: dalam satu video pakai minimal dua dari tiga tata letak (pembicara penuh dengan overlay, layar terbagi, layar penuh), dan jangan memakai tata letak yang sama untuk semua scene. Video yang seluruh visualnya kartu layar penuh terasa seperti template.
-- Panel `split` dihitung sebagai perubahan visual, tetapi tidak dihitung sebagai insert layar penuh. Durasinya 2 sampai 6 detik.
-- Angka di diagram harus berasal dari ucapan pembicara atau sumber yang bisa ditunjuk. Kalau angka hanya ilustrasi, tulis "contoh ilustrasi" di diagramnya.
+Mekanik yang berlaku untuk semua visual (keterbacaan, bukan gaya):
+- Jangkar ke kata yang digambarkan, dengan offset sesuai cara masuknya (`visual-craft.md` 5). Insert kit masuk dengan fade 7 frame,
+  jadi mulai sekitar 3 frame sebelum kata (offset `-3`) supaya sudah terlihat saat kata terdengar.
+- Durasi tiap visual ≥ waktu baca atau waktu mengenali (resep `visual-craft.md` 5), dan berakhir saat topik kalimatnya selesai.
+- Di antara dua insert yang tidak berantai, pembicara terlihat minimal 24 frame; kurang dari itu terlihat seperti kedipan. Kalau lebih
+  pendek, rantaikan (jangkar yang sama untuk `end` insert pertama dan `start` insert kedua).
+- Panel `split` dan overlay tidak dipakai bersamaan (keduanya memakai bagian atas layar).
+- Angka di diagram berasal dari ucapan pembicara atau sumber yang bisa ditunjuk; angka ilustrasi ditandai "contoh".
 
 #### 6.2 Kumpulkan aset
+
+Urutan mencari: aset user → halaman publik asli lewat `shot.py` → Openverse → image generation lewat permintaan (`visual-thinking.md` 4).
 
 Semua aset disimpan di `video/public/` (subfolder `shots/`, `photos/`, `broll/`, `logos/`, `gen/`, `music/`). Catat URL sumber setiap aset di `work/visual_plan.md`.
 
@@ -226,10 +214,16 @@ Skrip mencetak ukuran gambar (`img_w`, `img_h`) dan kotak setiap teks yang dicar
 Kalau pembicara menyebut aplikasi, situs, chat, atau notifikasi, penonton harus melihat tampilan aslinya:
 
 1. Pilihan pertama: screenshot halaman publiknya (`tools/shot.py`), atau rekaman layar dan screenshot dari user.
-2. Kalau tampilan aslinya tidak bisa diambil (aplikasi di balik login, layar ponsel): susun dari bahan asli, yaitu logo resmi (`tools/stock.py commons "<nama> logo"`), warna dan tata letak aplikasi yang sebenarnya, dengan melihat screenshot aslinya sebagai acuan. Elemen diletakkan di tempat yang sama seperti di aplikasinya dan muncul pada saat yang sama dengan ucapan.
-3. UI karangan yang tidak menyerupai aplikasi atau situs mana pun (kartu bergaya dashboard, ikon generik, latar dekoratif) tidak dipakai. Kalau tidak ada bahan asli, lebih baik tetap di pembicara dengan kata besar.
+2. Kalau tampilan aslinya terkunci login atau hanya ada di HP: minta rekaman layar atau screenshot ke user lewat lead (daftar "Butuh dari
+   user", `visual-thinking.md` 4). Kode boleh menggerakkan screenshot asli itu (kursor, scroll, sorotan), tetapi tidak menggambar ulang
+   aplikasinya. Selama menunggu: halaman publik lain dari brand yang sama, atau logo asli + nama akun di atas pembicara.
+3. UI karangan (kartu bergaya dashboard, layar chat buatan sebagai bukti, ikon generik, latar dekoratif) tidak dipakai. Gelembung chat
+   untuk menggambarkan apa yang DIUCAPKAN seseorang boleh: itu ilustrasi ucapan, bukan bukti.
 
 **Foto dan footage stok, tanpa API key**
+
+> Cloud: `stock.py photo`/`video` (Pexels) dan `stock.py commons` (Wikimedia) diblokir dari container ini; yang bisa dipakai di sini
+> adalah `stock.py open` (Openverse). Perintah lain dipertahankan untuk lingkungan lain.
 
 ```bash
 python3 tools/stock.py photo "hands counting cash" -n 6        # Pexels, vertikal. Tambah --landscape untuk panel split
@@ -248,14 +242,14 @@ Skrip membuka halaman pencarian publik lewat browser tanpa login, mengunduh kand
 **Logo, orang, tempat, benda terkenal (Wikimedia Commons)**
 
 ```bash
-python3 tools/stock.py commons "TikTok logo" -n 6
+python3 tools/stock.py commons "TikTok logo" -n 6      # cloud: diblokir (HTTP 429). Logo dari situs resmi brand atau dari user
 ```
 
 Logo berformat SVG diunduh sebagai PNG transparan (dan vektornya kalau server mengizinkan). Pakai logo resmi apa adanya: jangan digambar ulang, diwarnai ulang, atau diubah bentuknya. Logo dari user selalu didahulukan. Foto orang nyata hanya dari sumber seperti ini atau dari user, tidak dari image generation.
 
 **Diagram SVG**: digambar sebagai komponen di `Visuals.tsx` (lihat 4.4). Bukan gambar diam, supaya garis dan batangnya bisa tumbuh mengikuti ucapan.
 
-**Image generation (opsional)**: hanya untuk benda spesifik yang tidak ada foto aslinya. Prompt gaya foto realistis, vertikal (1024x1536), tanpa teks di dalam gambar. Jangan dipakai untuk orang nyata, logo, tampilan aplikasi, atau bukti (berita, testimoni). Simpan di `video/public/gen/`.
+**Image generation (opsional)**: hanya untuk benda spesifik yang tidak ada foto aslinya, setelah aset nyata benar-benar dicari. Prompt gaya foto realistis, vertikal (1024x1536), tanpa teks di dalam gambar. Jangan dipakai untuk orang nyata, logo, tampilan aplikasi, atau bukti (berita, testimoni). Simpan di `video/public/gen/`.
 
 - Codex: minta gambar langsung di percakapan atau sebut `$imagegen`, lalu simpan hasilnya ke `video/public/gen/<nama>.png`.
 - Claude Code dan agent tanpa pembuat gambar: tulis daftar prompt di `work/gen_prompts.md`, minta user membuatnya di aplikasi lain dan menaruh filenya di `video/public/gen/`. Kalau user tidak mau menunggu, ganti dengan foto stok atau diagram.
@@ -265,7 +259,10 @@ Logo berformat SVG diunduh sebagai PNG transparan (dan vektornya kalau server me
 
 **Musik (opsional)**: hanya kalau user minta atau memberi filenya. Taruh di `video/public/music/`, isi `music` di `edit.json`, volume 0,05 sampai 0,08 (jauh di bawah suara). Jangan mengunduh lagu berhak cipta.
 
-**Gate:** setiap baris di `visual_plan.md` yang bukan "tetap di pembicara" punya file aset yang sudah dibuka dan dilihat. Setiap visual lolos pertanyaan "kata mana yang digambarkan". Sebagian besar visual berasal dari sumber nyata. Minimal dua tata letak dipakai.
+**Gate:** setiap kalimat punya baris di `visual_plan.md` yang menjawab rantai keputusan (termasuk kalimat tanpa grafik, dengan alasan).
+Setiap visual punya aset yang sudah dibuka dan dilihat, dan sumbernya terjangkau dari container (atau sudah diminta ke user, dengan cadangan
+bertanda `ASUMSI`). Setiap visual buatan kode punya alasan satu kalimat. Kata jangkar dan durasi rencana tiap visual tertulis. Hasil lintasan
+keseluruhan (2.2) tertulis.
 
 ### Tahap 7. Bangun timeline
 
@@ -277,14 +274,19 @@ python3 tools/build_timeline.py
 
 Baca laporannya setiap kali:
 
-- Durasi total, persentase yang tertutup insert layar penuh, dan persentase panel `split`. Bandingkan dengan target.
+- `theme:` baris tampilan yang dipakai. Cek sama dengan keputusan di `work/brief.md`.
+- `QUIET CHECK`: jumlah perubahan visual, rata-rata dan rentang terpanjang, porsi layar (penuh / split / pembicara + overlay / pembicara saja).
+  Setiap `TOO QUIET` membuat build gagal: tambah visual yang menggambarkan kalimat di rentang itu, atau `quiet_ok` dengan alasan
+  (`edit-json.md` 4.6). Bandingkan porsi dan kepadatan dengan `visual-thinking.md` 7; kalau jauh lebih jarang atau jauh lebih padat
+  dari video sejenis, periksa ulang rencana dan tulis alasannya. Jangan menambah atau membuang visual hanya demi angka.
+- Daftar event dengan durasi: cek tiap durasi terhadap resep waktu baca (`visual-craft.md` 5).
 - `exposed jump cuts`: sambungan potongan yang terlihat. Di titik itu zoom otomatis berganti (punch-in). Kalau jumlahnya banyak dan berdekatan, pertimbangkan menutup sebagian dengan insert yang memang relevan, atau kurangi potongan.
 - `WARNING` event lebih pendek dari 20 frame, atau pembicara hanya terlihat beberapa frame di antara dua insert: perbaiki jangkarnya.
 - Error `full-screen events overlap`: dua insert bertabrakan. Geser salah satunya.
 - Error `split ... overlaps`: panel `split` bertabrakan dengan insert atau panel lain. Buat bersentuhan (jangkar yang sama) atau pisahkan.
 - `WARNING: overlay ... during split`: overlay dan panel sama-sama memakai bagian atas layar. Pindahkan salah satunya.
 
-**Gate:** tidak ada error dan tidak ada warning yang belum dijelaskan.
+**Gate:** tidak ada error (termasuk `theme` dan QUIET CHECK) dan tidak ada warning yang belum dijelaskan. Setiap `quiet_ok` punya alasan yang juga tertulis di `visual_plan.md`.
 
 ### Tahap 8. Loop still
 
@@ -305,11 +307,14 @@ Pilih frame: tengah setiap event, 2 sampai 3 frame di sekitar setiap awal dan ak
 - Wajah berada di posisi yang sama di semua klip (bandingkan frame dari klip berbeda, betulkan `framing`).
 - Panel `split`: kepala pembicara utuh di bawah panel (tidak terpotong tepi panel), dagu di atas subtitle. Kalau tidak pas, atur `shift` (seberapa jauh pembicara turun) dan `h` (tinggi panel) event itu. Logo dan tampilan aplikasi memakai `fit: "contain"` supaya tidak terpotong.
 - Insert terang: subtitle berwarna gelap dan terbaca. Insert gelap: subtitle putih.
-- Gaya konsisten dan bersih: font, warna, sudut membulat, bayangan. Setiap logo dan tampilan aplikasi atau situs terlihat seperti aslinya.
+- Satu sistem tampilan untuk elemen buatan sendiri; aset nyata tidak diwarnai ulang. Setiap logo dan tampilan aplikasi atau situs terlihat seperti aslinya.
+- Posisi rapi: wajah tidak tertutup, tidak ada yang penting di zona antarmuka platform, elemen sejenis di zona dan margin yang sama, satu fokus per frame (`visual-craft.md` 4).
+- Gerak: untuk setiap transisi atau gerak yang baru dibuat atau diubah, render still di frame berurutan (`node stills.mjs f f+1 f+2 ...` melintasi
+  transisinya) dan jalankan enam cek halus `visual-craft.md` 6. Elemen sudah terbaca penuh saat katanya mulai.
 
 Perbaiki, build, render still lagi. Ulangi sampai bersih. Jangan lanjut ke render penuh dengan still yang masih bermasalah.
 
-**Gate:** setiap event punya minimal satu still yang sudah dilihat dan lolos.
+**Gate:** setiap event punya minimal satu still yang sudah dilihat dan lolos. Uji diri `visual-thinking.md` Bagian 8 dijawab dengan bukti di `visual_plan.md`. Transisi baru lolos cek frame berurutan.
 
 ### Tahap 9. Render dan QA
 

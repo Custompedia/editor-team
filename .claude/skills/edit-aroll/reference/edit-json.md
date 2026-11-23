@@ -2,13 +2,19 @@
 
 ### 4.1 Contoh lengkap
 
-Contoh untuk video opini/edukasi (file `work/edit.example.json` di kit). Isinya contoh, bentuknya yang dipakai. Salin menjadi `work/edit.json` lalu ganti isinya.
+Contoh bentuk `edit.json` (file `work/edit.example.json` di kit). Salin menjadi `work/edit.json` lalu ganti isinya.
+
+**Ini contoh format, bukan resep.** Contoh ini memakai hampir semua jenis event supaya setiap field terlihat. Video nyata memakai
+jenis yang dibutuhkan kalimatnya saja (`visual-thinking.md`). Blok `theme` di contoh sengaja ditolak build (alasannya diawali
+`CONTOH`): tampilan diputuskan per video (4.5).
 
 <!-- file: work/edit.example.json -->
 ```json
 {
   "fps": 30,
   "clips": {"A": "take1", "B": "take3"},
+  "theme": {"accent": "#2F6FED", "light": "#F5F5F7", "ink": "#1D1D1F", "font_text": "Plus Jakarta Sans", "font_emph": "Plus Jakarta Sans", "emph_style": "normal",
+            "why": "CONTOH, ganti dengan alasanmu: aksen = warna tombol utama di situs brand; font = font situs brand (terpasang sebagai font sistem)"},
   "segments": [
     {"clip": "B", "in": 12.4, "out": 16.85},
     {"clip": "A", "in": 0.62, "out": 21.3},
@@ -23,6 +29,8 @@ Contoh untuk video opini/edukasi (file `work/edit.example.json` di kit). Isinya 
   "sub_max_chars": 24,
   "sub_max_words": 4,
   "outro_frames": 60,
+  "max_quiet_s": 6.0,
+  "quiet_ok": [{"from": ["B", 60], "to": ["B", 98, 0, "e"], "why": "cerita pribadi soal gaji pertama: ekspresi pembicara adalah isinya, visual malah mengganggu"}],
   "music": {"src": "music/bed.mp3", "volume": 0.06},
   "events": [
     {"type": "title", "start": 4, "end": ["B", 54], "line1": "KENAPA GAJI", "line2": "Selalu habis"},
@@ -50,6 +58,7 @@ Contoh untuk video opini/edukasi (file `work/edit.example.json` di kit). Isinya 
 |---|---|
 | `fps` | 30. Skrip QA mengasumsikan 30 |
 | `clips` | Huruf pendek untuk tiap klip: `{"A": "<nama file di video/public tanpa .mp4>"}`. Transkripnya dibaca dari `work/tx/<nama>.json` |
+| `theme` | **Wajib, tanpa bawaan.** Tampilan video ini: `accent` (warna kata besar, stabilo, angka chip, batang penting), `light` (latar panel/diagram terang), `ink` (teks gelap), `font_text` (font subtitle dan UI), `font_emph` (font kata besar, judul baris 2, angka label; boleh sama dengan `font_text`), `emph_style` (`"italic"` atau `"normal"`), `why` (alasan pilihan, sama dengan yang ditulis di `work/brief.md`). Opsional: `on_accent` (warna teks di atas isian aksen; bawaan dihitung otomatis: `ink` atau putih, mana yang lebih kontras), `marker` (warna stabilo screenshot; bawaan `accent`, wajib terang karena dicampur multiply). Lihat 4.5 |
 | `segments` | Bagian yang dipakai, **dalam urutan tampil**: `clip`, `in`, `out` (detik di klip sumber). Segmen dari klip yang sama tidak boleh saling tumpang tindih |
 | `framing` | Per klip: `scale`, `x`, `y` (piksel) supaya wajah berada di posisi yang sama di semua klip |
 | `timing` | Koreksi waktu kata: `{"A": {"<indeks>": [mulai, selesai]}}` |
@@ -58,6 +67,8 @@ Contoh untuk video opini/edukasi (file `work/edit.example.json` di kit). Isinya 
 | `keep_case` | Kata yang huruf besarnya dipertahankan di subtitle |
 | `sub_max_chars`, `sub_max_words` | Panjang maksimum satu potong subtitle. Default 24 karakter, 4 kata |
 | `outro_frames` | Frame tambahan setelah segmen terakhir untuk kartu penutup. 45 sampai 75 |
+| `max_quiet_s` | Opsional, bawaan `6.0`. Rentang terpanjang (detik) tanpa perubahan visual sebelum `build_timeline.py` menolak build. Perubahan visual = event masuk/keluar, item/klik/stabilo muncul di dalam event, atau zoom pembicara berganti. Kata subtitle tidak dihitung. Outro tidak dihitung. Waktu di atas footage bergerak (`clip`, atau `split` dengan `src` video) tidak pernah dihitung sepi. Lihat 4.6 |
+| `quiet_ok` | Opsional: `[{"from": <jangkar>, "to": <jangkar>, "why": "<alasan>"}]`. Menyatakan bahwa rentang tanpa perubahan visual di situ memang disengaja. `why` wajib. Lihat 4.6 |
 | `music` | Opsional: `{"src": "music/bed.mp3", "volume": 0.06}` |
 | `full_types` | Opsional: daftar jenis event yang menutup seluruh layar. Default `photo, clip, screenshot, custom, outro`. `split` bukan layar penuh |
 | `events` | Semua visual. Lihat 4.3 |
@@ -88,7 +99,7 @@ Insert layar penuh:
 |---|---|---|
 | `photo` | `img`, `label`, `num`, `sub`, `pos`, `dim` (semua opsional kecuali `img`) | Foto asli atau gambar buatan, zoom pelan |
 | `clip` | `src`, `from` (detik), `label`, `num`, `sub`, `pos`, `dim` | Footage B-roll atau rekaman layar, tanpa suara |
-| `screenshot` | `img`, `img_w`, `img_h`, `source`, `highlights` [`x`,`y`,`w`,`h`], `scroll`, `click` {`x`,`y`}, `click_at` | Halaman asli. Stabilo, scroll, dan kursor yang mengklik |
+| `screenshot` | `img`, `img_w`, `img_h`, `source` (opsional: label "SUMBER" + teks), `highlights` [`x`,`y`,`w`,`h`, `at`], `scroll`, `click` {`x`,`y`}, `click_at` | Halaman asli sebagai kartu. Stabilo, scroll, dan kursor yang mengklik. `highlights[].at` = frame sejak awal event (bukan jangkar; bawaan 20, 46, 72...): hitung dari laporan build |
 | `custom` | `name` + field bebas | Diagram SVG sendiri. `bars` sudah tersedia |
 | `outro` | `img`, `logo`, `handle`, `cta` | Kartu penutup |
 
@@ -106,26 +117,26 @@ Dua insert berantai: tulis jangkar yang persis sama untuk `end` insert pertama d
 
 ### 4.4 Menambah visual sendiri
 
-Kalau satu kalimat butuh visual yang belum ada (garis waktu, peta, perbandingan dua kolom, diagram ukuran), tulis komponen baru di `Visuals.tsx` dan daftarkan di `CUSTOM`:
+Baca dulu kebijakan kode di `visual-thinking.md` Bagian 5 dan tulis alasan satu kalimat di `work/visual_plan.md`. Kalau satu kalimat butuh visual yang belum ada dan tidak ada aset nyata yang bisa memperlihatkannya (garis waktu, perbandingan dua kolom, diagram ukuran), atau butuh cara menyajikan aset nyata yang belum ada di kit (`visual-craft.md` 9), tulis komponen baru di `Visuals.tsx` dan daftarkan di `CUSTOM`:
 
 ```tsx
 const Timeline: React.FC<{e: any}> = ({e}) => {
   const f = useCurrentFrame();                       // 0 = frame pertama insert ini
   const draw = interpolate(f, [6, 30], [1, 0], {...cl, easing: ease});
-  const hi = e.color || '#0A84FF';
+  const hi = e.color || ACCENT;
   return (
     <AbsoluteFill style={{background: LIGHT}}>
       <Label ink label={e.label} sub={e.sub} />
       <svg width={1080} height={1920} style={{position: 'absolute'}}>
-        <path d="M140 900 H940" stroke="#C7C7CC" strokeWidth={8} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={draw} />
+        <path d="M140 900 H940" stroke={INK} strokeOpacity={0.2} strokeWidth={8} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={draw} />
         {e.points.map((p: any, i: number) => {
           const g = sp(f, 14 + i * 10);
           const x = 140 + (800 * i) / (e.points.length - 1);
           return (
             <g key={i} opacity={g}>
               <circle cx={x} cy={900} r={18 * g} fill={i === e.points.length - 1 ? hi : INK} />
-              <text x={x} y={840} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={44} fill={INK}>{p.year}</text>
-              <text x={x} y={970} textAnchor="middle" fontFamily={SANS} fontWeight={600} fontSize={30} fill="#6E6E73">{p.text}</text>
+              <text x={x} y={840} textAnchor="middle" fontFamily={SERIF} fontStyle={EMPH_STYLE} fontWeight={800} fontSize={44} fill={INK}>{p.year}</text>
+              <text x={x} y={970} textAnchor="middle" fontFamily={SANS} fontWeight={600} fontSize={30} fill={INK} opacity={0.6}>{p.text}</text>
             </g>
           );
         })}
@@ -141,7 +152,47 @@ Aturan untuk komponen baru:
 - Jangan menulis transisi masuk atau keluar sendiri. `Insert` sudah mengurusnya.
 - Gambar dengan SVG yang tumbuh (`strokeDashoffset`, tinggi batang, `sp()` untuk kemunculan). Elemen muncul berurutan mengikuti ucapan, bukan sekaligus.
 - Semua gerak dihitung dari `useCurrentFrame()`. Jangan pakai animasi CSS atau `setTimeout`, karena tidak ikut ter-render.
-- Pakai `SANS`, `SERIF`, `LIGHT`, `INK`, `ACCENT` dari `theme.ts`. Latar bawaan diagram adalah `LIGHT` dengan teks `INK` (`<Label ink ... />`) dan satu warna penekanan untuk hal yang paling penting. Boleh diganti mengikuti brand, asal tetap bersih dan terbaca. Isi teks dan angka datang dari `edit.json`, bukan ditulis di komponen.
-- Satu diagram satu gagasan. Paling banyak 5 sampai 6 elemen dan banyak ruang kosong.
+- Pakai `SANS`, `SERIF` (font penekanan, belum tentu serif) dengan `fontStyle: EMPH_STYLE`, `LIGHT`, `INK`, `ACCENT`, `ON_ACCENT` dari `theme.ts`. Nilainya datang dari `theme` di `edit.json`; jangan menulis warna atau font sendiri di komponen. Isi teks dan angka datang dari `edit.json`, bukan ditulis di komponen. Warna latar diagram mengikuti look video; satu warna penekanan untuk hal yang paling penting.
+- Satu diagram satu gagasan, sedikit elemen, banyak ruang kosong: diagram yang ramai tidak terbaca di HP.
 - Area aman: konten utama di y 150 sampai 1200. Area y 1270 sampai 1530 milik subtitle. Di bawah 1530 tertutup antarmuka aplikasi.
 - Setelah menulis: `npx tsc --noEmit -p .` di `video/`, lalu still di tiga titik (awal, tengah, akhir insert).
+
+### 4.5 `theme`: tampilan diputuskan per video
+
+Tidak ada tampilan bawaan. `build_timeline.py` berhenti kalau `theme` tidak ada, kalau isinya salah, atau kalau `why` masih teks contoh.
+Bentuknya (nilai di bawah hanya tempat isian; build menolaknya sampai diganti):
+
+    "theme": {"accent": "#RRGGBB", "light": "#RRGGBB", "ink": "#RRGGBB",
+              "font_text": "<nama family terpasang>", "font_emph": "<nama family terpasang>", "emph_style": "normal",
+              "why": "<alasan: dari brand / footage / nada isi, sama dengan di work/brief.md>"}
+
+- Putuskan dengan cara di `visual-thinking.md` Bagian 6. Tulis pilihan dan alasannya di `work/brief.md`, lalu salin alasannya ke `why`.
+- Warna ditulis hex `#RRGGBB`. Font ditulis satu nama family persis seperti dicetak `fc-list : family` (tanpa kutip, tanpa `sans-serif`).
+- Font harus terpasang sebagai font SISTEM: taruh `.ttf/.otf` statis di `/home/user/editkit/fonts`, jalankan `bash /home/user/editkit/tools/install_fonts.sh` (mencetak nama family yang tersedia). Jangan pernah memuat web font.
+- `emph_style: "italic"` hanya kalau `font_emph` punya file italic. Tanpa file italic, build memberi WARNING karena Chrome memiringkan huruf secara palsu; family yang hanya punya file italic juga diberi WARNING bila diminta `"normal"`.
+- Aksen gelap: teks di atas aksen otomatis putih. Kalau video memakai stabilo screenshot, isi `marker` dengan versi pucat aksen (build memberi WARNING kalau terlalu gelap).
+- Diagram `bars` memakai `accent` untuk batang penting; tulis `color` di event kalau aksen kurang terbaca di atas `light`.
+- Mengganti tampilan = mengubah `theme` lalu menjalankan ulang `build_timeline.py`. Jangan menulis warna atau font di `theme.ts` atau komponen.
+
+### 4.6 Rentang sepi: `max_quiet_s` dan `quiet_ok`
+
+Video tidak boleh lama diam secara visual (permintaan pemilik). Setiap kali dijalankan, `build_timeline.py` menghitung semua rentang di antara dua perubahan visual
+(event masuk/keluar, item `chips`/`bubbles` muncul, `click_at`/`x_at`, stabilo screenshot, zoom pembicara). Kata subtitle tidak dihitung.
+Waktu di atas footage BERGERAK (insert `clip`, atau `split` dengan `src` video) tidak pernah dihitung sepi, karena gambarnya bergerak dan
+memperlihatkan sesuatu. Hitungan mulai lagi dari nol saat footage itu selesai. Insert DIAM (`photo`, `screenshot`, `custom`) yang ditahan lebih lama
+dari batas tanpa item/stabilo/klik baru tetap dihitung sepi.
+Laporan `QUIET CHECK` dibaca setiap kali: jumlah perubahan, rata-rata panjang rentang, rentang terpanjang, porsi layar penuh / split /
+pembicara+overlay / pembicara saja, dan setiap rentang yang lebih panjang dari `max_quiet_s` (bawaan 6 detik) beserta kalimat yang diucapkan di situ.
+
+Rentang yang terlalu panjang membuat build GAGAL sampai diputuskan. Ini KEPUTUSAN, bukan kuota:
+- Kalimatnya punya sesuatu yang bisa diperlihatkan → tambah visual yang menggambarkan kalimat itu (insert, `split`, item `chips`, klik, stabilo).
+  Bukan hiasan untuk memenuhi angka.
+- Pembicara saja memang paling tepat (cerita pribadi, momen emosional, wajah dan ekspresi adalah isinya) → tulis entri `quiet_ok`:
+
+    "quiet_ok": [{"from": ["A", 66], "to": ["A", 116, 0, "e"], "why": "cerita pribadi: ekspresi pembicara adalah isinya"}]
+
+  Jangkarnya sama dengan jangkar event. Entri harus menutup rentang itu (toleransi 1 detik di kedua ujung). Pesan error sudah mencetak
+  usulan jangkar dari kata pertama sampai kata terakhir rentang itu. Alasan yang sama ditulis juga di `work/visual_plan.md`.
+- `max_quiet_s` hanya dinaikkan kalau brief memang meminta gaya yang lebih tenang. Tulis alasannya di `work/brief.md`.
+
+Sebagai pembanding: dua editor referensi menjaga rentang pembicara-saja terpanjang di sekitar 2,5 sampai 7 detik. job01 v4 yang ditolak punya 16,5 detik.

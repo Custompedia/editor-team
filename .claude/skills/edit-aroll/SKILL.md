@@ -13,8 +13,9 @@ jangan mengerjakan sebuah tahap dari ingatan. Catat di `work/STATE.md` file refe
 | `reference/kit.md` | Menyiapkan job, struktur folder, daftar skrip, arsitektur | Sebelum Tahap 0 |
 | `reference/workflow.md` | 11 tahap (0–10) lengkap dengan perintah dan gate | Sebelum Tahap 0; baca ulang bagian tahapnya saat mengerjakan |
 | `reference/edit-json.md` | Format `work/edit.json`, jangkar waktu, jenis event, cara menambah visual | Sebelum Tahap 4 |
-| `reference/style-notes.md` | Standar kualitas user (18 prinsip dari video referensinya) + "Quality bar" | Sebelum Tahap 6; checklist bagian 4 sebelum render |
-| `reference/design.md` | Standar desain bawaan + penyesuaian per jenis roll (struktur cerita, kepadatan) | Sebelum Tahap 3 (bagian 6) dan Tahap 6 (bagian 5) |
+| `reference/visual-thinking.md` | Kapan memberi visual dan kapan tidak, aset nyata dan yang bisa dijangkau dari sini, kebijakan kode, look per video, kalibrasi, uji diri, contoh penalaran | Bagian 4 dan 6 sebelum menulis brief (Tahap 0); seluruhnya sebelum Tahap 6; Bagian 8 sebelum render penuh |
+| `reference/visual-craft.md` | Menyajikan berita/dokumen, kapan memotong, posisi, timing, gerak, caption, terlalu jarang vs terlalu ramai, apa yang kit bisa sekarang | Sebelum Tahap 6; Bagian 5–6 lagi di Tahap 8 |
+| `reference/design.md` | Struktur cerita per jenis roll, suara, sumber 16:9, bahasa lain | Sebelum Tahap 3 |
 | `reference/troubleshooting.md` | Masalah khusus cloud + masalah umum | Saat ada yang gagal, sebelum mencari sebab lain |
 
 Kode skrip dan komponen tidak ditempel di skill ini: sumbernya file di folder job (`tools/`, `video/src/`).
@@ -34,13 +35,21 @@ Guide asli utuh (termasuk instalasi di komputer lokal) diarsipkan di repo `docs/
 
 ## Preferensi user (berlaku di setiap video)
 
-- **Tidak ada satu gaya tetap.** Kuning `#FFD60A`, font, dan UI bawaan kit hanya titik awal. Warna, aksen, pola warna teks, dan
-  font mengikuti brief, brand, dan footage; tulis pilihan + alasannya di `work/brief.md`, atur di `video/src/theme.ts`.
-- **Bersih tidak sama dengan sepi.** Rapi dan konsisten, tetapi visual harus cukup banyak dan jelas, di momen yang tepat
-  (patokan: ±1 beat visual tiap ±5 dtk, layar penuh ±30–40%, wajah tanpa visual paling lama ±7 dtk). Rinciannya di `reference/style-notes.md`.
-- **Gambarkan konsep yang diucapkan**, dengan aset nyata yang bagus (halaman asli, foto asli, logo asli brand) lebih dulu
-  daripada gambar buatan kode. Catat URL sumber + lisensi tiap aset.
-- **Prinsip, bukan cetakan.** Referensi dipakai untuk memahami kenapa sebuah edit bagus, bukan untuk ditiru di semua video.
+Dari pemilik langsung; ini syarat, bukan gaya satu editor. Detail dan alasannya di `visual-thinking.md` dan `visual-craft.md`.
+
+- **Putuskan per kalimat, dengan alasan tertulis:** visual atau tidak, layar penuh atau tidak, kapan muncul dan berapa lama. Bukan
+  bawaan, bukan kuota. Alasan: video yang bagus memberi gambar tepat di saat penonton butuh melihat, dan wajah saat isinya pendapat.
+- **Aset nyata dulu, selalu.** Berita → potongan situs beritanya; DM Instagram → Instagram yang asli (dari user kalau terkunci login);
+  brand → logo aslinya. Gambar buatan kode hanya dengan alasan tertulis kenapa tidak ada aset nyata. Alasan: yang nyata dikenali sekejap
+  dan dipercaya; banyak gambar kode tidak pernah terlihat rapi. Tampilan aplikasi atau artikel palsu sebagai bukti tidak pernah boleh.
+- **Visualnya cocok:** memperlihatkan konsep yang diucapkan (uji: tutup subtitle-nya).
+- **Tidak pernah lama sepi, tidak terlalu ramai.** Rentang panjang tanpa perubahan gambar ditolak build (`max_quiet_s`); pemilik menolak
+  job01 v4 yang punya 16 detik. Tetapi satu fokus per frame, dan visual yang tidak menambah apa pun dihapus.
+- **Gunakan setiap momen dengan kreatif:** ucapan orang lain → gelembung chat kiri/kanan; nama → bendanya; belokan → perubahan seluruh gambar.
+- **Potong dengan alasan, posisi rapi, gerak halus dan bermakna:** audio tidak pernah dipotong di tengah kalimat; wajah tidak tertutup;
+  gerak dicek di frame berurutan.
+- **Tidak ada gaya tetap.** Look diputuskan per video dari brand, footage, dan nada isi, ditulis di `work/brief.md` dan blok `theme`
+  di `work/edit.json` (build menolak job tanpa `theme`). Kalau ada profil brand (`/home/user/editor-team/docs/brands/<brand>.md`, disebut lead di brief), ikuti.
 
 ## Bagian 1. Cara berpikir
 
@@ -64,12 +73,12 @@ Agent tidak bisa memutar video. Hasil yang flat hampir selalu terjadi karena age
 
 1. **Cerita dulu, baru potong.** Naskah final ditulis dan dicek sebelum ada satu pun keputusan visual.
 2. **Semua waktu ditambatkan ke kata.** Setiap subtitle, visual, dan efek suara menunjuk indeks kata di transkrip, bukan angka frame yang diketik tangan. Saat titik potong digeser, semuanya ikut bergeser otomatis.
-3. **Visual menggambarkan kalimat yang sedang diucapkan.** Untuk setiap visual harus bisa dijawab: kata mana yang digambarkan, dan kenapa penonton terbantu? Kalau tidak bisa dijawab, visualnya dibuang.
-4. **Sumber nyata dulu.** Urutannya: screenshot halaman atau aplikasi asli, foto/footage/logo asli, lalu SVG buatan sendiri untuk angka dan diagram, lalu gambar hasil image generation. Kotak berisi teks yang dianimasikan adalah pilihan terakhir, bukan gaya utama. Tampilan aplikasi atau situs dibuat dari tampilan aslinya, bukan dikarang.
+3. **Visual menggambarkan kalimat yang sedang diucapkan.** Untuk setiap visual harus bisa dijawab: kata mana yang digambarkan, dan kenapa penonton terbantu? Kalau tidak bisa dijawab, visualnya dibuang. Uji: tutup subtitle-nya; apakah gambarnya masih menjelaskan kata itu?
+4. **Sumber nyata dulu.** Aset nyata dari hal yang dibicarakan (halaman, aplikasi, foto, footage, logo asli); kode untuk menggerakkannya dan untuk hal yang tidak punya gambar, dengan alasan tertulis; image generation hanya untuk benda tanpa foto nyata, tidak pernah untuk orang nyata, logo, tampilan aplikasi, atau bukti. Tampilan aplikasi yang terkunci login tidak digambar ulang: minta rekaman atau screenshot ke user (`visual-thinking.md` 4).
 5. **Sedikit cut.** Yang dibuang hanya take ulang, salah ucap, jeda mati, dan kalimat yang tidak menambah apa-apa. Tidak ada potongan di tengah kalimat.
 6. **Lihat hasil sendiri sebelum menyerahkan.** Setiap tahap yang menghasilkan gambar diakhiri dengan membuka gambarnya.
 7. **Revisi hanya menyentuh yang diminta.** Bagian yang sudah disetujui tidak diubah.
-8. **Bersih dan sesuai dunia nyata.** Tampilan rapi dan tidak ramai. Gaya visual mengikuti hal nyata yang sedang dibicarakan (aplikasinya, situsnya, brand-nya), bukan satu gaya tetap. Tata letak berganti dari scene ke scene, dan gerak hanya di tempat yang membantu memahami ucapan.
+8. **Bersih dan sesuai dunia nyata.** Satu fokus per frame. Gaya visual mengikuti hal nyata yang dibicarakan (aplikasinya, situsnya, brand-nya), bukan satu gaya tetap. Gerak hanya di tempat yang membantu memahami ucapan.
 
 ### 1.3 Cara kerja bertahap
 
@@ -80,15 +89,15 @@ Kerjakan tahap 0 sampai 10 berurutan (Bagian 3). Setiap tahap menulis hasilnya k
 | Tahap | Isi | Hasil | Gate singkat |
 |---|---|---|---|
 | Pra | Kesiapan | `doctor.py` → `RESULT: READY` | READY |
-| 0 | Brief dan bahan | `work/brief.md`, klip di `raw/` | Jenis konten, durasi, CTA terisi; asumsi ditandai `ASUMSI`; ejaan nama brand dicek |
+| 0 | Brief dan bahan | `work/brief.md`, klip di `raw/` | Jenis konten, durasi, CTA terisi; look diputuskan dengan alasan; daftar "Butuh dari user" dilaporkan ke lead; asumsi ditandai `ASUMSI`; ejaan nama brand dicek |
 | 1 | Normalisasi, melihat footage | `video/public/*.mp4`, `work/look_*.jpg`, `work/footage.md` | Semua contact sheet DIBUKA; benda yang ditunjukkan dicatat dengan waktunya |
 | 2 | Transkrip, peta roll | `work/tx/*`, `work/roll_map.md` | Tiap kalimat bertanda; tiap kelompok take ulang punya satu pemenang |
 | 3 | Naskah final | `work/script.md` | Hook ≤3 dtk; uji sambungan lolos; yang dibuang punya alasan |
 | 4 | Titik potong presisi (envelope) | `segments` di `work/edit.json` | Tiap in/out di titik < −30 dB; tidak ada potong di tengah kata |
 | 5 | Teks subtitle | `text`/`script`/`timing` | Daftar subtitle terbaca sebagai naskah utuh; nama benar |
-| 6 | Rencana visual dan aset | `work/visual_plan.md`, aset di `video/public/` | Tiap visual menjawab "kata mana yang digambarkan"; aset sudah DILIHAT; ≥2 tata letak |
-| 7 | Bangun timeline | `events`, `video/src/data.json` | 0 error; tiap warning dijelaskan |
-| 8 | Loop still | `work/qa_stills.jpg` | Tiap event punya still yang lolos; Quality bar (style-notes §4) lolos; QA 5 dicek lebih dulu |
+| 6 | Rencana visual dan aset | `work/visual_plan.md`, aset di `video/public/` | Tiap kalimat punya keputusan + alasan; tiap visual punya kata jangkar, durasi, aset yang sudah DILIHAT dan terjangkau; tiap visual kode punya alasan |
+| 7 | Bangun timeline | `theme`, `events`, `video/src/data.json` | 0 error (termasuk `theme` dan QUIET CHECK); tiap warning dan tiap `quiet_ok` dijelaskan |
+| 8 | Loop still | `work/qa_stills.jpg` | Tiap event punya still yang lolos; posisi rapi; transisi baru lolos cek frame berurutan; uji diri (`visual-thinking.md` 8) dijawab dengan bukti; QA 5 dicek lebih dulu |
 | 9 | Render dan 5 QA | `out/final_vN.mp4`, log QA | Kelima QA lolos PADA FILE YANG DIKIRIM (+ blackdetect 0) |
 | 10 | Serah terima, revisi | laporan, `final_v(N+1)` | Revisi hanya menyentuh yang diminta; versi lama disimpan |
 
@@ -98,7 +107,8 @@ Kerjakan tahap 0 sampai 10 berurutan (Bagian 3). Setiap tahap menulis hasilnya k
 - Agent melihat frame, bukan gerak. Kelancaran gerak dinilai dari strip frame berurutan. Itu menangkap frame yang salah, tetapi rasa tempo tetap perlu mata manusia.
 - Ejaan nama yang hanya terdengar di audio bisa salah. Selalu laporkan sebagai asumsi.
 - Yang sudah dijalankan pada project nyata: output 9:16 (1080x1920 dan skala lebih besar), Linux. Yang belum: output 16:9, macOS dan Windows/WSL2, GPU. Di sana, jalankan `doctor.py` dan loop still lebih teliti.
-- Pencarian stok lewat browser bergantung pada tampilan situs saat ini. Kalau situsnya berubah, pakai sumber cadangan atau aset dari user.
+- Dari container ini Instagram/TikTok/Facebook (login), Pexels dan Wikimedia (diblokir), dan YouTube tidak bisa dipakai. Tampilan aplikasi berlogin datang dari rekaman atau screenshot user, bukan digambar ulang (`visual-thinking.md` 4).
+- Beberapa teknik editor acuan (masuk langsung tanpa fade, hitam-putih pada pembicara, punch-in di kata pilihan, strip judul di bawah dagu) belum ada di kit: lihat `visual-craft.md` 9.
 - Selera (warna, font, seberapa ramai) berbeda tiap orang. Versi pertama adalah usulan. Revisi dikerjakan dengan aturan tahap 10.
 - Guide ini membuat prosesnya bisa diulang. Kualitas akhir tetap bergantung pada apakah setiap gate benar-benar dikerjakan dan setiap gambar QA benar-benar dibuka.
 
@@ -111,9 +121,9 @@ Sebelum mengirim, semua harus tercentang:
 - [ ] Setiap potongan di titik sunyi. `verify_audio.py` bersih di semua sambungan.
 - [ ] Subtitle sama dengan ucapan, nama dieja benar, kata besar seperlunya.
 - [ ] Setiap visual menggambarkan kalimatnya dan sumbernya dicatat.
-- [ ] Sebagian besar visual dari sumber nyata. Tidak ada tiga jenis visual sama berturut-turut. Minimal dua tata letak.
+- [ ] Uji diri `visual-thinking.md` Bagian 8 dijawab dengan bukti. Setiap visual buatan kode punya alasan tertulis.
 - [ ] Tampilan bersih. Logo dan tampilan aplikasi atau situs memakai bahan asli dan terlihat seperti aslinya. Gerak hanya yang membantu.
-- [ ] Insert menutup 20 sampai 45% durasi. Tidak ada 8 detik tanpa perubahan visual.
+- [ ] QUIET CHECK lolos; setiap `quiet_ok` punya alasan. Kepadatan dan porsi layar dibandingkan dengan `visual-thinking.md` 7; selisih besar dijelaskan.
 - [ ] Semua strip transisi sudah dilihat. `scene_check.py`: 0 yang tidak terjelaskan.
 - [ ] Teknis: 1080x1920 (atau 1440x2560), 30 fps, `yuv420p` BT.709, sekitar -15 LUFS, file bisa diputar.
 - [ ] Semua pemeriksaan dilakukan pada file yang dikirim.
@@ -125,6 +135,9 @@ Video: out/final_v1.mp4 (durasi, ukuran)
 Potongan: klip yang dipakai, klip atau bagian yang dibuang dan alasannya
 Visual sumber nyata: daftar singkat + URL
 Visual lain: foto stok (dengan lisensi yang butuh atribusi), diagram, gambar buatan
+Visual buatan kode: daftar + alasan satu kalimat masing-masing
+Rentang sepi: angka QUIET CHECK, porsi layar, setiap quiet_ok + alasan
+Diminta dari user: daftar, dan apa yang dipakai sementara
 Asumsi yang perlu dikonfirmasi: ejaan nama, CTA, dan sebagainya
 Belum diverifikasi: belum didengarkan langsung; apa pun yang gagal atau dilewati
 ```
