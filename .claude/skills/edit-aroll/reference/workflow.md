@@ -45,6 +45,16 @@ Folder privat tidak bisa diunduh: minta user membuka aksesnya ("siapa saja yang 
 
 **Brief.** Tulis `work/brief.md` sebelum menyentuh video:
 
+- **Pemilik video (putuskan lebih dulu; `SKILL.md`, "Berlaku untuk siapa saja").** Salah satu dari: brand yang sudah punya profil,
+  perusahaan/brand baru, atau tanpa perusahaan. Tulis buktinya: apa kata user, apa kata lead di brief, dan (setelah Tahap 2) apa yang
+  diucapkan dan terlihat di footage (nama usaha, produk, logo di latar, ajakan memesan). Brief dari lead yang menyebut sebuah brand
+  adalah dugaan sampai footage atau user membenarkannya. Kalau footage menunjuk ke usaha lain atau ke tanpa usaha, hentikan asumsi
+  itu, laporkan ke lead, dan jangan memakai profil brand tersebut.
+  - *Brand berprofil:* baca profilnya; setiap fakta di dalamnya (akun, logo, warna) dicek ulang, bukan disalin.
+  - *Perusahaan baru:* kumpulkan dari user dan bahan resmi usaha itu: ejaan nama, akun, situs, logo, warna (dari pixel bahan resmi).
+    Cari beberapa varian ejaan di web sebelum menulis nama. Catat temuan di laporan supaya lead bisa membuat `docs/brands/<brand>.md`.
+  - *Tanpa perusahaan:* tulis "tanpa brand". Tidak ada logo, warna brand, akun usaha, atau closing brand. Akun pribadi pembicara
+    hanya ditampilkan kalau user memintanya atau pembicara menyebutnya.
 - Jenis konten (lihat Bagian 6) dan satu kalimat: apa yang harus dibawa pulang penonton.
 - Platform, rasio, dan durasi target. Default: 9:16, 45 sampai 150 detik, 1080x1920. Kalau user minta lebih tajam, render dengan skala 1.3334 (1440x2560, tahap 9).
 - Siapa penontonnya.
@@ -57,8 +67,10 @@ Folder privat tidak bisa diunduh: minta user membuka aksesnya ("siapa saja yang 
   logo, foto produk, ejaan nama, akun). Tulis di `work/STATE.md` bagian "Butuh dari user" dan laporkan ke lead SEKARANG, bukan di Tahap 6.
   Lanjutkan dengan cadangan bertanda `ASUMSI` selama menunggu.
 - **Tanya di awal (permintaan pemilik, job02):** daftar itu selalu memuat, dengan usulan bawaan untuk tiap butir supaya user cukup
-  menjawab "ya": (1) isi penutup: logo dan tanda brand apa saja, akun, situs, ajakan; (2) file logo resmi; (3) musik: lagu pilihan
-  user atau bebas dicari; (4) foto/footage yang kemungkinan dibutuhkan naskah; (5) akun dan ejaan. Setelah Tahap 3 (naskah sudah
+  menjawab "ya": (1) video ini milik siapa (brand mana, atau tanpa brand); (2) isi penutup: untuk brand = logo dan tanda brand apa
+  saja, akun, situs, ajakan; tanpa brand = ajakan apa (ikuti, simpan, komentar) atau tanpa kartu penutup; (3) file logo resmi (hanya
+  kalau ada brand); (4) musik: lagu pilihan user atau bebas dicari; (5) foto/footage yang kemungkinan dibutuhkan naskah; (6) akun dan
+  ejaan nama. Usulan bawaan diambil dari video INI (footage, brief, profil brand yang sudah dibenarkan), tidak dari job brand lain. Setelah Tahap 3 (naskah sudah
   terbaca), kirim **pertanyaan naskah** ke lead dalam satu daftar kedua: kalimat mana yang butuh aset dari user, kalimat terakhir
   dan penutup yang diusulkan untuknya, kata yang tidak terverifikasi. Jangan menunggu jawaban; jangan pula menyimpan pertanyaan sampai laporan akhir.
 - Referensi gaya kalau ada: dipelajari untuk memahami KENAPA sebuah keputusan bekerja, bukan untuk ditiru bentuknya.
@@ -300,7 +312,8 @@ bagian terpanjang dan tidak melawan belokan. "Sesuai momen" berarti musik ikut b
 di kalimat pembalik, naik lagi di ajakan, selesai bersama penutup (bukan terpotong). Kit sekarang hanya punya satu lagu dengan satu
 volume dan fade di awal dan akhir (`edit-json.md`, `music`): perubahan per momen butuh komponen generik kecil (kebijakan kode) dan
 dilaporkan ke lead. Agent tidak mendengar: periksa lagu dengan angka (durasi, kenyaringan, bagian yang berubah lewat envelope) dan
-katakan di laporan bahwa rasa musiknya belum dinilai telinga. Aturan lama tetap: Taruh di `video/public/music/`, isi `music` di `edit.json`, volume 0,05 sampai 0,08 (jauh di bawah suara). Jangan mengunduh lagu berhak cipta.
+katakan di laporan bahwa rasa musiknya belum dinilai telinga. Teknis: taruh file di `video/public/music/`, isi `music` di
+`edit.json`, volume 0,05 sampai 0,08 (jauh di bawah suara). Jangan mengunduh lagu berhak cipta.
 
 **Gate:** setiap kalimat punya baris di `visual_plan.md` yang menjawab rantai keputusan (termasuk kalimat tanpa grafik, dengan alasan).
 Setiap visual punya aset yang sudah dibuka dan dilihat, dan sumbernya terjangkau dari container (atau sudah diminta ke user, dengan cadangan

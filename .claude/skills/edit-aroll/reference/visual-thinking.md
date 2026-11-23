@@ -6,7 +6,8 @@ file dan `visual-craft.md` dibaca sebelum Tahap 6; Bagian 8 (uji diri) dijawab s
 
 Tidak ada warna, font, bentuk, atau efek yang wajib. Setiap aturan punya alasan. Kalau situasimu tidak tercantum, jalankan
 rantai di Bagian 2, putuskan, dan tulis alasannya. Contoh di Bagian 9 berasal dari dua editor yang gayanya berbeda: yang ditiru
-adalah cara menimbangnya, bukan tampilannya.
+adalah cara menimbangnya, bukan tampilannya. Nama brand di contoh mana pun (di file ini banyak dari satu brand kemasan, karena dari
+sanalah buktinya) tidak membuat aturannya milik brand itu: file ini dipakai untuk perusahaan mana pun dan untuk video tanpa perusahaan.
 
 ---
 
@@ -133,25 +134,44 @@ pakai yang asli, atau minta ke user (Bagian 4).
 
 ---
 
-### Tiga putusan pemilik dari job02 (berlaku umum)
+### Tiga putusan pemilik (berlaku untuk video apa pun)
 
-Pemilik menilai tiga visual job02 v4 dan memberi arah. Alasannya ikut ditulis supaya bisa diterapkan ke kasus lain.
+Asalnya penilaian pemilik atas satu video (job02, brand kemasan). Yang dibawa ke video lain adalah PRINSIP dan alasannya; kasus
+asalnya hanya contoh. Tiap prinsip diberi contoh dari bidang lain supaya tidak terbaca sebagai aturan satu brand.
 
-- **Momen ditunjukkan sebagai momennya.** Kalimat "mepet abis Natal, terus abis itu Lebaran" digambarkan dengan foto packaging Natal
-  dan box Lebaran milik brand; pemilik: "mending momen bener-bener foto asli, bukan packaging, dan 1 layar full". Yang diucapkan adalah
-  WAKTU (dua hari raya yang berurutan), bukan produk. Uji tutup-subtitle untuk nama hari raya, musim, atau peristiwa: penonton harus
-  mengenali momennya (suasana Natal yang nyata, suasana Lebaran yang nyata), layar penuh karena itu untuk dirasakan dan dikenali
-  sekejap. Produk brand untuk momen itu baru cocok ketika kalimatnya memang membicarakan produknya. Ini kasus khusus dari pertanyaan
-  "kata mana yang digambarkan": jangan membelokkan setiap kata benda ke produk brand.
-- **Halaman ditunjukkan sebagai halaman.** "Konsultasi dulu di Parcelin" ditampilkan sebagai kartu bersudut bulat di tengah latar
-  gelap; pemilik: "1 halaman aja, jangan cuma card di tengah, aneh". Situs atau aplikasi yang DITUJU penonton memenuhi layar seperti
-  saat dibuka di HP (tangkapan viewport HP 9:16, lalu scroll atau kursor ke tombol yang dimaksud). Kartu/potongan hanya untuk KUTIPAN:
-  sebagian kecil halaman yang dibaca (judul berita, satu paragraf), seperti di `visual-craft.md` 1.
-- **Penutup mengikuti kalimat terakhir.** Kalimat terakhir "Karena lebih cepat lebih baik" (slogan/kesimpulan) ditutup dengan kartu
-  profil Instagram; pemilik: "harusnya animasi closing logo Parcelin dkk; kalau ada 'hubungi aku' di akhir, baru bisa pakai approach
-  yang sekarang". Tanyakan: kalimat terakhir menyuruh penonton apa? Menghubungi orangnya → tempat menghubunginya (profil, kontak).
-  Slogan, kesimpulan, atau ajakan memesan ke brand → closing brand: logo asli beranimasi rapi, tanda brand lain yang diminta user,
-  akun dan situs seperlunya. Isi closing ditanyakan ke user di awal (`workflow.md` Tahap 0), bukan diputuskan sendiri di akhir.
+**1. Momen ditunjukkan sebagai momennya.** Kalau yang diucapkan adalah waktu, hari raya, musim, atau peristiwa, gambarnya foto atau
+footage nyata dari momen itu, layar penuh (untuk dikenali dan dirasakan sekejap). Bukan produk atau barang milik pembicara yang
+kebetulan bertema sama.
+- Kasus asal: "mepet abis Natal, terus abis itu Lebaran" digambarkan dengan foto kemasan Natal dan kotak Lebaran milik brand. Pemilik:
+  "mending momen bener-bener foto asli, bukan packaging, dan 1 layar full". Yang diucapkan adalah dua hari raya yang berurutan.
+- Bidang lain: guru les berkata "pas musim ujian" → suasana ujian yang nyata, bukan brosur lesnya. Kedai kopi berkata "tiap 17
+  Agustus" → suasana perayaan, bukan gelas edisi khususnya. Kreator pribadi berkata "waktu pandemi" → jalanan kosong yang nyata.
+- Kapan produk/barang sendiri yang benar: ketika kalimatnya memang tentang barang itu ("ini box Lebaran yang kami buat").
+- Cara menguji: tutup subtitle. Penonton harus bisa menebak MOMENNYA, bukan mereknya.
+
+**2. Halaman ditunjukkan sebagai halaman.** Situs, aplikasi, toko daring, atau formulir yang DITUJU penonton memenuhi layar seperti
+saat dibuka di HP (tangkapan viewport HP 9:16, lalu scroll atau kursor ke bagian yang dimaksud). Kartu atau potongan hanya untuk
+KUTIPAN: sebagian kecil halaman yang dibacakan (judul berita, satu paragraf, satu ulasan), seperti di `visual-craft.md` 1.
+- Kasus asal: "konsultasi dulu di [nama brand]" ditampilkan sebagai kartu bersudut bulat di tengah latar gelap. Pemilik: "1 halaman
+  aja, jangan cuma card di tengah, aneh".
+- Bidang lain: "daftar lewat link di bio" → halaman pendaftarannya penuh; "cek di marketplace" → halaman toko penuh; "datanya dari
+  BPS" → itu kutipan, jadi potongan tabel/paragrafnya dengan sumber terlihat.
+- Pertanyaan pemilahnya: penonton disuruh PERGI ke sana (halaman penuh), atau diminta MEMBACA sepotong dari sana (potongan)?
+
+**3. Penutup mengikuti kalimat terakhir dan pemilik video.** Tanyakan dua hal: kalimat terakhir menyuruh penonton apa, dan video
+ini milik siapa (`SKILL.md`, "Berlaku untuk siapa saja").
+
+| Kalimat terakhir | Video sebuah brand/perusahaan | Video tanpa perusahaan |
+|---|---|---|
+| Slogan, kesimpulan, ajakan memesan/membeli | Closing brand: logo ASLI beranimasi rapi, tanda brand lain yang diminta user, akun dan situs seperlunya | Tidak ada logo. Berhenti di wajah pada kalimat terakhir, atau kata kuncinya sebagai teks besar; tanpa kartu tambahan kalau tidak ada yang perlu dituju |
+| "Hubungi aku", "DM aku", "follow aku" | Tempat menghubungi yang nyata: profil/kontak dari screenshot user | Sama: profil/kontak pembicara dari screenshot user |
+| Ajakan berinteraksi ("komen ya", "simpan dulu") | Ajakan itu sebagai teks/ikon sederhana, lalu closing brand singkat bila user memintanya | Ajakan itu sebagai teks/ikon sederhana; selesai |
+| Tidak ada ajakan (cerita, opini yang selesai) | Closing brand singkat bila ini kanal brand; kalau tidak, tanpa kartu | Selesai di kalimat terakhir. Jangan menambah ajakan yang tidak diucapkan |
+
+- Kasus asal: kalimat terakhir "Karena lebih cepat lebih baik" (slogan) ditutup dengan kartu profil Instagram pembicara. Pemilik:
+  "harusnya animasi closing logo [brand] dkk; kalau ada 'hubungi aku' di akhir, baru bisa pakai approach yang sekarang".
+- Isi closing (logo mana, akun mana, situs) ditanyakan ke user di awal (`workflow.md` Tahap 0), bukan diputuskan sendiri di akhir.
+  Logo selalu file asli dari user atau bahan resmi; kalau tidak ada, closing memakai nama dalam huruf video dan dilaporkan.
 
 ## 4. Yang bisa dan tidak bisa dijangkau dari container ini
 

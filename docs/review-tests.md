@@ -51,12 +51,14 @@ Syarat pemilik (lengkap: `docs/owner-requirements.md`, 1–18): 1 kapan visual �
 | T26 | Musik latar ada dan mengikuti naskah? | Ada (atau alasan tertulis kenapa tidak); nada cocok; berubah di belokan dan selesai bersama penutup; judul, sumber, lisensi tercatat | Laporan + envelope audio final | 13 |
 | T27 | Durasi tiap visual pas? | Tidak ada visual yang lebih pendek dari waktu kenalnya karena terjepit visual berikutnya, tidak ada yang bertahan setelah topiknya selesai (lihat juga T12, T17) | Daftar event + durasi | 14 |
 | T28 | Momen sebagai momen, halaman sebagai halaman? | Nama hari raya/peristiwa = foto nyata momen itu, layar penuh; situs yang dituju = satu halaman penuh, bukan kartu di tengah | Still | 15, 16 |
-| T29 | Penutup cocok dengan kalimat terakhir? | Slogan/kesimpulan/ajakan ke brand → closing brand (logo asli); "hubungi aku" → profil/kontak. Isi closing sudah ditanyakan ke user di awal | Still penutup + brief | 17 |
+| T29 | Penutup cocok dengan kalimat terakhir dan pemilik video? | Tabel di `visual-thinking.md` 3 ("Tiga putusan pemilik", butir 3): brand + slogan/ajakan memesan → closing brand (logo asli); "hubungi aku" → profil/kontak; tanpa perusahaan → tanpa logo, tanpa ajakan yang tidak diucapkan. Isi closing sudah ditanyakan ke user di awal | Still penutup + brief | 17 |
 | T30 | Pertanyaan diajukan di awal? | Daftar umum (Tahap 0) dan pertanyaan naskah (setelah Tahap 3) sampai ke user sebelum edit berjalan jauh; tidak ada keputusan besar (penutup, musik, akun, aset kunci) yang baru muncul di laporan akhir | Riwayat percakapan lead | 18 |
+
+| T31 | Identitas di layar milik video INI? | `work/brief.md` menyebut pemilik video (brand berprofil / perusahaan baru / tanpa perusahaan) dengan bukti dari footage atau user. Tidak ada nama, akun, logo, warna, slogan, atau penutup yang berasal dari profil brand lain atau dari job sebelumnya. Video tanpa perusahaan: tidak ada logo atau akun usaha | `brief.md`, contact sheet, still penutup | semua brand / tanpa brand |
 
 Cara cepat T24 dan sambungan (lead, tanpa mendengar): cetak kata transkrip sumber di sekitar setiap `in`/`out` dan setiap koreksi, lalu
 envelope 20 ms dari `work/tx/<klip>.wav` di rentang itu. Blok nyaring = suku kata; hitung apakah teks subtitle muat. Transkrip ulang final
 yang berbeda dari subtitle (kata tambahan di sambungan, kata hilang) selalu ditanyakan ke worker, bukan diabaikan.
 
-**Tolak** edit yang lolos QA teknis tetapi gagal T1, T3, T5, T19, T24, T25, atau yang terasa jarang di contact sheet (job01 v4: 16 dtk tanpa perubahan).
+**Tolak** edit yang lolos QA teknis tetapi gagal T1, T3, T5, T19, T24, T25, T31, atau yang terasa jarang di contact sheet (job01 v4: 16 dtk tanpa perubahan).
 Saat menolak, sebut nomor tes dan frame/baris rencananya, supaya revisi hanya menyentuh itu.

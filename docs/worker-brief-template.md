@@ -13,7 +13,10 @@ Report to the lead in Indonesian.
 - Goal: ONE video ready to publish.
 - Brief from the user: content type <...>, platform/duration <...>, brand + exact spelling <...>, handle <...>,
   logo/colours <...>, CTA <...>, reference <...>. Anything empty: decide yourself and mark it ASUMSI.
-- Brand profile: <docs/brands/<brand>.md in the repo (read at /home/user/editor-team/docs/brands/<brand>.md) | none>.
+- Whose video (ASSUMPTION until the footage or the user confirms; decide it first in Tahap 0, SKILL.md "Berlaku untuk siapa saja"):
+  <brand with a profile | new company: <name> | no company (personal/education/opinion/story) | unknown>.
+- Brand profile: <docs/brands/<brand>.md in the repo (read at /home/user/editor-team/docs/brands/<brand>.md), ONLY if the footage
+  confirms that brand | none: collect the facts for a new profile and report them | none: no company, show no brand identity>.
 - <NEW job notice when reusing a worker: this is a separate job; do not reuse files or settings from your previous job.>
 
 ## Method (mandatory)
@@ -49,5 +52,5 @@ Do not claim anything you did not check.
 ## Lead checks before relaying (do them yourself)
 - `ffprobe` specs + `TAG:comment=Made with Remotion`, loudness, `blackdetect` = 0.
 - Own contact sheet (`tools/sheet.py video <final> <scratch>/lead 2`) — look at it: density, layouts, ending, brand spelling.
-- Run the review tests in `docs/review-tests.md` (T1–T30) on your own contact sheet and the build log; send it back if it is
-  technically clean but fails T1, T3, T5, T19, T24 or T25, or reads as visually thin or crowded. Name the test and the frame/plan row.
+- Run the review tests in `docs/review-tests.md` (T1–T31) on your own contact sheet and the build log; send it back if it is
+  technically clean but fails T1, T3, T5, T19, T24, T25 or T31, or reads as visually thin or crowded. Name the test and the frame/plan row.

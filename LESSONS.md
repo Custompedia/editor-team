@@ -131,3 +131,14 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - "Ask at the start": the first message did ask, but only generic items. Closing content, logo file, music and script-specific
   assets were missing. Now two lists: generic before the worker, script questions after Tahap 3.
 - Status: final_v4 is NOT re-edited yet under these rules; the owner announced a next challenge. Re-edit only on request.
+
+## 2026-11-23 — skill must work for any company and for no company (owner)
+- Owner: "pastikan skills tidak cuma Parcelin, bisa ke berbagai perusahaan lain, dan yang tidak terikat perusahaan juga; semuanya
+  end to end harus dipahami oleh AI". Audit: the method (stages, gates, content types) was already generic and brand facts already
+  lived in docs/brands/. What was coupled: (a) the three owner rulings I had just written were phrased around Parcelin and the ending
+  rule had no branch for a video without a brand; (b) the lead's intake list and my own proposed defaults assumed a brand (I offered
+  Parcelin defaults for the NEXT job before knowing whose video it is); (c) nothing told a worker to decide whose video it is first,
+  or forbade borrowing identity from another brand's profile; (d) both real jobs so far were Parcelin, so nothing else is proven.
+- Fix: SKILL.md "Berlaku untuk siapa saja" (three cases, decided first in Tahap 0); rulings rewritten principle-first with examples
+  from other fields and an ending table with a no-company column; design.md 6.2b (content type and owner are separate decisions);
+  lead scope rule in CLAUDE.md; T31; docs/brands/_template.md.

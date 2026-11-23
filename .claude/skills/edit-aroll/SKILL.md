@@ -21,6 +21,25 @@ jangan mengerjakan sebuah tahap dari ingatan. Catat di `work/STATE.md` file refe
 Kode skrip dan komponen tidak ditempel di skill ini: sumbernya file di folder job (`tools/`, `video/src/`).
 Guide asli utuh (termasuk instalasi di komputer lokal) diarsipkan di repo `docs/GUIDE-original.md`; tidak perlu dibaca.
 
+## Berlaku untuk siapa saja: perusahaan mana pun, atau tanpa perusahaan
+
+Skill ini bukan untuk satu brand. Contoh yang menyebut nama brand (Parcelin, video benchmark) adalah **bukti dan ilustrasi cara
+menimbang**, bukan isi yang dibawa ke video lain. Aturan di sini berlaku untuk tiga keadaan, dan Tahap 0 dimulai dengan memutuskan
+video ini termasuk yang mana (`workflow.md` Tahap 0, "Pemilik video"):
+
+| Keadaan | Tandanya | Dari mana nama, akun, logo, warna, penutup |
+|---|---|---|
+| **Brand yang sudah punya profil** | Lead menyebut `docs/brands/<brand>.md` di brief DAN footage/user membenarkannya | Profil itu, setelah dicek ulang terhadap footage dan jawaban user |
+| **Perusahaan atau brand baru** | Pembicara atau user menyebut usaha yang belum punya profil | User (ditanya di awal) + bahan resmi usaha itu (situs, akun publik). Tidak ada yang dipinjam dari brand lain |
+| **Tanpa perusahaan** (kreator pribadi, edukasi, opini, cerita, tutorial umum) | Tidak ada usaha yang dijual atau diwakili | Tidak ada logo, warna brand, atau closing brand. Look dari footage dan nada isi; penutup dari kalimat terakhir |
+
+Tiga hal yang tidak pernah dilakukan: (1) memakai nama, akun, logo, warna, slogan, atau penutup dari profil brand lain karena "biasanya
+begitu"; (2) mengarang brand, akun, atau logo untuk video yang tidak punya; (3) menganggap video milik sebuah brand hanya karena
+user yang sama pernah mengirim video brand itu. Kalau pemilik video tidak jelas dari footage dan brief: tulis `ASUMSI`, tanyakan ke
+lead, dan sementara itu jangan menampilkan nama atau akun apa pun di layar.
+
+Seluruh alur (tahap 0 sampai 10, gate, QA) sama untuk ketiganya. Yang berbeda hanya sumber identitas dan bentuk penutup.
+
 ## Aturan environment cloud (mengalahkan guide bila bertentangan)
 
 - Kit sudah terpasang di `/home/user/editkit`. Buat job dengan `bash /home/user/editkit/new_job.sh <job-id>`; semua perintah
@@ -58,8 +77,10 @@ Dari pemilik langsung; ini syarat, bukan gaya satu editor. Detail dan alasannya 
   bukan dipendekkan (`visual-craft.md` 5).
 - **Momen ditunjukkan sebagai momennya; halaman sebagai halaman.** Nama hari raya atau peristiwa → foto nyata momen itu, layar penuh,
   bukan produk brand. Situs yang dituju penonton → satu halaman penuh, bukan kartu kecil di tengah (`visual-thinking.md` 3).
-- **Penutup mengikuti kalimat terakhir:** slogan atau kalimat penutup → animasi closing brand (logo dan tanda brand lainnya); kartu
-  profil/kontak hanya kalau pembicara menutup dengan "hubungi aku" (`visual-thinking.md` 3).
+- **Penutup mengikuti kalimat terakhir dan pemilik video:** video sebuah brand yang ditutup slogan/kesimpulan/ajakan memesan →
+  animasi closing brand itu (logo aslinya dan tanda brand lain yang diminta user); kartu profil/kontak hanya kalau pembicara menutup
+  dengan "hubungi aku"; video tanpa perusahaan tidak diberi logo: penutupnya ajakan yang diucapkan atau berhenti di kalimat terakhir
+  (`visual-thinking.md` 3).
 - **Tanya di awal:** semua aset dan konfirmasi yang dibutuhkan dilaporkan ke lead di awal dalam satu daftar (`workflow.md` Tahap 0 dan 3).
 - **Tidak ada gaya tetap.** Look diputuskan per video dari brand, footage, dan nada isi, ditulis di `work/brief.md` dan blok `theme`
   di `work/edit.json` (build menolak job tanpa `theme`). Kalau ada profil brand (`/home/user/editor-team/docs/brands/<brand>.md`, disebut lead di brief), ikuti.
@@ -121,7 +142,7 @@ Kerjakan tahap 0 sampai 10 berurutan (Bagian 3). Setiap tahap menulis hasilnya k
 - Ejaan nama yang hanya terdengar di audio bisa salah. Selalu laporkan sebagai asumsi.
 - Yang sudah dijalankan pada project nyata: output 9:16 (1080x1920 dan skala lebih besar), Linux. Yang belum: output 16:9, macOS dan Windows/WSL2, GPU. Di sana, jalankan `doctor.py` dan loop still lebih teliti.
 - Dari container ini Instagram/TikTok/Facebook (login), Pexels dan Wikimedia (diblokir), dan YouTube tidak bisa dipakai. Tampilan aplikasi berlogin datang dari rekaman atau screenshot user, bukan digambar ulang (`visual-thinking.md` 4).
-- Beberapa teknik editor acuan (masuk langsung tanpa fade, hitam-putih pada pembicara, punch-in di kata pilihan, strip judul di bawah dagu) belum ada di kit: lihat `visual-craft.md` 9.
+- Beberapa teknik editor acuan (masuk langsung tanpa fade, punch-in di kata pilihan, strip judul di bawah dagu, volume musik per momen, halaman penuh dengan kursor) belum ada di kit: lihat `visual-craft.md` 9.
 - Selera (warna, font, seberapa ramai) berbeda tiap orang. Versi pertama adalah usulan. Revisi dikerjakan dengan aturan tahap 10.
 - Guide ini membuat prosesnya bisa diulang. Kualitas akhir tetap bergantung pada apakah setiap gate benar-benar dikerjakan dan setiap gambar QA benar-benar dibuka.
 
