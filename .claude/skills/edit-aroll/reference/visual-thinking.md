@@ -6,7 +6,8 @@ file dan `visual-craft.md` dibaca sebelum Tahap 6; Bagian 8 (uji diri) dijawab s
 
 Tidak ada warna, font, bentuk, atau efek yang wajib. Setiap aturan punya alasan. Kalau situasimu tidak tercantum, jalankan
 rantai di Bagian 2, putuskan, dan tulis alasannya. Contoh di Bagian 9 berasal dari dua editor yang gayanya berbeda: yang ditiru
-adalah cara menimbangnya, bukan tampilannya.
+adalah cara menimbangnya, bukan tampilannya. Nama brand di contoh mana pun (di file ini banyak dari satu brand kemasan, karena dari
+sanalah buktinya) tidak membuat aturannya milik brand itu: file ini dipakai untuk perusahaan mana pun dan untuk video tanpa perusahaan.
 
 ---
 
@@ -133,6 +134,53 @@ pakai yang asli, atau minta ke user (Bagian 4).
 
 ---
 
+### Tiga putusan pemilik (berlaku untuk video apa pun)
+
+Asalnya penilaian pemilik atas satu video (job02, brand kemasan). Yang dibawa ke video lain adalah PRINSIP dan alasannya; kasus
+asalnya hanya contoh. Tiap prinsip diberi contoh dari bidang lain supaya tidak terbaca sebagai aturan satu brand.
+
+**1. Momen ditunjukkan sebagai momennya.** Kalau yang diucapkan adalah waktu, hari raya, musim, atau peristiwa, gambarnya foto atau
+footage nyata dari momen itu, layar penuh (untuk dikenali dan dirasakan sekejap). Bukan produk atau barang milik pembicara yang
+kebetulan bertema sama.
+- Kasus asal: "mepet abis Natal, terus abis itu Lebaran" digambarkan dengan foto kemasan Natal dan kotak Lebaran milik brand. Pemilik:
+  "mending momen bener-bener foto asli, bukan packaging, dan 1 layar full". Yang diucapkan adalah dua hari raya yang berurutan.
+- Bidang lain: guru les berkata "pas musim ujian" → suasana ujian yang nyata, bukan brosur lesnya. Kedai kopi berkata "tiap 17
+  Agustus" → suasana perayaan, bukan gelas edisi khususnya. Kreator pribadi berkata "waktu pandemi" → jalanan kosong yang nyata.
+- Kapan produk/barang sendiri yang benar: ketika kalimatnya memang tentang barang itu ("ini box Lebaran yang kami buat").
+- Cara menguji: tutup subtitle. Penonton harus bisa menebak MOMENNYA, bukan mereknya.
+
+**2. Halaman ditunjukkan sebagai halaman.** Situs, aplikasi, toko daring, atau formulir yang DITUJU penonton memenuhi layar seperti
+saat dibuka di HP (tangkapan viewport HP 9:16, lalu scroll atau kursor ke bagian yang dimaksud). Kartu atau potongan hanya untuk
+KUTIPAN: sebagian kecil halaman yang dibacakan (judul berita, satu paragraf, satu ulasan), seperti di `visual-craft.md` 1.
+- Kasus asal: "konsultasi dulu di [nama brand]" ditampilkan sebagai kartu bersudut bulat di tengah latar gelap. Pemilik: "1 halaman
+  aja, jangan cuma card di tengah, aneh".
+- Bidang lain: "daftar lewat link di bio" → halaman pendaftarannya penuh; "cek di marketplace" → halaman toko penuh; "datanya dari
+  BPS" → itu kutipan, jadi potongan tabel/paragrafnya dengan sumber terlihat.
+- Pertanyaan pemilahnya: penonton disuruh PERGI ke sana (halaman penuh), atau diminta MEMBACA sepotong dari sana (potongan)?
+
+**3. Penutup mengikuti kalimat terakhir dan pemilik video.** Tanyakan dua hal: kalimat terakhir menyuruh penonton apa, dan video
+ini milik siapa (`SKILL.md`, "Berlaku untuk siapa saja").
+
+| Kalimat terakhir | Video sebuah brand/perusahaan | Video tanpa perusahaan |
+|---|---|---|
+| Slogan, kesimpulan, tips penutup, ajakan memesan/membeli | Closing brand: logo ASLI beranimasi rapi, tanda brand lain yang diminta user, akun dan situs seperlunya | Tidak ada logo. Berhenti di wajah pada kalimat terakhir, atau kata kuncinya sebagai teks besar; tanpa kartu tambahan kalau tidak ada yang perlu dituju |
+| "Hubungi aku", "DM aku", "follow aku" | Tempat menghubungi yang nyata: profil/kontak dari screenshot user | Sama: profil/kontak pembicara dari screenshot user |
+| Ajakan berinteraksi ("komen ya", "simpan dulu") | Ajakan itu sebagai teks/ikon sederhana, lalu closing brand singkat bila user memintanya | Ajakan itu sebagai teks/ikon sederhana; selesai |
+| Tidak ada ajakan (cerita, opini yang selesai) | Closing brand singkat bila ini kanal brand; kalau tidak, tanpa kartu | Selesai di kalimat terakhir. Jangan menambah ajakan yang tidak diucapkan |
+
+- Kasus asal: kalimat terakhir "Karena lebih cepat lebih baik" (slogan) ditutup dengan kartu profil Instagram pembicara. Pemilik:
+  "harusnya animasi closing logo [brand] dkk; kalau ada 'hubungi aku' di akhir, baru bisa pakai approach yang sekarang".
+- **Profil akun pemilik yang dibangun dengan kode (pengecualian, hanya atas permintaan pemilik).** Untuk penutup "hubungi aku",
+  pemilik (job03) memilih: "SS profile mending kamu buat sendiri aja desainnya yang rapi dan 100% sama, with code, nanti
+  dianimasikan". Tampilan aplikasi biasanya tidak digambar ulang; ini boleh karena tiga syarat terpenuhi sekaligus: (1) itu akun
+  milik pemilik video sendiri, (2) dipakai sebagai TEMPAT yang dituju penonton, bukan sebagai bukti, (3) pemilik memintanya.
+  Aturannya: setiap fakta dibaca dari screenshot asli dan sama persis (nama, angka, bio, label tombol; teks terpotong dibiarkan
+  terpotong; tidak ada angka, status, atau post karangan); foto profil, sampul sorotan, dan tile grid tetap crop asli; tampilannya
+  mengikuti screenshot; dilaporkan sebagai UI buatan kode beserta still pembanding. Tanpa permintaan pemilik: pakai screenshot asli
+  satu layar penuh, atau kartu yang tidak meniru aplikasi. Untuk akun atau aplikasi pihak lain, dan untuk bukti: tidak pernah.
+- Isi closing (logo mana, akun mana, situs) ditanyakan ke user di awal (`workflow.md` Tahap 0), bukan diputuskan sendiri di akhir.
+  Logo selalu file asli dari user atau bahan resmi; kalau tidak ada, closing memakai nama dalam huruf video dan dilaporkan.
+
 ## 4. Yang bisa dan tidak bisa dijangkau dari container ini
 
 Rencanakan dengan yang ada. Cek ini di awal Tahap 6, bukan saat still.
@@ -178,7 +226,7 @@ itu sulit ditulis, kemungkinan aset nyatanya ada dan belum dicari.
 **"Spam kode" dan kenapa tidak rapi:** kartu atau kotak buatan untuk hampir setiap kalimat (terasa presentasi, bukan dunia nyata);
 bentuk sama berulang untuk benda berbeda (terasa template); UI atau ikon karangan (terbaca palsu); tiap diagram beda gaya (tidak ada
 satu bahasa); dekorasi yang tidak menunjuk ke isi (mata ditarik ke tempat kosong). Teramati: grafik buatan mengisi sekitar 0–7% waktu
-di tiga video benchmark; di video Parcelin lebih banyak, dan itu batas atas yang masih diterima, bukan arah.
+di tiga video benchmark; di satu video jualan sebuah brand kemasan lebih banyak, dan itu batas atas yang masih diterima, bukan arah (pembanding dari satu editor, bukan norma untuk brand atau jenis konten mana pun).
 
 ---
 
@@ -192,6 +240,8 @@ yang dinilai ketepatan dan kepadatan visual. Beri keputusan ini waktu yang wajar
 
 1. **Ada brand?** Ambil warna dari bahan resminya (logo, tombol di situs; ambil dari pixel screenshot, jangan menebak). Font: font
    situs/brand kalau berlisensi bebas dan ada file statisnya; kalau tidak, yang karakternya mirip. Alasan: penonton mengenalinya.
+   **Brand baru yang bahannya belum ada** (user belum menjawab, tidak ada logo atau situs yang bisa dibuka): jangan menebak warna
+   brand. Pakai cara butir 2 (dari footage), tulis nama usaha dengan huruf video, tandai `ASUMSI`, dan ganti begitu bahan resmi datang.
 2. **Tidak ada brand?** Dari footage: warna penekanan harus kontras dengan area tempat subtitle duduk (baju, dinding) dan belum
    banyak dipakai di footage; warna panel mengikuti "suhu" footage. Alasan: look yang lahir dari footage terasa menyatu.
 3. **Nada isi** menentukan karakter huruf (santai, serius, mewah, mendesak). Tulis alasannya.
@@ -213,7 +263,7 @@ lebih dari `max_quiet_s` (bawaan 6 detik) kecuali ada visual yang menggambarkan 
 | Editor benchmark, solo, AI di kantor (59 dtk) | sekitar tiap 2 dtk | sekitar 52% | ≤2,5 dtk |
 | Editor benchmark, solo, bisnis liga basket (90 dtk) | sekitar tiap 2,6 dtk | sekitar 67% | sekitar 4 dtk |
 | Editor benchmark, dua orang, bedah iklan (90 dtk) | panel tiap 2,9 dtk + cut kamera tiap 1,1 dtk | sekitar 1% | sekitar 7 dtk (tanya-jawab, dengan cut) |
-| Editor Parcelin, jualan/edukasi (128 dtk) | sekitar tiap 5 dtk | sekitar 35% | 6–7 dtk |
+| Editor sebuah brand kemasan, jualan/edukasi (128 dtk; satu contoh, bukan norma) | sekitar tiap 5 dtk | sekitar 35% | 6–7 dtk |
 | job01 v4 kita, ditolak pemilik (112 dtk) | tiap 8,6 dtk | 15% | **16 dtk** |
 
 Yang dibuktikan: semua edit yang diterima menjaga rentang tanpa elemen ≤ sekitar 7 dtk dan mengganti gambar paling lambat tiap

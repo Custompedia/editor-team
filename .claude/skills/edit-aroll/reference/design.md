@@ -7,7 +7,7 @@ Perilaku tampilan bawaan kit (posisi subtitle, transisi insert) ada di `kit.md` 
 
 - Suara pembicara: -15 LUFS, puncak -1,5 dB, fade 2 frame di setiap sambungan.
 - Efek: `whoosh` saat insert masuk, `swish` saat berantai dan saat panel `split` masuk, `pop` saat overlay muncul, `click` saat kursor mengklik. Puncak efek -18 sampai -24 dB, jauh di bawah suara.
-- Musik hanya kalau diminta, volume 0,05 sampai 0,08.
+- Musik latar dipertimbangkan di setiap video (syarat pemilik 13; cara memilih dan aturan lisensi: `workflow.md` Tahap 6.2, Musik), volume 0,05 sampai 0,08.
 
 ---
 
@@ -33,8 +33,21 @@ Alasan, bukan kuota (kepadatan dan jenis visual diputuskan per kalimat dengan `v
 - **Opini / edukasi:** setiap klaim faktual sebaiknya punya sumber yang terlihat; pendapat tetap di wajah.
 - **Review:** produk di tangan pembicara dan halaman resmi untuk harga/spesifikasi lebih meyakinkan daripada foto stok.
 - **Podcast / dua orang:** wajah dan reaksi adalah isinya, jadi panel atau overlay di ruang kosong lebih cocok daripada layar penuh; perubahan gambar datang dari cut antar orang dan punch-in.
-- **Storytelling:** paling sedikit potongan; jeda adalah bagian dari cerita (rentang panjang diberi `quiet_ok` dengan alasan).
+- **Storytelling:** paling sedikit potongan; jeda yang membawa emosi adalah bagian dari cerita dan tidak dipotong (rentang panjang diberi `quiet_ok` dengan alasan; hanya jeda kosong yang boleh dibuang, `workflow.md` Tahap 3). Musik di cerita yang punya jeda panjang: pelan dan tenang, atau tanpa musik dengan alasan tertulis, karena kit belum bisa menurunkan volume di satu momen.
 - **Jualan:** bukti (berita, ulasan, hasil kerja), produk, dan ajakan ke tempat nyata yang dituju.
+
+### 6.2b Pemilik video dan jenis kontennya
+
+Jenis konten (tabel 6.1) dan pemilik video (`SKILL.md`, "Berlaku untuk siapa saja") adalah dua keputusan terpisah. Perusahaan bisa
+membuat video edukasi tanpa menjual apa pun; kreator pribadi bisa mengulas produk orang lain. Akibatnya:
+
+- **Struktur dan hook** mengikuti JENIS konten, siapa pun pemiliknya.
+- **Identitas di layar** (nama, akun, logo, warna, penutup) mengikuti PEMILIK video. Video tanpa perusahaan tidak punya identitas
+  brand: look dari footage dan nada isi (`visual-thinking.md` 6 butir 2), penutup dari kalimat terakhir.
+- **Brand pihak ketiga yang dibicarakan** (produk yang diulas, perusahaan dalam berita, aplikasi yang diajarkan) ditampilkan dengan
+  bahan aslinya sebagai ISI, tidak menjadi identitas video: logonya muncul saat disebut, bukan di penutup.
+- **Bukti** berbeda per pemilik: usaha memakai hasil kerja dan ulasan nyatanya; edukasi/opini memakai sumber pihak ketiga yang
+  terlihat; cerita pribadi sering tidak butuh bukti, dan wajah adalah isinya.
 
 ### 6.3 Roll panjang menjadi beberapa video
 

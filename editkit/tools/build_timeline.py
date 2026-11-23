@@ -210,6 +210,7 @@ for e in events:
     if e["type"] == "split":
         sfx.append({"f": e["f"], "k": "swish"})
         if "click_at" in e: sfx.append({"f": e["click_at"], "k": "click"})
+    elif e["type"] == "mood": pass          # speaker grey/dim beat is silent
     elif e["type"] not in FULL_TYPES:
         sfx += [{"f": it["f"], "k": "pop"} for it in e.get("items", []) if "f" in it] or [{"f": e["f"], "k": "pop"}]
 
@@ -275,6 +276,35 @@ if bare:
         "  - if the bare speaker is right (e.g. a personal story where the face IS the content), add to work/edit.json\n"
         "    \"quiet_ok\": [{\"from\": <anchor>, \"to\": <anchor>, \"why\": \"<the reason>\"}] covering the stretch (edit-json.md, quiet_ok).")
 
+# 9) CUT CHECK (owner requirement 12: the picture must flow, never look cut or skipped). A join where the speaker is visible on
+#    both sides is a jump cut. Each one needs a decision: remove the cut, cover it with a full-screen insert that is fully on
+#    screen >= 7 frames before the join and stays >= 6 frames after it, or a "cut_ok" entry {"join": n, "why": "..."}
+#    (join n = between segment n and n+1, counted from 1) giving a PICTURE reason.
+cut_ok = {}
+for c in E.get("cut_ok", []):
+    if not str(c.get("why", "")).strip(): raise SystemExit(f"ERROR: cut_ok entry {c} has no \"why\": write the picture reason this visible cut is right")
+    cut_ok[int(c["join"])] = c["why"]
+njoin = len(segs) - 1
+exposed = [(i, sg["start"]) for i, sg in enumerate(segs) if i and sg["start"] in joins]
+print(f"CUT CHECK: {njoin} cut(s) in {total / FPS:.1f}s" + (f" (one per {total / FPS / njoin:.1f}s)" if njoin else "")
+      + f" | speaker visible across {len(exposed)} of them | clips used: {', '.join(sorted({sg['k'] for sg in segs}))}")
+jump = []
+for i, f0 in exposed:
+    line = (f"join {i} at {fmt(f0)} (frame {f0}), {segs[i - 1]['k']} {segs[i - 1]['out']:.2f} -> {segs[i]['k']} {segs[i]['in']:.2f}: "
+            f"\"...{said(max(0, f0 - 45), f0)}\" || \"{said(f0, f0 + 45)}...\"")
+    if i in cut_ok: print("  cut_ok   " + line + "  <- why: " + cut_ok[i])
+    else: print("  JUMP CUT " + line); jump.append(line)
+for i in cut_ok:
+    if i not in [x for x, _ in exposed]: print(f"WARNING: cut_ok join {i} is not a visible cut (stale? remove it or fix the number)")
+if jump:
+    sys.stdout.flush()
+    raise SystemExit(f"ERROR: {len(jump)} cut(s) where the speaker is visible on both sides. data.json NOT written.\n"
+        "  The viewer sees these as the video skipping. This is a DECISION, not a quota. For each one, either:\n"
+        "  - do not cut there (keep the pause or the filler word; prefer one continuous take), or\n"
+        "  - cover the join with a full-screen visual that SHOWS what is said there (fully in >= 7 frames before, still on >= 6 after), or\n"
+        "  - if a visible cut is right (change of place, a new section that looks like one), add to work/edit.json\n"
+        "    \"cut_ok\": [{\"join\": <n>, \"why\": \"<the picture reason>\"}] (edit-json.md, cut_ok). \"The audio is clean\" is not a reason.")
+
 json.dump({"fps": FPS, "total": total, "theme": THEME, "segs": segs, "framing": E.get("framing", {}), "subs": subs, "events": events,
            "fullTypes": sorted(FULL_TYPES), "shots": shots, "sfx": sfx, "keepCase": E.get("keep_case", []), "music": E.get("music")},
           open("video/src/data.json", "w"), ensure_ascii=False, indent=1)
@@ -283,6 +313,5 @@ json.dump({"fps": FPS, "total": total, "theme": THEME, "segs": segs, "framing": 
 covered = sum(e["t"] - e["f"] for e in fulls)
 print(f"total {total} frames = {total / FPS:.1f}s | {len(segs)} segments | {len(subs)} subtitle chunks | full-screen inserts cover {100 * covered / total:.0f}%"
       f" | split panels {100 * sum(e['t'] - e['f'] for e in splits) / total:.0f}%")
-print("exposed jump cuts (speaker visible across a cut) at frames:", joins or "none")
 for e in events: print(f"  {e['type']:<11}{e['f']:>5} -> {e['t']:<5} {(e['t'] - e['f']) / FPS:.1f}s")
 for s in subs: print(f"  {s['f']:>5} {' '.join(w['t'] for w in s['small'])} | {' '.join(w['t'] for w in s['big'])}")

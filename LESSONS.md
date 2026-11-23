@@ -79,3 +79,75 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Owner-specific wishes for one brand go to docs/brands/<brand>.md, not into the general guide.
 - Not proven yet: the new guide on a real job; weaker models; kit primitives the benchmark uses but the kit lacks
   (hard cut / blur-in entries, speaker B&W, headline strip under the chin, caption modes, highlight anchored to words).
+
+## job02 — "Box Lebaran" (2 klip = 2 take naskah yang sama, akun @prahenditaputri / Parcelin)
+- Delivered final_v4 (52.7 s) in one working session: v1 internal (leftover word at a join), v2 rejected by the lead, v3 superseded by
+  the worker itself, v4 delivered. Kit install from an empty container ~10 min; one 53 s render ~12 min.
+- What worked: density. 31 visual changes, longest unchanged stretch 4.5 s, 0 quiet_ok, speaker-only 28% (job01 v4: 16 s without a
+  change). The quiet gate + per-sentence plan did their job; the lead found no sparse or crowded stretch on the contact sheet.
+- Lead rejected v2 on accuracy, not looks. The worker had "corrected" Whisper's "Juli pasir" to "dulu di Parcelin" (a brand name on a
+  guess) and showed a subtitle "dulu." for a word that the cut had removed. Found by diffing `text` overrides against work/tx/*.json and
+  the re-transcription of the final. -> worker rule in reference/workflow.md (Tahap 5) and lead test T24.
+- The lead guessed too: from the syllable count I told the user it was probably "dulu, pasti". Prompt-free re-transcription then heard
+  "Parselen / Parsel / parser", so the brand probably IS said. Rule for the lead: an envelope tells you where a word is and whether a text
+  fits, not what the word is. Do not offer the user a replacement word; say "unverified", blank it, and ask the one person who can listen.
+- The lead also judged a join "clean" from the envelope and a Whisper "Kamu," as a timing artefact: wrong, the word was fully audible
+  (slices starting at the cut heard it 4/4). When a re-transcription of the FINAL has an extra word at a join, believe it until a slice
+  test says otherwise. Asking for that slice test (R6) is what caught it.
+- Prompt-free slices at 0.7x speed hallucinate ("Tunggu", "Jangan lupa", "Sampai jumpa di video selanjutnya"): use x1 as the main
+  evidence, 0.7x only as a second opinion, and never a run with the vocab prompt as proof of a name.
+- User input mid-job: an Instagram profile screenshot ("output akhir untuk Instagram seperti ini, dirapikan, dianimasikan bebas") and
+  "aset cari aja di internet". Lead stated its reading (ending = that profile, account = that handle) and went on; the user did not
+  object. Ending built as `igprofile`: real crops for avatar/tiles, text re-typeset exactly, not an imitation of the app.
+- A 1069x830 desktop screenshot is too small for a 1080x1920 end card (tiles upscaled ~1.9x, soft). Ask for a phone screenshot up front.
+- Usage limit killed the worker right after the v4 render, before its QA and before STATE.md was updated (it still ended at v2).
+  Nothing on disk was lost; SendMessage after the reset resumed it. Rule: worker updates STATE.md BEFORE each render starts; the lead,
+  on resume, checks out/ and the newest logs before assuming where the worker stopped.
+- Brand site trap: the "Hampers Idul Fitri" product page on parcelin.id uses a "Gemini_Generated_Image" photo and lorem ipsum. The
+  worker caught it by file name. Portfolio photos show client products (JNE, L'Oreal): reported to the user, not silently used.
+- Kit: ported from the job into editkit after the render proved them: event `mood` (speaker grey/dim beat), custom `timeline` and
+  `igprofile`, `hold_end`, chips `top/step/scale`, no dark top gradient on `light` photos. Fixed `sheet.py video` crashing on a sample
+  at the last frame. Known: a `custom` event's own data must not use a field called `name` (documented in edit-json.md).
+- Not verified by anyone: the audio. Flagged to the user: 0:35.4 (tight join "…Lebaran" -> "Kalian", possible <0.1 s residue), the
+  two unsubtitled words at 0:36, 0:31.1, and the sung opener.
+- Open for next time: the new subtitle-evidence rule and T24 are untested on a fresh worker; the eid photo got only 0.9 s because the
+  screenshot needed lead-in for the cursor (acceptable here, check T12 when a visual is squeezed by its neighbour).
+
+## job02 — owner feedback on final_v4 (2026-11-23) -> requirements 12–18
+- Verdict: design "udah better, keep it improve"; but too many cuts ("patah-patah / ke-skip"), no backsound, wrong ending, two
+  visuals wrong in kind (product instead of the moment; a card instead of a full page), and questions not asked up front.
+  Full wording: docs/owner-requirements.md (12–18).
+- Too many cuts was a method error, not a slip: the workflow picked the best sentence from each of two takes (voice/subtitle first),
+  which gave 5 cuts in 52.7 s (one per ~10 s) against the skill's own "3–8 segments per 2 minutes". The build even printed
+  "exposed jump cuts at frames [...]" and the kit turned them into punch-ins. Neither the worker nor the lead treated that line as
+  a problem. -> skill: one base take, every cut needs a reason and a picture plan; kit: CUT CHECK gate with `cut_ok`; lead: T25.
+- The lead misread the Instagram screenshot as "the ending of this video". The owner meant: that style of ending is for videos
+  that end on "hubungi aku"; a slogan ending gets a brand logo closing. I stated my reading and the owner answered "aman kan", which
+  I took as agreement. Rule: when an asset arrives mid-job, ask the one concrete question ("ini untuk penutup video INI?") instead
+  of presenting an interpretation and reading a short reply as a yes.
+- "Real assets first" was applied too literally: "abis Natal, terus Lebaran" got the brand's Christmas and Eid boxes. The words name
+  a moment in time, so the real asset is a photo of the moment. Product photos belong to sentences about the product.
+- Music was never raised (the skill said "only if asked"). Now a default with licence rules; per-moment volume is a kit gap.
+- "Ask at the start": the first message did ask, but only generic items. Closing content, logo file, music and script-specific
+  assets were missing. Now two lists: generic before the worker, script questions after Tahap 3.
+- Status: final_v4 is NOT re-edited yet under these rules; the owner announced a next challenge. Re-edit only on request.
+
+## 2026-11-23 — skill must work for any company and for no company (owner)
+- Owner: "pastikan skills tidak cuma Parcelin, bisa ke berbagai perusahaan lain, dan yang tidak terikat perusahaan juga; semuanya
+  end to end harus dipahami oleh AI". Audit: the method (stages, gates, content types) was already generic and brand facts already
+  lived in docs/brands/. What was coupled: (a) the three owner rulings I had just written were phrased around Parcelin and the ending
+  rule had no branch for a video without a brand; (b) the lead's intake list and my own proposed defaults assumed a brand (I offered
+  Parcelin defaults for the NEXT job before knowing whose video it is); (c) nothing told a worker to decide whose video it is first,
+  or forbade borrowing identity from another brand's profile; (d) both real jobs so far were Parcelin, so nothing else is proven.
+- Fix: SKILL.md "Berlaku untuk siapa saja" (three cases, decided first in Tahap 0); rulings rewritten principle-first with examples
+  from other fields and an ending table with a no-company column; design.md 6.2b (content type and owner are separate decisions);
+  lead scope rule in CLAUDE.md; T31; docs/brands/_template.md.
+- Fresh-reader test (a smaller model, skill files only, two invented jobs: a new coffee-shop company; a personal resignation story
+  with a wrong "Parcelin (ASUMSI)" line in the brief). It got right: owner of the video decided first, the wrong brand line dropped,
+  no borrowed identity, one base take + cut rules + CUT CHECK, moment/page/ending rulings applied to other fields, bubbles for the
+  boss's quote, cut-out (not full page) for the BPS sentence. It found and I fixed: "follow the brand profile" stated unconditionally,
+  "CTA at the end" required even when nothing is asked, dead pause vs meaningful pause, no fallback look for a new brand without
+  material, density numbers from one brand reading like a norm, 3-minute roll vs the default length, unrelated clip.
+- Still open (cannot be fixed by wording): no proven reachable source for licensed music or stock video from this container; the kit
+  cannot change music volume per moment or punch in on a chosen word; everything above is tested by reading, not by a real job for
+  another company. The next non-Parcelin job is the real test: watch music, moment footage and the quiet gate on pauses.

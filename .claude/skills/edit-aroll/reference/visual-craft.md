@@ -126,6 +126,13 @@ Laporan build mencetak durasi tiap event: cek setiap visual terhadap resep ini.
 
 ---
 
+**Visual yang terjepit tetangganya (syarat pemilik 14, job02).** Kalau visual berikutnya butuh waktu masuk lebih awal (kursor yang
+harus sempat bergerak, kartu yang harus sudah penuh di kata), jangan memendekkan visual sebelumnya di bawah waktu kenalnya: job02 v4
+menyisakan 0,9 dtk untuk sebuah foto dan pemilik menilainya terlalu pendek. Pilih salah satu: geser jangkar visual berikutnya,
+gabungkan keduanya, atau buang salah satunya. Baca kolom durasi di laporan build untuk SETIAP event sebelum render: foto atau
+footage yang harus dikenali butuh kira-kira 1,2 dtk ke atas, yang harus dibaca mengikuti rumus T12, dan tidak ada yang tinggal
+setelah topiknya selesai.
+
 ## 6. Gerak: apa artinya, dan cara memastikan halus
 
 Setiap jenis masuk/keluar punya arti. Pilih karena artinya, lalu pakai arti itu secara konsisten di seluruh video.
@@ -207,16 +214,20 @@ event yang ada. **Belum** = butuh komponen kecil generik di `video/src` job itu 
 | Logo di kata, di ruang kosong | Perkiraan | `split` `fit: "contain"` (panel atas); logo kecil di samping kepala: belum |
 | Panel visual + pembicara tetap terlihat | Sekarang | `split` (`img`/`src`, `h`, `shift`, `fit`, `caption`, `click`) |
 | Gelembung chat kiri/kanan di atas pembicara (ucapan orang lain) | Sekarang | `bubbles` (`side`, `img` gambar kecil, `x_at` silang); masuk dengan pop |
-| Daftar bertambah satu per satu di atas pembicara | Sekarang | `chips` (`items[].at`, `n`) |
+| Daftar bertambah satu per satu di atas pembicara | Sekarang | `chips` (`items[].at`, `n`; `top`/`step`/`scale` supaya tumpukan tidak menyentuh wajah) |
 | Judul pembuka dengan sorotan | Sekarang | `title` (`line1`, `line2`) |
 | Kata besar di caption | Sekarang | `*kata` di `text`/`script` |
 | Punch-in pembicara | Perkiraan | Otomatis hanya di sambungan potongan yang terlihat dan setelah insert; punch-in di kata pilihan tanpa memotong: belum |
-| Hitam-putih / gelap pada pembicara (belokan) | Belum | Komponen generik kecil (filter pada lapisan pembicara selama rentang) |
+| Hitam-putih / gelap pada pembicara (belokan) | Sekarang | `mood` (`gray`, `dim`); hanya lapisan pembicara, ramp 4 frame |
 | Masuk langsung (hard cut), blur-in, kilat, fade hitam | Belum | Insert kit selalu fade 7 frame + skala kecil, keluar fade 6 frame, rantai = geser 12 frame. Mengubahnya = parameter generik di `Insert` job |
 | Ketik per huruf, judul/kata bebas posisi, hitung angka | Belum | Komponen kecil; atau kata besar di caption |
 | Caption kecil berkotak di atas insert | Belum | Kit: satu mode; gelap otomatis di insert `light: true` |
-| Diagram angka | Sekarang (batang) | `custom` `bars`; diagram lain = komponen baru dengan alasan tertulis |
+| Diagram angka | Sekarang (batang, garis waktu) | `custom` `bars`, `custom` `timeline` (jarak waktu sebelum sebuah peristiwa); diagram lain = komponen baru dengan alasan tertulis |
+| Penutup = profil akun dari screenshot user | Sekarang | `custom` `igprofile` + `hold_end`. Avatar dan tile = crop asli screenshot; teks diketik ulang PERSIS dari screenshot; tidak meniru tampilan aplikasi. Screenshot kecil (lebar ~1000 px) membuat tile lunak: minta screenshot HP |
 | Penutup di atas foto (logo, akun, ajakan) | Sekarang | `outro` (`img`, `logo`, `handle`, `cta`) |
 | Logo di belakang kepala pembicara | Tidak praktis | Butuh pemisahan pembicara per frame (terlalu berat di CPU ini). Pakai ruang kosong di samping kepala atau logo layar penuh singkat |
+| Halaman situs/aplikasi satu layar penuh (bukan kartu) | Perkiraan | Tangkap viewport HP 9:16 dengan `shot.py`, tampilkan sebagai `photo` (`light: true` bila terang) atau `clip` rekaman scroll. Kursor klik di atas halaman penuh: belum (`screenshot` selalu berupa kartu; pemilik menilai kartu di tengah "aneh" untuk halaman yang dituju penonton) |
+| Musik latar | Sekarang (satu lagu, satu volume) | `music` (`src`, `volume`), fade awal dan akhir. Turun/naik per momen naskah: belum (komponen generik kecil: titik volume berjangkar kata) |
+| Gerbang potongan gambar (sambungan terbuka) | Sekarang | Laporan CUT CHECK; sambungan dengan pembicara terlihat di kedua sisi menghentikan build kecuali ada `cut_ok` beralasan (`edit-json.md`) |
 | Gerbang rentang sepi + porsi layar | Sekarang | `max_quiet_s`, `quiet_ok`, laporan QUIET CHECK (`edit-json.md` 4.6) |
 | Durasi tiap visual | Sekarang | Daftar event di akhir laporan build; onset terhadap kata dicek dengan still |
