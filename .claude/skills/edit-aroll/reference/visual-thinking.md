@@ -163,7 +163,7 @@ ini milik siapa (`SKILL.md`, "Berlaku untuk siapa saja").
 
 | Kalimat terakhir | Video sebuah brand/perusahaan | Video tanpa perusahaan |
 |---|---|---|
-| Slogan, kesimpulan, ajakan memesan/membeli | Closing brand: logo ASLI beranimasi rapi, tanda brand lain yang diminta user, akun dan situs seperlunya | Tidak ada logo. Berhenti di wajah pada kalimat terakhir, atau kata kuncinya sebagai teks besar; tanpa kartu tambahan kalau tidak ada yang perlu dituju |
+| Slogan, kesimpulan, tips penutup, ajakan memesan/membeli | Closing brand: logo ASLI beranimasi rapi, tanda brand lain yang diminta user, akun dan situs seperlunya | Tidak ada logo. Berhenti di wajah pada kalimat terakhir, atau kata kuncinya sebagai teks besar; tanpa kartu tambahan kalau tidak ada yang perlu dituju |
 | "Hubungi aku", "DM aku", "follow aku" | Tempat menghubungi yang nyata: profil/kontak dari screenshot user | Sama: profil/kontak pembicara dari screenshot user |
 | Ajakan berinteraksi ("komen ya", "simpan dulu") | Ajakan itu sebagai teks/ikon sederhana, lalu closing brand singkat bila user memintanya | Ajakan itu sebagai teks/ikon sederhana; selesai |
 | Tidak ada ajakan (cerita, opini yang selesai) | Closing brand singkat bila ini kanal brand; kalau tidak, tanpa kartu | Selesai di kalimat terakhir. Jangan menambah ajakan yang tidak diucapkan |
@@ -218,7 +218,7 @@ itu sulit ditulis, kemungkinan aset nyatanya ada dan belum dicari.
 **"Spam kode" dan kenapa tidak rapi:** kartu atau kotak buatan untuk hampir setiap kalimat (terasa presentasi, bukan dunia nyata);
 bentuk sama berulang untuk benda berbeda (terasa template); UI atau ikon karangan (terbaca palsu); tiap diagram beda gaya (tidak ada
 satu bahasa); dekorasi yang tidak menunjuk ke isi (mata ditarik ke tempat kosong). Teramati: grafik buatan mengisi sekitar 0–7% waktu
-di tiga video benchmark; di video Parcelin lebih banyak, dan itu batas atas yang masih diterima, bukan arah.
+di tiga video benchmark; di satu video jualan sebuah brand kemasan lebih banyak, dan itu batas atas yang masih diterima, bukan arah (pembanding dari satu editor, bukan norma untuk brand atau jenis konten mana pun).
 
 ---
 
@@ -232,6 +232,8 @@ yang dinilai ketepatan dan kepadatan visual. Beri keputusan ini waktu yang wajar
 
 1. **Ada brand?** Ambil warna dari bahan resminya (logo, tombol di situs; ambil dari pixel screenshot, jangan menebak). Font: font
    situs/brand kalau berlisensi bebas dan ada file statisnya; kalau tidak, yang karakternya mirip. Alasan: penonton mengenalinya.
+   **Brand baru yang bahannya belum ada** (user belum menjawab, tidak ada logo atau situs yang bisa dibuka): jangan menebak warna
+   brand. Pakai cara butir 2 (dari footage), tulis nama usaha dengan huruf video, tandai `ASUMSI`, dan ganti begitu bahan resmi datang.
 2. **Tidak ada brand?** Dari footage: warna penekanan harus kontras dengan area tempat subtitle duduk (baju, dinding) dan belum
    banyak dipakai di footage; warna panel mengikuti "suhu" footage. Alasan: look yang lahir dari footage terasa menyatu.
 3. **Nada isi** menentukan karakter huruf (santai, serius, mewah, mendesak). Tulis alasannya.
@@ -253,7 +255,7 @@ lebih dari `max_quiet_s` (bawaan 6 detik) kecuali ada visual yang menggambarkan 
 | Editor benchmark, solo, AI di kantor (59 dtk) | sekitar tiap 2 dtk | sekitar 52% | ≤2,5 dtk |
 | Editor benchmark, solo, bisnis liga basket (90 dtk) | sekitar tiap 2,6 dtk | sekitar 67% | sekitar 4 dtk |
 | Editor benchmark, dua orang, bedah iklan (90 dtk) | panel tiap 2,9 dtk + cut kamera tiap 1,1 dtk | sekitar 1% | sekitar 7 dtk (tanya-jawab, dengan cut) |
-| Editor Parcelin, jualan/edukasi (128 dtk) | sekitar tiap 5 dtk | sekitar 35% | 6–7 dtk |
+| Editor sebuah brand kemasan, jualan/edukasi (128 dtk; satu contoh, bukan norma) | sekitar tiap 5 dtk | sekitar 35% | 6–7 dtk |
 | job01 v4 kita, ditolak pemilik (112 dtk) | tiap 8,6 dtk | 15% | **16 dtk** |
 
 Yang dibuktikan: semua edit yang diterima menjaga rentang tanpa elemen ≤ sekitar 7 dtk dan mengganti gambar paling lambat tiap

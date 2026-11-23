@@ -56,7 +56,7 @@ Folder privat tidak bisa diunduh: minta user membuka aksesnya ("siapa saja yang 
   - *Tanpa perusahaan:* tulis "tanpa brand". Tidak ada logo, warna brand, akun usaha, atau closing brand. Akun pribadi pembicara
     hanya ditampilkan kalau user memintanya atau pembicara menyebutnya.
 - Jenis konten (lihat Bagian 6) dan satu kalimat: apa yang harus dibawa pulang penonton.
-- Platform, rasio, dan durasi target. Default: 9:16, 45 sampai 150 detik, 1080x1920. Kalau user minta lebih tajam, render dengan skala 1.3334 (1440x2560, tahap 9).
+- Platform, rasio, dan durasi target. Default: 9:16, 45 sampai 150 detik, 1080x1920. Default ini bukan perintah memendekkan: roll satu topik yang lebih panjang (misalnya cerita 3 menit) dilaporkan ke lead dengan dua pilihan (utuh, atau dipendekkan dengan membuang BAGIAN utuh, bukan memotong kalimat demi kalimat) dan dikerjakan sesuai jawaban; sambil menunggu, pilih yang paling sedikit potongannya. Klip yang isinya tidak berhubungan dengan klip lain tidak dipaksa masuk: laporkan ke lead (video terpisah, B-roll, atau tidak dipakai). Kalau user minta lebih tajam, render dengan skala 1.3334 (1440x2560, tahap 9).
 - Siapa penontonnya.
 - Nama brand, orang, akun, dan istilah khusus beserta ejaan yang benar. Daftar ini dipakai sebagai kosakata untuk Whisper.
 - CTA di akhir, logo, warna brand kalau ada.
@@ -87,7 +87,7 @@ Buka `work/ref/sheet_*.jpg` dan catat: posisi dan gaya subtitle, seberapa sering
 
 Preferensi desain yang pernah dinyatakan user (di percakapan ini, di file catatan project, atau di memori agent) dicatat di brief dan berlaku untuk seluruh video.
 
-**Gate:** klip ada di `raw/`. Jenis konten, durasi target, dan CTA terisi. Look diputuskan dengan alasan. Daftar "Butuh dari user" sudah dilaporkan (atau tertulis "tidak ada"). Semua asumsi ditandai.
+**Gate:** klip ada di `raw/`. Pemilik video diputuskan dengan bukti. Jenis konten dan durasi target terisi; CTA terisi atau tertulis "tidak ada ajakan" (video cerita atau opini boleh tanpa ajakan). Look diputuskan dengan alasan. Daftar "Butuh dari user" sudah dilaporkan (atau tertulis "tidak ada"). Semua asumsi ditandai.
 
 ### Tahap 1. Normalisasi dan melihat footage
 
@@ -163,6 +163,8 @@ tangan, dan benda yang dipegang berpindah seketika, dan penonton melihatnya seba
 potongan di `script.md`, tulis tiga hal:
 
 1. **Kenapa harus dipotong.** Alasan yang sah: take ulang, salah ucap, mulai ulang, jeda mati yang panjang, kalimat yang menyimpang.
+   "Jeda mati" = jeda kosong (mencari kata, melihat catatan, menunggu). Jeda yang membawa makna (emosi, penekanan sebelum kalimat
+   penting, reaksi) BUKAN jeda mati: dipertahankan, dan kalau melewati batas rentang sepi diberi `quiet_ok` dengan alasan itu (`design.md` 6.2, Storytelling).
    Bukan alasan: menghemat setengah detik, kalimat di take lain sedikit lebih rapi, jeda napas, kata pengisi yang wajar.
 2. **Apa yang terlihat di sambungan.** Pilihan, urut dari yang terbaik: (a) tidak dipotong (biarkan jeda atau kata pengisinya);
    (b) sambungan tertutup visual layar penuh yang MEMANG menggambarkan kalimat di situ, sudah penuh di layar sebelum potongan dan
@@ -265,6 +267,14 @@ Kalau pembicara menyebut aplikasi, situs, chat, atau notifikasi, penonton harus 
    aplikasinya. Selama menunggu: halaman publik lain dari brand yang sama, atau logo asli + nama akun di atas pembicara.
 3. UI karangan (kartu bergaya dashboard, layar chat buatan sebagai bukti, ikon generik, latar dekoratif) tidak dipakai. Gelembung chat
    untuk menggambarkan apa yang DIUCAPKAN seseorang boleh: itu ilustrasi ucapan, bukan bukti.
+
+**Yang belum terbukti dari container ini (cek di awal Tahap 6, catat hasilnya di laporan):** sumber MUSIK bebas royalti dan sumber
+FOOTAGE video bebas lisensi belum pernah berhasil diunduh di job nyata (Pexels dan Wikimedia diblokir; Openverse memberi foto dan
+audio, belum diuji untuk musik). Coba sekali tiap sumber yang masuk akal, jangan mengakali blokir; kalau tidak ada yang terjangkau,
+laporkan ke lead SEGERA supaya user bisa mengirim file, dan pakai foto nyata (bukan video) untuk momen yang butuh gambar.
+Lisensi: video untuk perusahaan atau akun yang dimonetisasi butuh lisensi yang mengizinkan pemakaian komersial (CC0, CC BY dengan
+atribusi, atau lisensi situs yang menyebut komersial). Lisensi NC tidak dipakai untuk video perusahaan; untuk video tanpa
+perusahaan tetap dihindari kalau ada pilihan lain, dan selalu dilaporkan.
 
 **Foto dan footage stok, tanpa API key**
 

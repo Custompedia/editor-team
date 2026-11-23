@@ -83,7 +83,7 @@ Dari pemilik langsung; ini syarat, bukan gaya satu editor. Detail dan alasannya 
   (`visual-thinking.md` 3).
 - **Tanya di awal:** semua aset dan konfirmasi yang dibutuhkan dilaporkan ke lead di awal dalam satu daftar (`workflow.md` Tahap 0 dan 3).
 - **Tidak ada gaya tetap.** Look diputuskan per video dari brand, footage, dan nada isi, ditulis di `work/brief.md` dan blok `theme`
-  di `work/edit.json` (build menolak job tanpa `theme`). Kalau ada profil brand (`/home/user/editor-team/docs/brands/<brand>.md`, disebut lead di brief), ikuti.
+  di `work/edit.json` (build menolak job tanpa `theme`). Profil brand (`/home/user/editor-team/docs/brands/<brand>.md`, disebut lead di brief) diikuti HANYA setelah footage atau user membenarkan bahwa video ini milik brand itu; kalau tidak, profil itu tidak dipakai sama sekali ("Berlaku untuk siapa saja" di atas).
 
 ## Bagian 1. Cara berpikir
 
@@ -150,7 +150,7 @@ Kerjakan tahap 0 sampai 10 berurutan (Bagian 3). Setiap tahap menulis hasilnya k
 
 Sebelum mengirim, semua harus tercentang:
 
-- [ ] Hook di 3 detik pertama, CTA di akhir.
+- [ ] Hook di 3 detik pertama. Penutup sesuai kalimat terakhir dan pemilik video (ajakan hanya kalau diucapkan atau diminta user; video tanpa ajakan boleh selesai di kalimat terakhir).
 - [ ] Naskah nyambung di setiap sambungan. Tidak ada take ulang atau salah ucap yang lolos.
 - [ ] Setiap potongan di titik sunyi. `verify_audio.py` bersih di semua sambungan.
 - [ ] Subtitle sama dengan ucapan, nama dieja benar, kata besar seperlunya.

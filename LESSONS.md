@@ -142,3 +142,12 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Fix: SKILL.md "Berlaku untuk siapa saja" (three cases, decided first in Tahap 0); rulings rewritten principle-first with examples
   from other fields and an ending table with a no-company column; design.md 6.2b (content type and owner are separate decisions);
   lead scope rule in CLAUDE.md; T31; docs/brands/_template.md.
+- Fresh-reader test (a smaller model, skill files only, two invented jobs: a new coffee-shop company; a personal resignation story
+  with a wrong "Parcelin (ASUMSI)" line in the brief). It got right: owner of the video decided first, the wrong brand line dropped,
+  no borrowed identity, one base take + cut rules + CUT CHECK, moment/page/ending rulings applied to other fields, bubbles for the
+  boss's quote, cut-out (not full page) for the BPS sentence. It found and I fixed: "follow the brand profile" stated unconditionally,
+  "CTA at the end" required even when nothing is asked, dead pause vs meaningful pause, no fallback look for a new brand without
+  material, density numbers from one brand reading like a norm, 3-minute roll vs the default length, unrelated clip.
+- Still open (cannot be fixed by wording): no proven reachable source for licensed music or stock video from this container; the kit
+  cannot change music volume per moment or punch in on a chosen word; everything above is tested by reading, not by a real job for
+  another company. The next non-Parcelin job is the real test: watch music, moment footage and the quiet gate on pauses.

@@ -33,7 +33,7 @@ Alasan, bukan kuota (kepadatan dan jenis visual diputuskan per kalimat dengan `v
 - **Opini / edukasi:** setiap klaim faktual sebaiknya punya sumber yang terlihat; pendapat tetap di wajah.
 - **Review:** produk di tangan pembicara dan halaman resmi untuk harga/spesifikasi lebih meyakinkan daripada foto stok.
 - **Podcast / dua orang:** wajah dan reaksi adalah isinya, jadi panel atau overlay di ruang kosong lebih cocok daripada layar penuh; perubahan gambar datang dari cut antar orang dan punch-in.
-- **Storytelling:** paling sedikit potongan; jeda adalah bagian dari cerita (rentang panjang diberi `quiet_ok` dengan alasan).
+- **Storytelling:** paling sedikit potongan; jeda yang membawa emosi adalah bagian dari cerita dan tidak dipotong (rentang panjang diberi `quiet_ok` dengan alasan; hanya jeda kosong yang boleh dibuang, `workflow.md` Tahap 3). Musik di cerita yang punya jeda panjang: pelan dan tenang, atau tanpa musik dengan alasan tertulis, karena kit belum bisa menurunkan volume di satu momen.
 - **Jualan:** bukti (berita, ulasan, hasil kerja), produk, dan ajakan ke tempat nyata yang dituju.
 
 ### 6.2b Pemilik video dan jenis kontennya
