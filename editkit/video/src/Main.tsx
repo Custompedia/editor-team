@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Audio, Easing, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import raw from './data.json';
 import {Insert, Overlay, SplitPanel} from './Visuals';
-import {SANS, SERIF, EMPH_STYLE, ACCENT, INK, FPS, cl, sp} from './theme';
+import {SANS, SERIF, EMPH_STYLE, ACCENT, INK, LIGHT, FPS, cl, sp} from './theme';
 const data = raw as any;
 const isFull = (e: any) => data.fullTypes.includes(e.type);
 const fulls = data.events.filter(isFull);
@@ -12,6 +12,12 @@ const overs = data.events.filter((e: any) => !isFull(e) && e.type !== 'split' &&
    4-frame ramp in/out. Only the speaker changes; inserts, overlays and subtitles keep their colour. */
 const moods = data.events.filter((e: any) => e.type === 'mood');
 const moodK = (frame: number) => moods.map((e: any) => ({e, k: Math.min(interpolate(frame, [e.f - 1, e.f + 3], [0, 1], cl), interpolate(frame, [e.t - 4, e.t], [1, 0], cl))})).reduce((a: any, b: any) => (b.k > a.k ? b : a), {e: null, k: 0});
+/* music volume points (generic): each point ramps the bed to v (x base volume) over `ramp` frames from its frame */
+const musicK = (f: number) => {
+  let v = 1;
+  for (const p of (data.music?.points || [])) { if (f >= p.f) v = interpolate(f, [p.f, p.f + p.ramp], [v, p.v], cl); }
+  return v;
+};
 const chainedAfter = (e: any) => fulls.some((x: any) => x.f === e.t); // another insert starts exactly when this one ends
 const chainedBefore = (e: any) => fulls.some((x: any) => x.t === e.f);
 
@@ -80,8 +86,11 @@ const Subs: React.FC = () => {
   const top = 1270 + Math.min(120, speakerShift(frame) * 0.4);      // in split layout the speaker sits lower: keep the text under the chin
   return (
     <AbsoluteFill style={{top, height: 260, justifyContent: 'center', alignItems: 'center', flexDirection: 'column', opacity: 0.25 + 0.75 * inn, transform: `translateY(${(1 - inn) * 10}px)`}}>
+      {/* on a bright full-screen insert the dark caption gets a calm backing in the panel colour, so it stays readable over busy pages */}
+      <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: ink ? '10px 34px 14px' : 0, borderRadius: 30,
+        background: ink ? `${LIGHT}E8` : 'transparent', boxShadow: ink ? '0 8px 26px rgba(0,0,0,0.12)' : 'none', maxWidth: 1000}}>
       {c.small.length > 0 && (
-        <div style={{fontFamily: SANS, fontWeight: 700, fontSize: c.big.length ? 50 : 56, color: ink ? INK : '#fff', textShadow: sh, letterSpacing: -0.5, textAlign: 'center', padding: '0 70px', lineHeight: 1.15}}>
+        <div style={{fontFamily: SANS, fontWeight: 700, fontSize: c.big.length ? 50 : 56, color: ink ? INK : '#fff', textShadow: sh, letterSpacing: -0.5, textAlign: 'center', padding: ink ? 0 : '0 70px', lineHeight: 1.15}}>
           {c.small.map((w: any, i: number) => (
             <span key={i} style={{opacity: frame >= w.f - 1 ? 1 : 0.5, marginRight: 13, display: 'inline-block'}}>{clean(w.t)}</span>
           ))}
@@ -95,6 +104,7 @@ const Subs: React.FC = () => {
           })}
         </div>
       )}
+      </div>
     </AbsoluteFill>
   );
 };
@@ -128,7 +138,7 @@ export const Main: React.FC = () => {
     ))}
     {/* optional background music, far below the voice, faded in and out */}
     {data.music ? (
-      <Audio src={staticFile(data.music.src)} loop volume={(f) => (data.music.volume ?? 0.06) * interpolate(f, [0, 20, data.total - 45, data.total], [0, 1, 1, 0], cl)} />
+      <Audio src={staticFile(data.music.src)} loop volume={(f) => (data.music.volume ?? 0.06) * interpolate(f, [0, 20, data.total - 45, data.total], [0, 1, 1, 0], cl) * musicK(f)} />
     ) : null}
     <Subs />
   </AbsoluteFill>

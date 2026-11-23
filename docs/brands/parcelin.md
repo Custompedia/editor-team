@@ -62,7 +62,26 @@ brand ini. Bukan aturan untuk video lain.
 - Look job02: aksen kuning-emas `#F2C230` (hue box kubah emas di footage dan warna kata kunci di caption akun kreator), panel krem
   `#FBF6EA`, Poppins. Oranye brand ditolak di footage itu karena tenggelam di dinding merah.
 
+## Data profil Instagram untuk penutup "hubungi aku" (dari screenshot pemilik, 2026-11-23; angka berubah: konfirmasi dulu)
+Komponen kit `igpage`. Teks dan warna di bawah bisa dipakai lagi; **gambar (foto profil, sampul sorotan "DSC", 12 tile post, 4 emoji
+bio, ikon Threads) adalah crop dari screenshot dan tidak disimpan di repo** (repo ini publik): minta screenshot lagi ke pemilik.
+- handle `prahenditaputri` (terverifikasi), nama "Prahendita Putri Prasetyani", 174 kiriman · 9.163 pengikut · 325 diikuti, "Kreator digital".
+- Bio: "Suka ngomongin bisnis, printing & packaging" / "Packaging @parcelinpack" / "Pouch & Bag @parcelinbag" / "Merchandise... selengkapnya"
+  (baris terakhir terpotong di screenshot: tampilkan apa adanya). Tautan: prahenditaputri.carrd.co; Threads: prahenditaputri.
+- Tombol: "Ikuti" (#4A5DF9), "Kirim pesan" (#292D32). Latar #13171A, teks #F5F5F5, teks sekunder #A0A0A0, mention #7F8DC8, tautan #8EA6EE.
+- Font pengganti: Inter (font sistem di image container). Tata letak job03: blok kepala diperbesar, tombol selebar layar, grid 6x2,
+  selesai di atas pita subtitle; tap di "Kirim pesan" pada kata "DM", cincin lembut di kata berikutnya, dorongan pelan sampai akhir.
+
+## Catatan job03
+- parcelin.id membalas 404 DEPLOYMENT_NOT_FOUND (Vercel) pada 2026-11-23 siang, termasuk URL logo; pagi harinya masih terbuka. Sudah
+  dilaporkan ke pemilik. Sumber aset brand saat situs mati: Pinterest publik parcelincompany (tab "Dibuat").
+- Look job03: aksen oranye #DE6B17 (dari job01; tidak bisa dicek ulang karena situs mati), panel #FBF6EE, ink #2A201A, Poppins.
+- Musik yang dipakai: "Good Vibe Background Music", Seth_Makes_Sounds, Freesound 661782, CC0; volume 0,05, turun di "Gimana? Nggak bisa".
+- Whisper: "Parcellen", "Parcelon", "parcel ini" → "Parcelin" (pemilik mengonfirmasi brand); "softbook" → "softbox".
+
 ## Riwayat
+- job03 (Cara Hitung Hardbox; 5 klip = 2 bagian berurutan + 3 take jembatan gagal): final_v4 125,3 dtk, **2 potongan**, urutan rekam,
+  penutup profil IG buatan kode. Pemilik atas pratinjau v3: "bagus sih editannya".
 - job02 (Box Lebaran, pengingat pesan packaging Lebaran dari sekarang; 2 take naskah yang sama, 62,8 dtk dan 86,6 dtk): final_v4 52,7 dtk.
   Masukan pemilik: kebanyakan cut, tanpa backsound, penutup salah (harusnya closing logo), foto momen dan halaman penuh; desain sudah lebih baik.
 - job01 (Cara Hitung Hardbox): final_v4 dinilai "rada kurang" (terlalu jarang, konsep tidak digambarkan, penutup lemah). Studi pembanding:

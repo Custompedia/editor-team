@@ -202,11 +202,15 @@ for c in sorted(set([0] + hidden + joins)):
 
 # 7) sound effects
 sfx = []
+#   "sfx": false on an event silences its entry sound (restraint: only sounds that mark something);
+#   "tap_at" (custom page/igpage) gets a soft click like "click_at".
 for e in fulls:
     chained = any(x["t"] == e["f"] for x in fulls)
-    sfx.append({"f": e["f"] + (2 if chained else 0), "k": "swish" if chained else "whoosh"})
-    if "click_at" in e: sfx.append({"f": e["click_at"], "k": "click"})
+    if e.get("sfx", True) is not False: sfx.append({"f": e["f"] + (2 if chained else 0), "k": "swish" if chained else "whoosh"})
+    for key in ("click_at", "tap_at"):
+        if key in e: sfx.append({"f": e[key], "k": "click"})
 for e in events:
+    if e.get("sfx", True) is False and e["type"] not in FULL_TYPES: continue
     if e["type"] == "split":
         sfx.append({"f": e["f"], "k": "swish"})
         if "click_at" in e: sfx.append({"f": e["click_at"], "k": "click"})
@@ -305,8 +309,14 @@ if jump:
         "  - if a visible cut is right (change of place, a new section that looks like one), add to work/edit.json\n"
         "    \"cut_ok\": [{\"join\": <n>, \"why\": \"<the picture reason>\"}] (edit-json.md, cut_ok). \"The audio is clean\" is not a reason.")
 
+# music volume points (generic): "music": {"src", "volume", "points": [{"at": anchor, "v": 0..1 (x volume), "ramp": frames}]}
+#   lets the bed follow the script (dip under a turn, return after) without a second track.
+MUSIC = dict(E["music"]) if E.get("music") else None
+if MUSIC and MUSIC.get("points"):
+    MUSIC["points"] = sorted([{"f": anchor(p["at"]), "v": float(p["v"]), "ramp": int(p.get("ramp", 12))} for p in MUSIC["points"]], key=lambda p: p["f"])
+    print("music points: " + ", ".join(f"{fmt(p['f'])} x{p['v']:g}" for p in MUSIC["points"]))
 json.dump({"fps": FPS, "total": total, "theme": THEME, "segs": segs, "framing": E.get("framing", {}), "subs": subs, "events": events,
-           "fullTypes": sorted(FULL_TYPES), "shots": shots, "sfx": sfx, "keepCase": E.get("keep_case", []), "music": E.get("music")},
+           "fullTypes": sorted(FULL_TYPES), "shots": shots, "sfx": sfx, "keepCase": E.get("keep_case", []), "music": MUSIC},
           open("video/src/data.json", "w"), ensure_ascii=False, indent=1)
 
 # report: read it every time

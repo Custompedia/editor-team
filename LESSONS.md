@@ -151,3 +151,34 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Still open (cannot be fixed by wording): no proven reachable source for licensed music or stock video from this container; the kit
   cannot change music volume per moment or punch in on a chosen word; everything above is tested by reading, not by a real job for
   another company. The next non-Parcelin job is the real test: watch music, moment footage and the quiet gate on pauses.
+
+## job03 — "Cara Hitung Hardbox" (Parcelin, same footage as job01; first job under requirements 12–21)
+- Delivered final_v4 (125.3 s). Owner on the v3 preview: "bagus sih editannya". job01 v4 on the same footage was "rada kurang".
+- What made the difference, in order: (1) ONE line through the footage in recording order, 2 cuts in 125 s (job02: 5 in 53 s), both
+  joins covered by a photo on the word being spoken, CUT CHECK 0 exposed; (2) questions asked before and after Tahap 3, so the ending,
+  music, size and brand were the owner's decisions, not assumptions; (3) density without padding: 65 visual changes, longest unchanged
+  stretch 4.9 s, 0 quiet_ok, speaker-only 23%.
+- The worker understood all five clips before cutting: two consecutive parts plus three failed bridge takes. Nothing from the three
+  short clips was needed. "Understand the whole roll first" is what kept the cut count at two.
+- The CUT CHECK gate worked on its first real job. The worker planned the covering visuals at Tahap 3 instead of fixing jumps after
+  a failed build; the lead's reply to the Tahap 3 report took minutes and changed nothing structural.
+- v1 failed the worker's own QA4: the spoken self-cue "Ulangi" leaked at a join because Whisper's word time was ~0.6 s off. Rule kept
+  in the skill: after a self-cue or restart, test the `in` point with a prompt-free slice before rendering.
+- Lead review of v3 passed every hard test but sent it back for finish: full-screen photos shown as a band between blurred bars, a
+  CC BY photo (credit obligation for the owner in every post) where a CC0 one existed, captions unreadable over a busy light page,
+  5.7 s of near-still end card. All four are now rules or kit behaviour (full-bleed rule, CC0 first, caption backing on light
+  inserts, staged end card). Showing the v3 PREVIEW to the owner while v4 rendered cost nothing and got the audio heard earlier.
+- Owner rulings at the start: the Instagram profile for a "hubungi aku" ending is rebuilt in code, 100% the same as the screenshot;
+  music free but "jangan spam musik"; Reels. The code-built page matched the screenshot on every text and number (lead compared
+  them side by side); only photos are crops.
+- Licensed sources are reachable after all: Openverse API for photos and audio (Freesound CC0, Jamendo CC BY). Stock VIDEO is still
+  unproven.
+- parcelin.id returned 404 DEPLOYMENT_NOT_FOUND during the job (it worked in the morning). Reported to the owner. A brand's site
+  can vanish mid-day: keep a second source (here the public Pinterest) in the brand profile.
+- The repo is PUBLIC (found when checking whether another session can work from it). Told the owner. Nothing private is stored, and
+  the owner's profile images are deliberately not committed.
+- Kit: ported after the v4 render: `page` (real page full screen with scroll/mark/tap), `gallery`, `measure`, `igpage`, `Tap`,
+  `music.points`, `sfx: false`, caption backing on light inserts, `stills_full.mjs`.
+- Not verified by anyone but the owner's ears: the two joins (0:52, 1:28), the kept false start "Kita bisa—" (~1:33), the music.
+- Cost: one worker session ~2 h 20 min including three renders (~25 min each for 125 s). A render round is still the expensive unit;
+  catching "Ulangi" before render 1 would have saved one.
