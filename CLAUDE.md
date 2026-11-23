@@ -58,6 +58,7 @@ Whisper cannot know coined names (job01: PARCELIN heard as Parcelon/Parcellen).
   design, kit, troubleshooting).
 - `editkit/` — scripts, Remotion template, fonts, sfx, `new_job.sh` (installed to `/home/user/editkit`; code lives only here).
 - `setup/install.sh` — idempotent installer; `setup/cloud-setup-script.sh` — optional environment Setup script.
-- `docs/` — `worker-brief-template.md`, `review-tests.md` (lead's checks), `brands/` (per-brand profiles),
+- `docs/` — `owner-requirements.md` (the owner's 11 requirements, in their words), `worker-brief-template.md`,
+  `review-tests.md` (lead's checks), `decisions/` (open questions, kit change log), `brands/` (per-brand profiles),
   `reference-studies/` (evidence archive of the reference and benchmark studies), `GUIDE-original.md` (archive; not read by default).
 - `LESSONS.md` — lessons per job.

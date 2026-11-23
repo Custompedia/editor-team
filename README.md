@@ -39,7 +39,9 @@ LESSONS.md                     pelajaran per job (makin ke kanan makin improve)
 editkit/                       skrip, template Remotion, font, efek suara, new_job.sh (satu-satunya tempat kode)
 setup/install.sh               instalasi idempoten;  setup/cloud-setup-script.sh  untuk Setup script environment
 docs/worker-brief-template.md  template instruksi worker
+docs/owner-requirements.md     11 syarat dari pemilik (kata-kata pemilik)
 docs/review-tests.md           uji yang dijalankan lead sebelum hasil dikirim
+docs/decisions/                keputusan terbuka, rencana uji lintas model, catatan perubahan kit
 docs/brands/                   profil per brand (ejaan, akun, permintaan pemilik)
 docs/reference-studies/        arsip studi referensi dan benchmark
 docs/GUIDE-original.md         arsip guide asli (tidak dibaca secara default)
