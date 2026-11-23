@@ -1,6 +1,8 @@
 {
   "fps": 30,
   "clips": {"A": "take1", "B": "take3"},
+  "theme": {"accent": "#2F6FED", "light": "#F5F5F7", "ink": "#1D1D1F", "font_text": "Plus Jakarta Sans", "font_emph": "Plus Jakarta Sans", "emph_style": "normal",
+            "why": "CONTOH, ganti dengan alasanmu: aksen = warna tombol utama di situs brand; font = font situs brand (terpasang sebagai font sistem)"},
   "segments": [
     {"clip": "B", "in": 12.4, "out": 16.85},
     {"clip": "A", "in": 0.62, "out": 21.3},
@@ -15,6 +17,8 @@
   "sub_max_chars": 24,
   "sub_max_words": 4,
   "outro_frames": 60,
+  "max_quiet_s": 6.0,
+  "quiet_ok": [{"from": ["B", 60], "to": ["B", 98, 0, "e"], "why": "cerita pribadi soal gaji pertama: ekspresi pembicara adalah isinya, visual malah mengganggu"}],
   "music": {"src": "music/bed.mp3", "volume": 0.06},
   "events": [
     {"type": "title", "start": 4, "end": ["B", 54], "line1": "KENAPA GAJI", "line2": "Selalu habis"},

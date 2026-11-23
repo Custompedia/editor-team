@@ -3,7 +3,7 @@
   python3 tools/sheet.py video <file.mp4> <prefix> [every_sec=1]   one frame per N seconds -> <prefix>_0.jpg, _1.jpg ...
   python3 tools/sheet.py strips <file.mp4> <prefix>       12 consecutive frames around EVERY transition in data.json
   python3 tools/sheet.py assets <out.jpg> <img> [img ...]  grid of candidate images with their file names"""
-import sys, glob, json, os, subprocess
+import sys, glob, json, os, subprocess, tempfile
 from PIL import Image, ImageDraw
 
 def grid(items, out, cols, W, H):
@@ -19,10 +19,11 @@ def grid(items, out, cols, W, H):
     sh.save(out, quality=85); print(out, sh.size)
 
 def grab(video, frame, fps=30, W=216, H=384):
-    tmp = "/tmp/_frame.jpg"
-    subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-ss", "%.4f" % (frame / fps + 0.5 / fps), "-i", video, "-frames:v", "1",
-                    "-vf", f"scale={W}:{H}", "-q:v", "4", tmp], check=True)
-    return Image.open(tmp).copy()
+    with tempfile.TemporaryDirectory(prefix="sheet_") as td:     # per-process temp file: parallel jobs never share it
+        tmp = os.path.join(td, "frame.jpg")
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-ss", "%.4f" % (frame / fps + 0.5 / fps), "-i", video, "-frames:v", "1",
+                        "-vf", f"scale={W}:{H}", "-q:v", "4", tmp], check=True)
+        with Image.open(tmp) as im: return im.copy()
 
 mode = sys.argv[1]
 if mode == "stills":

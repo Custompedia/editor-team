@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Img, OffthreadVideo, interpolate, staticFile, useCurrentFrame, Easing} from 'remotion';
-import {SANS, SERIF, ACCENT, LIGHT, INK, FPS, cl, ease, sp} from './theme';
+import {SANS, SERIF, EMPH_STYLE, ACCENT, ON_ACCENT, MARKER, LIGHT, INK, FPS, cl, ease, sp} from './theme';
 
 /* ---------- shared pieces ---------- */
 const Label: React.FC<{num?: string; label?: string; sub?: string; ink?: boolean}> = ({num, label, sub, ink}) => {   // ink = dark text, for light backgrounds
@@ -10,7 +10,7 @@ const Label: React.FC<{num?: string; label?: string; sub?: string; ink?: boolean
   return (
     <div style={{position: 'absolute', left: 64, top: 170, opacity: p, transform: `translateY(${(1 - p) * 30}px)`}}>
       <div style={{display: 'flex', alignItems: 'baseline', gap: 18}}>
-        {num ? <span style={{fontFamily: SERIF, fontStyle: 'italic', fontWeight: 800, fontSize: 84, color: ink ? INK : ACCENT, textShadow: ink ? 'none' : '0 4px 20px rgba(0,0,0,.6)'}}>{num}</span> : null}
+        {num ? <span style={{fontFamily: SERIF, fontStyle: EMPH_STYLE, fontWeight: 800, fontSize: 84, color: ink ? INK : ACCENT, textShadow: ink ? 'none' : '0 4px 20px rgba(0,0,0,.6)'}}>{num}</span> : null}
         <span style={{fontFamily: SANS, fontWeight: 800, fontSize: 68, color: ink ? INK : '#fff', letterSpacing: ink ? -1 : 1, textShadow: ink ? 'none' : '0 4px 24px rgba(0,0,0,.75)'}}>{label}</span>
       </div>
       {sub ? <div style={{marginTop: 10, display: 'inline-block', fontFamily: SANS, fontWeight: 600, fontSize: 32, color: ink ? '#fff' : '#111', background: ink ? INK : 'rgba(255,255,255,0.92)', padding: '8px 18px', borderRadius: 12}}>{sub}</div> : null}
@@ -73,7 +73,7 @@ const Screenshot: React.FC<{e: any}> = ({e}) => {
       <BlurBg img={e.img} />
       {e.source ? (
         <div style={{position: 'absolute', left: 60, top: 150, opacity: p, fontFamily: SANS, fontWeight: 700, fontSize: 30, color: '#fff', letterSpacing: 3}}>
-          <span style={{background: ACCENT, color: '#111', padding: '6px 14px', borderRadius: 8, marginRight: 14}}>SUMBER</span>{e.source}
+          <span style={{background: ACCENT, color: ON_ACCENT, padding: '6px 14px', borderRadius: 8, marginRight: 14}}>SUMBER</span>{e.source}
         </div>
       ) : null}
       <div style={{position: 'absolute', left: 60, top: CARD_TOP, width: CARD_W, height: CARD_H, borderRadius: 28, overflow: 'hidden', background: '#fff', boxShadow: '0 40px 90px rgba(0,0,0,0.6)', transform: `translateY(${(1 - p) * 420}px) rotate(${(1 - p) * -3}deg) scale(${zoom})`, transformOrigin: '50% 20%', opacity: Math.min(1, p * 2)}}>
@@ -82,7 +82,7 @@ const Screenshot: React.FC<{e: any}> = ({e}) => {
           {(e.highlights || []).map((h: any, i: number) => {
             const at = h.at ?? 20 + i * 26;
             const w = interpolate(f, [at, at + 14], [0, 1], {...cl, easing: ease});
-            return <div key={i} style={{position: 'absolute', left: h.x * S, top: h.y * S, height: h.h * S, width: h.w * S * w, background: ACCENT, mixBlendMode: 'multiply'}} />;
+            return <div key={i} style={{position: 'absolute', left: h.x * S, top: h.y * S, height: h.h * S, width: h.w * S * w, background: MARKER, mixBlendMode: 'multiply'}} />;
           })}
           {e.click ? <div style={{position: 'absolute', left: tx - 150, top: e.click.y * S - 46, width: 300, height: 92, borderRadius: 46, background: '#000', opacity: 0.18 * press}} /> : null}
         </div>
@@ -102,7 +102,7 @@ const Screenshot: React.FC<{e: any}> = ({e}) => {
 const Bars: React.FC<{e: any}> = ({e}) => {
   const f = useCurrentFrame();
   const max = Math.max(...e.values.map((v: any) => v.n));
-  const hi = e.color || '#0A84FF';   // the one bar that matters (the last one); take the colour from the brand or the topic
+  const hi = e.color || ACCENT;   // the one bar that matters (the last one); e.color overrides when ACCENT reads badly on LIGHT
   return (
     <AbsoluteFill style={{background: LIGHT}}>
       <Label ink label={e.label} sub={e.sub} />
@@ -144,7 +144,7 @@ const Outro: React.FC<{e: any}> = ({e}) => {
           </div>
         ) : null}
         {e.handle ? <div style={{fontFamily: SANS, fontWeight: 800, fontSize: 66, color: '#fff', marginTop: 34, textShadow: '0 4px 24px rgba(0,0,0,.7)'}}>{e.handle}</div> : null}
-        {e.cta ? <div style={{marginTop: 18}}><span style={{fontFamily: SANS, fontWeight: 800, fontSize: 40, color: '#111', background: ACCENT, padding: '12px 30px', borderRadius: 16}}>{e.cta}</span></div> : null}
+        {e.cta ? <div style={{marginTop: 18}}><span style={{fontFamily: SANS, fontWeight: 800, fontSize: 40, color: ON_ACCENT, background: ACCENT, padding: '12px 30px', borderRadius: 16}}>{e.cta}</span></div> : null}
       </div>
     </AbsoluteFill>
   );
@@ -217,7 +217,7 @@ export const Overlay: React.FC<{e: any}> = ({e}) => {
           <div style={{fontFamily: SANS, fontWeight: 800, fontSize: 50, color: '#fff', letterSpacing: 5, textShadow: '0 4px 20px rgba(0,0,0,.8)'}}>{e.line1}</div>
           <div style={{display: 'inline-block', position: 'relative', marginTop: 6, padding: '0 34px'}}>
             <div style={{position: 'absolute', left: 0, top: 22, bottom: 10, width: `${hl * 100}%`, background: ACCENT, borderRadius: 14, transform: 'skewX(-8deg)'}} />
-            <span style={{position: 'relative', fontFamily: SERIF, fontStyle: 'italic', fontWeight: 800, fontSize: 132, color: hl > 0.5 ? '#111' : '#fff', lineHeight: 1.15}}>{e.line2}</span>
+            <span style={{position: 'relative', fontFamily: SERIF, fontStyle: EMPH_STYLE, fontWeight: 800, fontSize: 132, color: hl > 0.5 ? ON_ACCENT : '#fff', lineHeight: 1.15}}>{e.line2}</span>
           </div>
         </div>
       </AbsoluteFill>
@@ -232,7 +232,7 @@ export const Overlay: React.FC<{e: any}> = ({e}) => {
         if (e.type === 'chips') {
           return (
             <div key={i} style={{position: 'absolute', left: 50, top: 140 + i * 138, display: 'flex', alignItems: 'center', gap: 22, background: 'rgba(14,14,18,0.86)', borderRadius: 60, padding: it.n ? '16px 44px 16px 16px' : '22px 44px', transform: `translateX(${(1 - p) * -80}px) scale(${0.85 + 0.15 * p})`, opacity: Math.min(1, p * 1.4), transformOrigin: '0% 50%', boxShadow: '0 16px 40px rgba(0,0,0,0.4)', border: '3px solid rgba(255,255,255,0.14)'}}>
-              {it.n ? <div style={{width: 84, height: 84, borderRadius: 42, background: ACCENT, color: '#111', fontFamily: SANS, fontWeight: 800, fontSize: 50, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{it.n}</div> : null}
+              {it.n ? <div style={{width: 84, height: 84, borderRadius: 42, background: ACCENT, color: ON_ACCENT, fontFamily: SANS, fontWeight: 800, fontSize: 50, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{it.n}</div> : null}
               <div style={{fontFamily: SANS, fontWeight: 800, fontSize: 48, color: '#fff'}}>{it.text}</div>
             </div>
           );

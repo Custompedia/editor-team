@@ -2,8 +2,72 @@
 Everything in the video is anchored to WORDS, never to hand-typed frame numbers, so moving a cut
 re-times every subtitle, visual and sound effect automatically.
 Usage: python3 tools/build_timeline.py"""
-import json, re, sys
+import json, re, subprocess, sys
 E = json.load(open("work/edit.json"))
+
+# 0) the LOOK of this video is a decision, not a default: "theme" is required and has no fallback.
+#    "theme": {"accent": "#RRGGBB", "light": "#RRGGBB", "ink": "#RRGGBB", "font_text": "<family>", "font_emph": "<family>",
+#              "emph_style": "italic"|"normal", "why": "<reason>", optional "on_accent", "marker"}
+THEME_HELP = """Decide the look of THIS video (accent colour, panel/text colours, fonts) from the brand, the footage and the brief,
+write the choice + the reason in work/brief.md, then add to work/edit.json:
+  "theme": {"accent": "#RRGGBB", "light": "#RRGGBB", "ink": "#RRGGBB",
+            "font_text": "<installed font family>", "font_emph": "<installed font family>",
+            "emph_style": "italic" | "normal", "why": "<the reason, same as in work/brief.md>"}
+There is no default look (see edit-json.md, field "theme")."""
+HEX = re.compile(r"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$")
+
+def lum(hx):
+    """relative luminance (WCAG) of #RGB / #RRGGBB"""
+    hx = hx[1:]
+    if len(hx) == 3: hx = "".join(c * 2 for c in hx)
+    ch = [int(hx[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+    ch = [c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4 for c in ch]
+    return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2]
+contrast = lambda a, b: (max(lum(a), lum(b)) + 0.05) / (min(lum(a), lum(b)) + 0.05)
+
+def check_theme(t):
+    if not isinstance(t, dict): raise SystemExit("ERROR: work/edit.json has no \"theme\" block.\n" + THEME_HELP)
+    errs = []
+    for k in ("accent", "light", "ink"):
+        if not isinstance(t.get(k), str) or not HEX.match(t[k].strip()): errs.append(f'theme.{k} must be a hex colour like "#DE6B17" (got {t.get(k)!r})')
+    for k in ("on_accent", "marker"):     # optional
+        if k in t and (not isinstance(t[k], str) or not HEX.match(t[k].strip())): errs.append(f'theme.{k} must be a hex colour like "#111111" (got {t[k]!r})')
+    for k in ("font_text", "font_emph"):
+        v = t.get(k)
+        if not isinstance(v, str) or not v.strip() or re.search(r"[,'\"]", v): errs.append(f'theme.{k} must be ONE font family name without quotes or commas, e.g. "Poppins" (got {v!r})')
+    if t.get("emph_style") not in ("italic", "normal"): errs.append(f'theme.emph_style must be "italic" or "normal" (got {t.get("emph_style")!r})')
+    why = t.get("why")
+    if not isinstance(why, str) or len(why.strip()) < 8: errs.append("theme.why is required: the reason for this look (brand colour/font, footage, brief), same as in work/brief.md")
+    elif why.strip().upper().startswith("CONTOH"): errs.append("theme.why is still the text from edit.example.json: decide the look for THIS video and write your own reason")
+    if errs: raise SystemExit("ERROR: invalid \"theme\" in work/edit.json:\n  - " + "\n  - ".join(errs) + "\n" + THEME_HELP)
+    # fonts must be installed as SYSTEM fonts (web fonts hang the renderer here); fc-list lists every family name of every face
+    try: out = subprocess.run(["fc-list", ":", "family"], capture_output=True, text=True, check=True).stdout
+    except (OSError, subprocess.CalledProcessError) as x: raise SystemExit(f"ERROR: cannot run fc-list to check the theme fonts ({x})")
+    fams = {n.strip().lower() for line in out.splitlines() for n in line.split(",") if n.strip()}
+    missing = sorted({t[k].strip() for k in ("font_text", "font_emph") if t[k].strip().lower() not in fams})
+    if missing: raise SystemExit(f"ERROR: theme font(s) not installed as system fonts: {', '.join(missing)}\n"
+        "  Put the static .ttf/.otf files in /home/user/editkit/fonts, run: bash /home/user/editkit/tools/install_fonts.sh\n"
+        "  then check: fc-list : family | grep -i '<name>'   and use the family name exactly as fc-list prints it.\n"
+        "  Never load web fonts (@remotion/google-fonts, @remotion/fonts, FontFace): they hang the renderer here.")
+    def slanted(fam):                # one bool per installed face of the family: True = italic/oblique face
+        r = subprocess.run(["fc-list", f":family={fam}", "style"], capture_output=True, text=True).stdout
+        return [any(w in line.lower() for w in ("italic", "oblique")) for line in r.splitlines() if line.strip()]
+    for k, want in (("font_text", "normal"), ("font_emph", t["emph_style"])):
+        fam, f = t[k].strip(), slanted(t[k].strip())
+        if want == "italic" and not any(f):
+            print(f"WARNING: theme.{k} '{fam}' has no italic face installed: Chrome will slant it artificially. Install the italic files or use emph_style \"normal\".")
+        if want == "normal" and all(f):
+            print(f"WARNING: theme.{k} '{fam}' has ONLY italic faces installed: it will render italic although \"normal\" is asked. Install the upright files or choose another font.")
+    th = {k: t[k].strip() for k in ("accent", "light", "ink", "font_text", "font_emph", "emph_style")}
+    # text drawn ON the accent (title highlight, chip numbers, SUMBER tag, CTA): the darker or lighter of ink/white, whichever reads better
+    th["on_accent"] = t.get("on_accent", "").strip() or max([th["ink"], "#FFFFFF"], key=lambda c: contrast(c, th["accent"]))
+    # screenshot marker-pen highlight (multiply): must be a LIGHT tint or it hides the text under it
+    th["marker"] = t.get("marker", "").strip() or th["accent"]
+    if lum(th["marker"]) < 0.35 and any(ev.get("type") == "screenshot" and ev.get("highlights") for ev in E.get("events", [])): print(f"WARNING: screenshot highlights use {th['marker']} with multiply: too dark, it will hide the text. Set theme.marker to a light tint of the accent (e.g. a pale version).")
+    if contrast(th["ink"], th["light"]) < 4.5: print(f"WARNING: theme.ink {th['ink']} on theme.light {th['light']} has low contrast ({contrast(th['ink'], th['light']):.1f}:1, want >= 4.5)")
+    print(f"theme: accent {th['accent']} (text on it {th['on_accent']}) | light {th['light']} ink {th['ink']} | text font '{th['font_text']}' | emphasis '{th['font_emph']}' {th['emph_style']}")
+    return th
+THEME = check_theme(E.get("theme"))
 FPS = E.get("fps", 30)
 FULL_TYPES = set(E.get("full_types", ["photo", "clip", "screenshot", "custom", "outro"]))  # cover the whole frame
 W = {k: json.load(open(f"work/tx/{v}.json")) for k, v in E["clips"].items()}
@@ -61,7 +125,7 @@ for k in E["clips"]:
                 print(f"WARNING: word {k}{i} '{w['w']}' ({w['s']}-{w['e']}) only partly inside a segment -> no subtitle. If it is audible, fix its time in \"timing\"; if not, ignore.")
             continue
         if not t: continue
-        words.append({"k": k, "t": t, "f": T(k, max(w["s"], seg["in"])), "e": T(k, min(w["e"], seg["out"]))})
+        words.append({"k": k, "i": i, "t": t, "f": T(k, max(w["s"], seg["in"])), "e": T(k, min(w["e"], seg["out"]))})
 words.sort(key=lambda w: w["f"])
 
 # 4) subtitle chunks: short phrases; a trailing run of *emphasised* words becomes the big line
@@ -149,7 +213,69 @@ for e in events:
     elif e["type"] not in FULL_TYPES:
         sfx += [{"f": it["f"], "k": "pop"} for it in e.get("items", []) if "f" in it] or [{"f": e["f"], "k": "pop"}]
 
-json.dump({"fps": FPS, "total": total, "segs": segs, "framing": E.get("framing", {}), "subs": subs, "events": events,
+# 8) QUIET STRETCHES: the picture must not stay unchanged for long. A visual change = an event entering or leaving (any type),
+#    an item/click/highlight appearing inside an event, or a speaker zoom change (shots). Subtitle words do NOT count.
+#    Every stretch longer than "max_quiet_s" (default 6.0) needs a decision: a visual that shows what is said, or a
+#    "quiet_ok" entry {"from": anchor, "to": anchor, "why": "..."} saying why the bare speaker is right there.
+MAXQ = float(E.get("max_quiet_s", 6.0))
+talk_end = min([e["f"] for e in events if e["type"] == "outro"] + [total])      # the outro card is not part of the talk
+changes = {s["f"] for s in shots}
+for e in events:
+    changes |= {e["f"], e["t"]} | {v for key, v in e.items() if key.endswith("_at") and isinstance(v, int)}
+    for it in e.get("items", []):
+        changes |= {v for key, v in it.items() if (key == "f" or key.endswith("_at")) and isinstance(v, int)}
+    if e["type"] == "screenshot":   # marker highlights draw on at their own time (same default as Visuals.tsx)
+        changes |= {e["f"] + h.get("at", 20 + i * 26) for i, h in enumerate(e.get("highlights", [])) if e["f"] + h.get("at", 20 + i * 26) < e["t"]}
+pts = sorted({0, talk_end} | {c for c in changes if 0 < c < talk_end})
+# moving footage (a "clip" insert, or a "split" playing a video "src") is never quiet: those stretches are skipped and the clock
+# restarts when it ends. Its start/end are already change points, so every stretch is either fully on moving footage or not at all.
+moving = [e for e in events if e["type"] == "clip" or (e["type"] == "split" and e.get("src"))]
+on_moving = lambda f: any(e["f"] <= f < e["t"] for e in moving)
+stretches = [(a, b) for a, b in zip(pts, pts[1:]) if not on_moving(a)]
+said = lambda a, b: " ".join(w["t"].replace("*", "") for w in words if a <= w["f"] < b)
+fmt = lambda f: f"{f // FPS // 60}:{f / FPS % 60:05.2f}"
+quiet_ok = []
+for q in E.get("quiet_ok", []):
+    if not str(q.get("why", "")).strip(): raise SystemExit(f"ERROR: quiet_ok entry {q} has no \"why\": write the reason the bare speaker is right there")
+    quiet_ok.append({"f": anchor(q["from"]), "t": anchor(q["to"]), "why": q["why"], "used": False})
+TOL = FPS     # an entry may start/end up to 1 s inside the stretch (word anchors rarely sit exactly on the change)
+long_, bare = [], []
+for a, b in stretches:
+    if (b - a) / FPS <= MAXQ: continue
+    q = next((q for q in quiet_ok if q["f"] <= a + TOL and q["t"] >= b - TOL), None)
+    if q: q["used"] = True
+    long_.append((a, b, q)); bare += [] if q else [(a, b)]
+# calibration totals over the talk (outro excluded)
+kind = {"full": 0, "split": 0, "overlay": 0, "speaker": 0}
+for f in range(talk_end):
+    on = [e for e in events if e["f"] <= f < e["t"]]
+    kind["full" if any(e["type"] in FULL_TYPES for e in on) else "split" if any(e["type"] == "split" for e in on) else "overlay" if on else "speaker"] += 1
+nchg = len(pts) - 2
+longest = max(stretches, key=lambda s: s[1] - s[0]) if stretches else (0, 0)
+print(f"QUIET CHECK (talk {talk_end / FPS:.1f}s, outro excluded, max_quiet_s {MAXQ:g}): {nchg} visual changes, avg unchanged stretch {talk_end / FPS / max(1, nchg + 1):.1f}s"
+      f" | longest unchanged stretch {(longest[1] - longest[0]) / FPS:.1f}s at {fmt(longest[0])}-{fmt(longest[1])}")
+print("  (visual change = an event in/out, an item/click/highlight appearing, a speaker zoom change; subtitle words do not count;"
+      " time on moving footage - clip, split with a video src - is never quiet; a static insert held long still is)")
+print(f"  screen time (moving footage {100 * sum(on_moving(f) for f in range(talk_end)) / max(1, talk_end):.0f}% of the talk): " + " | ".join(f"{n} {100 * kind[k] / max(1, talk_end):.0f}%" for k, n in
+      (("full", "full-screen"), ("split", "split"), ("overlay", "speaker+overlay"), ("speaker", "speaker only"))))
+for a, b, q in long_:
+    print(f"  {'quiet_ok' if q else 'TOO QUIET'} {fmt(a)}-{fmt(b)} ({(b - a) / FPS:.1f}s, frames {a}-{b}): \"{said(a, b)}\"" + (f"  <- why: {q['why']}" if q else ""))
+for q in quiet_ok:
+    if not q["used"]: print(f"WARNING: quiet_ok {fmt(q['f'])}-{fmt(q['t'])} covers no long quiet stretch (stale? remove it or fix its anchors)")
+if bare:
+    hint = []
+    for a, b in bare:
+        ws = [w for w in words if a <= w["f"] < b]
+        hint.append(f"  {fmt(a)}-{fmt(b)} ({(b - a) / FPS:.1f}s, frames {a}-{b}): \"{said(a, b)}\"")
+        if ws: hint.append(f'      quiet_ok entry would be: {{"from": ["{ws[0]["k"]}", {ws[0]["i"]}], "to": ["{ws[-1]["k"]}", {ws[-1]["i"]}, 0, "e"], "why": "..."}}')
+    sys.stdout.flush()
+    raise SystemExit(f"ERROR: {len(bare)} stretch(es) longer than {MAXQ:g}s with no visual change. data.json NOT written.\n" + "\n".join(hint) + "\n"
+        "  This is a DECISION, not a quota. For each stretch, either:\n"
+        "  - add a visual that SHOWS what is being said there (event, split, chips item, click, ...), or\n"
+        "  - if the bare speaker is right (e.g. a personal story where the face IS the content), add to work/edit.json\n"
+        "    \"quiet_ok\": [{\"from\": <anchor>, \"to\": <anchor>, \"why\": \"<the reason>\"}] covering the stretch (edit-json.md, quiet_ok).")
+
+json.dump({"fps": FPS, "total": total, "theme": THEME, "segs": segs, "framing": E.get("framing", {}), "subs": subs, "events": events,
            "fullTypes": sorted(FULL_TYPES), "shots": shots, "sfx": sfx, "keepCase": E.get("keep_case", []), "music": E.get("music")},
           open("video/src/data.json", "w"), ensure_ascii=False, indent=1)
 
