@@ -133,6 +133,26 @@ pakai yang asli, atau minta ke user (Bagian 4).
 
 ---
 
+### Tiga putusan pemilik dari job02 (berlaku umum)
+
+Pemilik menilai tiga visual job02 v4 dan memberi arah. Alasannya ikut ditulis supaya bisa diterapkan ke kasus lain.
+
+- **Momen ditunjukkan sebagai momennya.** Kalimat "mepet abis Natal, terus abis itu Lebaran" digambarkan dengan foto packaging Natal
+  dan box Lebaran milik brand; pemilik: "mending momen bener-bener foto asli, bukan packaging, dan 1 layar full". Yang diucapkan adalah
+  WAKTU (dua hari raya yang berurutan), bukan produk. Uji tutup-subtitle untuk nama hari raya, musim, atau peristiwa: penonton harus
+  mengenali momennya (suasana Natal yang nyata, suasana Lebaran yang nyata), layar penuh karena itu untuk dirasakan dan dikenali
+  sekejap. Produk brand untuk momen itu baru cocok ketika kalimatnya memang membicarakan produknya. Ini kasus khusus dari pertanyaan
+  "kata mana yang digambarkan": jangan membelokkan setiap kata benda ke produk brand.
+- **Halaman ditunjukkan sebagai halaman.** "Konsultasi dulu di Parcelin" ditampilkan sebagai kartu bersudut bulat di tengah latar
+  gelap; pemilik: "1 halaman aja, jangan cuma card di tengah, aneh". Situs atau aplikasi yang DITUJU penonton memenuhi layar seperti
+  saat dibuka di HP (tangkapan viewport HP 9:16, lalu scroll atau kursor ke tombol yang dimaksud). Kartu/potongan hanya untuk KUTIPAN:
+  sebagian kecil halaman yang dibaca (judul berita, satu paragraf), seperti di `visual-craft.md` 1.
+- **Penutup mengikuti kalimat terakhir.** Kalimat terakhir "Karena lebih cepat lebih baik" (slogan/kesimpulan) ditutup dengan kartu
+  profil Instagram; pemilik: "harusnya animasi closing logo Parcelin dkk; kalau ada 'hubungi aku' di akhir, baru bisa pakai approach
+  yang sekarang". Tanyakan: kalimat terakhir menyuruh penonton apa? Menghubungi orangnya → tempat menghubunginya (profil, kontak).
+  Slogan, kesimpulan, atau ajakan memesan ke brand → closing brand: logo asli beranimasi rapi, tanda brand lain yang diminta user,
+  akun dan situs seperlunya. Isi closing ditanyakan ke user di awal (`workflow.md` Tahap 0), bukan diputuskan sendiri di akhir.
+
 ## 4. Yang bisa dan tidak bisa dijangkau dari container ini
 
 Rencanakan dengan yang ada. Cek ini di awal Tahap 6, bukan saat still.

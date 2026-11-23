@@ -219,5 +219,8 @@ event yang ada. **Belum** = butuh komponen kecil generik di `video/src` job itu 
 | Penutup = profil akun dari screenshot user | Sekarang | `custom` `igprofile` + `hold_end`. Avatar dan tile = crop asli screenshot; teks diketik ulang PERSIS dari screenshot; tidak meniru tampilan aplikasi. Screenshot kecil (lebar ~1000 px) membuat tile lunak: minta screenshot HP |
 | Penutup di atas foto (logo, akun, ajakan) | Sekarang | `outro` (`img`, `logo`, `handle`, `cta`) |
 | Logo di belakang kepala pembicara | Tidak praktis | Butuh pemisahan pembicara per frame (terlalu berat di CPU ini). Pakai ruang kosong di samping kepala atau logo layar penuh singkat |
+| Halaman situs/aplikasi satu layar penuh (bukan kartu) | Perkiraan | Tangkap viewport HP 9:16 dengan `shot.py`, tampilkan sebagai `photo` (`light: true` bila terang) atau `clip` rekaman scroll. Kursor klik di atas halaman penuh: belum (`screenshot` selalu berupa kartu; pemilik menilai kartu di tengah "aneh" untuk halaman yang dituju penonton) |
+| Musik latar | Sekarang (satu lagu, satu volume) | `music` (`src`, `volume`), fade awal dan akhir. Turun/naik per momen naskah: belum (komponen generik kecil: titik volume berjangkar kata) |
+| Gerbang potongan gambar (sambungan terbuka) | Sekarang | Laporan CUT CHECK; sambungan dengan pembicara terlihat di kedua sisi menghentikan build kecuali ada `cut_ok` beralasan (`edit-json.md`) |
 | Gerbang rentang sepi + porsi layar | Sekarang | `max_quiet_s`, `quiet_ok`, laporan QUIET CHECK (`edit-json.md` 4.6) |
 | Durasi tiap visual | Sekarang | Daftar event di akhir laporan build; onset terhadap kata dicek dengan still |

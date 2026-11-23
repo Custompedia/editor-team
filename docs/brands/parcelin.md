@@ -36,10 +36,15 @@ brand ini. Bukan aturan untuk video lain.
 ## Permintaan pemilik untuk video brand ini (dari umpan balik job01 v4)
 - Pertanyaan atau ucapan pelanggan di pembuka sebagai **gelembung chat kiri/kanan** di atas pembicara, dengan gambar kecil kotak yang ditanyakan.
 - Beat **gelap/hitam-putih** pada punchline "gimana? nggak bisa".
-- **Penutup untuk Instagram = profil @prahenditaputri** (job02, kata user: "output akhir untuk Instagram seperti ini, dirapikan,
-  dianimasikan bebas, serapi mungkin"). Dikerjakan dengan komponen kit `igprofile`: avatar dan tile grid = crop asli screenshot, teks
-  diketik ulang persis, tidak meniru tampilan aplikasi. Semua fakta harus sama dengan screenshot.
-- Penutup Pinterest brand layar penuh (permintaan job01) tetap pilihan kalau user tidak memberi screenshot profil atau video terbit di tempat lain.
+- **Penutup mengikuti kalimat terakhir** (koreksi pemilik atas job02 v4): kalimat penutup berupa slogan/kesimpulan seperti "lebih
+  cepat lebih baik" → **animasi closing logo Parcelin "dkk"** (logo brand dan tanda brand lain; isi persisnya BELUM dikonfirmasi:
+  tanyakan di awal, juga file logonya). Kartu profil **@prahenditaputri** (komponen kit `igprofile`, dari screenshot user: avatar dan
+  tile = crop asli, teks diketik ulang persis) hanya dipakai kalau pembicara menutup dengan "hubungi aku".
+- Penutup Pinterest brand layar penuh (permintaan job01) tetap pilihan lain untuk video jualan yang menutup dengan hasil kerja.
+- **Sedikit cut, gambar mengalir** (job02 v4 dinilai "kebanyakan cut… patah-patah"), **backsound sesuai momen**, durasi visual pas.
+- **"Abis Natal, terus Lebaran"** dan penyebutan hari raya lain → foto nyata momennya, layar penuh, bukan packaging brand.
+- **"Konsultasi di Parcelin"** → situs sebagai satu halaman penuh, bukan kartu di tengah.
+- Desain visual job02 dinilai "udah better, keep it improve".
 - Lebih banyak visual dan lebih jelas, gambar nyata yang bagus, animasi rapi, keputusan layar penuh vs tidak yang disengaja.
 - Video brand ini adalah video jualan: ajakan ("DM aja") ditunjukkan di tempat nyatanya, lalu hasil kerja terbaik dengan logo/akun.
 
@@ -54,6 +59,7 @@ brand ini. Bukan aturan untuk video lain.
   `#FBF6EA`, Poppins. Oranye brand ditolak di footage itu karena tenggelam di dinding merah.
 
 ## Riwayat
-- job02 (Box Lebaran, pengingat pesan packaging Lebaran dari sekarang; 2 take naskah yang sama, 62,8 dtk dan 86,6 dtk): final 52,7 dtk.
+- job02 (Box Lebaran, pengingat pesan packaging Lebaran dari sekarang; 2 take naskah yang sama, 62,8 dtk dan 86,6 dtk): final_v4 52,7 dtk.
+  Masukan pemilik: kebanyakan cut, tanpa backsound, penutup salah (harusnya closing logo), foto momen dan halaman penuh; desain sudah lebih baik.
 - job01 (Cara Hitung Hardbox): final_v4 dinilai "rada kurang" (terlalu jarang, konsep tidak digambarkan, penutup lemah). Studi pembanding:
   `docs/reference-studies/parcelin-study.md`.

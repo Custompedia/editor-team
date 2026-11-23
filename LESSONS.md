@@ -112,3 +112,22 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
   two unsubtitled words at 0:36, 0:31.1, and the sung opener.
 - Open for next time: the new subtitle-evidence rule and T24 are untested on a fresh worker; the eid photo got only 0.9 s because the
   screenshot needed lead-in for the cursor (acceptable here, check T12 when a visual is squeezed by its neighbour).
+
+## job02 — owner feedback on final_v4 (2026-11-23) -> requirements 12–18
+- Verdict: design "udah better, keep it improve"; but too many cuts ("patah-patah / ke-skip"), no backsound, wrong ending, two
+  visuals wrong in kind (product instead of the moment; a card instead of a full page), and questions not asked up front.
+  Full wording: docs/owner-requirements.md (12–18).
+- Too many cuts was a method error, not a slip: the workflow picked the best sentence from each of two takes (voice/subtitle first),
+  which gave 5 cuts in 52.7 s (one per ~10 s) against the skill's own "3–8 segments per 2 minutes". The build even printed
+  "exposed jump cuts at frames [...]" and the kit turned them into punch-ins. Neither the worker nor the lead treated that line as
+  a problem. -> skill: one base take, every cut needs a reason and a picture plan; kit: CUT CHECK gate with `cut_ok`; lead: T25.
+- The lead misread the Instagram screenshot as "the ending of this video". The owner meant: that style of ending is for videos
+  that end on "hubungi aku"; a slogan ending gets a brand logo closing. I stated my reading and the owner answered "aman kan", which
+  I took as agreement. Rule: when an asset arrives mid-job, ask the one concrete question ("ini untuk penutup video INI?") instead
+  of presenting an interpretation and reading a short reply as a yes.
+- "Real assets first" was applied too literally: "abis Natal, terus Lebaran" got the brand's Christmas and Eid boxes. The words name
+  a moment in time, so the real asset is a photo of the moment. Product photos belong to sentences about the product.
+- Music was never raised (the skill said "only if asked"). Now a default with licence rules; per-moment volume is a kit gap.
+- "Ask at the start": the first message did ask, but only generic items. Closing content, logo file, music and script-specific
+  assets were missing. Now two lists: generic before the worker, script questions after Tahap 3.
+- Status: final_v4 is NOT re-edited yet under these rules; the owner announced a next challenge. Re-edit only on request.

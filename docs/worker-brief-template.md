@@ -24,7 +24,13 @@ updated (including which reference files you have read).
 - Tahap 0: decide the look and write it, with the reason, in work/brief.md; it goes into the required `theme` block of
   work/edit.json (the build refuses a job without it). Report your "Butuh dari user" list (screen recordings, logged-in screenshots,
   logo, photos, spelling, handle) to the lead NOW, then continue on ASUMSI fallbacks.
-- Tahap 7: read the QUIET CHECK in the build report every time. A long quiet stretch needs a visual that shows what is said there,
+- Tahap 2–3: ONE base take; every cut needs a valid reason and a plan for what the viewer SEES at the join (the owner rejected
+  job02 v4 for too many cuts: "jangan cuma fokus di voice/subtitle"). After Tahap 3, send the lead your script questions and the
+  cut plan in one line (base take, number of cuts, duration), then continue.
+- Music: every video gets a bed that fits the script and follows its turns, with source and licence (workflow.md 6.2).
+- Tahap 7: read the QUIET CHECK and the CUT CHECK in the build report every time. A jump cut is removed, covered by a visual that
+  shows what is said there, or given a `cut_ok` with a picture reason.
+- Tahap 7 (quiet): read the QUIET CHECK in the build report every time. A long quiet stretch needs a visual that shows what is said there,
   or a `quiet_ok` with a real reason; never decoration to pass the gate.
 The cloud rules and the user's preferences in SKILL.md override the guide text.
 
@@ -33,7 +39,8 @@ The cloud rules and the user's preferences in SKILL.md override the guide text.
 
 ## Report back
 Path, duration and size of the final file; what was cut and why; every visual with source URL (+ licence);
-QA numbers for all five checks on the delivered file; the Bagian 9 checklist; the QUIET CHECK numbers (changes, longest stretch,
+QA numbers for all five checks on the delivered file; the Bagian 9 checklist; the CUT CHECK numbers (base take, cuts, one per
+how many seconds, every cut_ok and its reason); the music (title, source, licence, where it follows the script); the QUIET CHECK numbers (changes, longest stretch,
 screen-time split) with every quiet_ok and its reason; the self-check answers (visual-thinking.md 8) with evidence; every code-drawn
 visual with its one-line reason; what you asked the user for and what you used meanwhile; all ASUMSI; what you could not verify.
 Do not claim anything you did not check.
@@ -42,5 +49,5 @@ Do not claim anything you did not check.
 ## Lead checks before relaying (do them yourself)
 - `ffprobe` specs + `TAG:comment=Made with Remotion`, loudness, `blackdetect` = 0.
 - Own contact sheet (`tools/sheet.py video <final> <scratch>/lead 2`) — look at it: density, layouts, ending, brand spelling.
-- Run the review tests in `docs/review-tests.md` (T1–T24) on your own contact sheet and the build log; send it back if it is
-  technically clean but fails T1, T3, T5, T19 or T24, or reads as visually thin or crowded. Name the test and the frame/plan row.
+- Run the review tests in `docs/review-tests.md` (T1–T30) on your own contact sheet and the build log; send it back if it is
+  technically clean but fails T1, T3, T5, T19, T24 or T25, or reads as visually thin or crowded. Name the test and the frame/plan row.

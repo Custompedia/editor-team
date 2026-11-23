@@ -8,7 +8,7 @@ kecuali batas rentang sepi (syarat pemilik, dijaga kit).
 Bahan yang diminta dari worker: `work/visual_plan.md` (dengan uji diri terjawab), log `build_timeline.py` (baris `theme:`, `QUIET CHECK`,
 daftar event + durasi), `work/qa_stills.jpg`, strip transisi, `final_vN.mp4`. Lead membuat contact sheet sendiri (`tools/sheet.py video <final> <scratch>/lead 2`).
 
-Syarat pemilik: 1 kapan visual · 2 kapan memotong · 3 posisi rapi · 4 layar penuh atau tidak · 5 visual cocok · 6 tidak pernah lama sepi ·
+Syarat pemilik (lengkap: `docs/owner-requirements.md`, 1–18): 1 kapan visual · 2 kapan memotong · 3 posisi rapi · 4 layar penuh atau tidak · 5 visual cocok · 6 tidak pernah lama sepi ·
 7 aset nyata dulu · 8 gerak halus dan pas · 9 timing dipahami · 10 momen dipakai kreatif · 11 tidak terlalu jarang dan tidak terlalu ramai.
 
 ## Tes urut menurut pentingnya
@@ -44,9 +44,19 @@ Syarat pemilik: 1 kapan visual · 2 kapan memotong · 3 posisi rapi · 4 layar p
 | T23 | Daftar "Butuh dari user" dilaporkan di Tahap 0, dan cadangannya jujur (bukan versi palsu, bukan visual yang dikecilkan)? | Ya | 7 |
 | T24 | Setiap koreksi subtitle yang mengubah bunyi kata punya bukti? | Lead membandingkan `text`/`script` di `edit.json` dengan `work/tx/*.json` dan dengan transkrip ulang final di log QA 4: tidak ada nama, angka, atau kata yang ditulis padahal kedua transkrip mendengar hal lain; tidak ada kata di tepi potongan yang tampil tetapi terpotong dari audio | akurasi (job02) |
 
+## Tambahan dari masukan pemilik atas job02 v4 (syarat 12–18)
+| # | Pertanyaan | Lulus bila | Cara cek | Syarat |
+|---|---|---|---|---|
+| T25 | Gambar mengalir: berapa potongan, dan adakah sambungan yang memperlihatkan pembicara meloncat? | CUT CHECK lolos; satu take dasar; tiap potongan punya alasan yang sah dan rencana gambar; tiap `cut_ok` beralasan gambar. Lead membuka strip di SETIAP sambungan dan membandingkan jumlah potongan dengan pembanding (di atas kira-kira satu per 15 dtk: tanyakan) | Log build + strip + `script.md` | 12 |
+| T26 | Musik latar ada dan mengikuti naskah? | Ada (atau alasan tertulis kenapa tidak); nada cocok; berubah di belokan dan selesai bersama penutup; judul, sumber, lisensi tercatat | Laporan + envelope audio final | 13 |
+| T27 | Durasi tiap visual pas? | Tidak ada visual yang lebih pendek dari waktu kenalnya karena terjepit visual berikutnya, tidak ada yang bertahan setelah topiknya selesai (lihat juga T12, T17) | Daftar event + durasi | 14 |
+| T28 | Momen sebagai momen, halaman sebagai halaman? | Nama hari raya/peristiwa = foto nyata momen itu, layar penuh; situs yang dituju = satu halaman penuh, bukan kartu di tengah | Still | 15, 16 |
+| T29 | Penutup cocok dengan kalimat terakhir? | Slogan/kesimpulan/ajakan ke brand → closing brand (logo asli); "hubungi aku" → profil/kontak. Isi closing sudah ditanyakan ke user di awal | Still penutup + brief | 17 |
+| T30 | Pertanyaan diajukan di awal? | Daftar umum (Tahap 0) dan pertanyaan naskah (setelah Tahap 3) sampai ke user sebelum edit berjalan jauh; tidak ada keputusan besar (penutup, musik, akun, aset kunci) yang baru muncul di laporan akhir | Riwayat percakapan lead | 18 |
+
 Cara cepat T24 dan sambungan (lead, tanpa mendengar): cetak kata transkrip sumber di sekitar setiap `in`/`out` dan setiap koreksi, lalu
 envelope 20 ms dari `work/tx/<klip>.wav` di rentang itu. Blok nyaring = suku kata; hitung apakah teks subtitle muat. Transkrip ulang final
 yang berbeda dari subtitle (kata tambahan di sambungan, kata hilang) selalu ditanyakan ke worker, bukan diabaikan.
 
-**Tolak** edit yang lolos QA teknis tetapi gagal T1, T3, T5, T19, T24, atau yang terasa jarang di contact sheet (job01 v4: 16 dtk tanpa perubahan).
+**Tolak** edit yang lolos QA teknis tetapi gagal T1, T3, T5, T19, T24, T25, atau yang terasa jarang di contact sheet (job01 v4: 16 dtk tanpa perubahan).
 Saat menolak, sebut nomor tes dan frame/baris rencananya, supaya revisi hanya menyentuh itu.

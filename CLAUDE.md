@@ -16,8 +16,8 @@ This file is for the LEAD (the main session). Worker-facing rules live in the sk
 - Plan first: present the plan and open questions to the user before work starts. If the user is waiting for the result,
   continue on clearly marked assumptions (`ASUMSI`) instead of stalling, and list them in the report.
 - Review critically before relaying: verify files, specs and `Made with Remotion` tag, open a contact sheet yourself, check the
-  brand spelling in subtitles. Run `docs/review-tests.md` (T1–T24) on your own contact sheet and the build log.
-  **Reject an edit that passes technical QA but fails T1, T3, T5, T19 or T24 (a subtitle word nobody verified), or reads thin or crowded** (job01 v4: clean ≠ sparse).
+  brand spelling in subtitles. Run `docs/review-tests.md` (T1–T30) on your own contact sheet and the build log.
+  **Reject an edit that passes technical QA but fails T1, T3, T5, T19, T24 (a subtitle word nobody verified) or T25 (the picture jumps / too many cuts), or reads thin or crowded** (job01 v4: clean ≠ sparse).
   Never forward a worker's claim you did not check.
 - Deliver finals with SendUserFile + a short report: what was cut, visuals and sources, assumptions, what is unverified
   (nobody listened to the audio — ask the user to watch once with sound).
@@ -36,10 +36,17 @@ This file is for the LEAD (the main session). Worker-facing rules live in the sk
 - Method is the skill `edit-aroll`. Workers read it at the stable path `/home/user/editkit/skill/SKILL.md`
   (symlink to `.claude/skills/edit-aroll/` in this repo) plus the `reference/` files it names. Do not paste the guide into briefs.
 
-## What to ask the user for (saves a full revision round)
-Brand name + exact spelling, IG/TikTok handle, logo, brand colours, portfolio/product photos, platform, CTA, reference video,
-and a screen recording or screenshot of any logged-in app the speaker mentions (Instagram DM, WhatsApp): those cannot be
-opened from this container and are never faked.
+## What to ask the user for — AT THE START (owner, job02: "aset/konfirmasi yang dibutuhkan kamu tanyakan di awal")
+Two lists, each sent once, each with a proposed default per item so the user can answer "ya"; then continue on `ASUMSI`:
+1. **Before the worker starts:** brand name + exact spelling, the account the video is published on and the handles to show,
+   **closing content** (which logos/marks, handle, site, CTA) and the **logo file**, **music** (the user's track, or free to choose),
+   brand colours, portfolio/product photos, platform, reference video, and a screen recording or screenshot of any logged-in app
+   the speaker mentions (Instagram DM, WhatsApp): those cannot be opened from this container and are never faked.
+2. **After the worker's Tahap 3** (the script is known): the worker's script questions — which sentence needs an asset only the
+   user has, the last line and the ending proposed for it, the cut plan in one line (base take, number of cuts, duration),
+   unverified words. Brief the worker to report after Tahap 3 and keep going.
+An image the user sends mid-job is not self-explanatory: say what you think it is FOR and which part of the video it changes
+(job02: a profile screenshot was read as "the ending"; the owner meant it only for videos that end on "hubungi aku").
 Whisper cannot know coined names (job01: PARCELIN heard as Parcelon/Parcellen).
 
 ## Kit gates (know them before reviewing)

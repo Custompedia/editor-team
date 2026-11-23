@@ -44,3 +44,37 @@ know when to have one and when not."
     is anything lost?"), room for the speaker to land important lines, no stacking of competing elements. The build report
     gives the numbers (changes per second, % speaker hidden) so the lead can question an edit that is far denser or far
     sparser than the benchmarks for its kind of content.
+
+## Added by the owner (2026-11-23, feedback on job02 "Box Lebaran" final_v4)
+The owner's words (Indonesian, as written):
+"'lebih cepat lebih baik' di akhir itu harusnya animasi closing logo Parcelin dkk; kalau ada 'hubungi aku' di akhir, nah baru bisa
+pakai approach yang sekarang. Sama kamu dari awal kebanyakan cut, harus memenuhi requirement di bawah:
+1. tidak kebanyakan cut, diusahakan banget video jangan sampai tiba-tiba kepotong / ke-skip; jadi jangan cuma fokus di voice /
+   subtitle tapi ya bener-bener biarin si video flow biar enak dilihat dan tidak patah-patah atau ke-skip-skip
+2. pastikan backsound sesuai dengan momen; visual juga pastikan pas, tidak terlalu panjang dan tidak terlalu pendek
+3. desain visual jujur udah better, keep it improve
+4. 'habis Natal, Lebaran' ini mending momen bener-bener foto asli, bukan packaging, dan 1 layar full. Pada bagian 'konsultasi ke
+   Parcelin' ini juga 1 halaman aja, jangan cuma card di tengah, aneh.
+Pastikan aset-aset yang dibutuhkan / konfirmasi yang dibutuhkan kamu tanyakan di awal. Langsung aja diperbaiki di skills-ku biar
+masukan ini permanen disimpannya."
+
+12. THE PICTURE FLOWS — FEW CUTS: the video must never look as if it suddenly cuts or skips. Do not optimise only for the voice and
+    the subtitles: a join that sounds clean can still look like a jump. Prefer one continuous take; cut only where it is needed;
+    no cut where the speaker is visible on both sides unless there is a written reason. Enforced by the kit (CUT CHECK in
+    build_timeline; `cut_ok` needs a reason) AND checked by the lead on the strips. Evidence: job02 v4 had 5 cuts in 52.7 s
+    (one per ~10 s), mixing two takes sentence by sentence; three of them showed the speaker jumping.
+13. BACKGROUND MUSIC FITS THE MOMENT: a video has a music bed chosen for its mood, and the music follows the turns of the script
+    (opening, turn, call to action). Licence must allow the platform use; the track and its licence are reported.
+14. EVERY VISUAL LASTS THE RIGHT TIME: not too long, not too short (sharpens 9). Evidence: job02 v4 showed a photo for 0.9 s because
+    the next visual needed lead-in; that is a planning error, not an acceptable squeeze.
+15. A MOMENT IS SHOWN AS THE MOMENT: when the speaker names an occasion or event (Christmas, Lebaran), show a real photo of that
+    moment, full screen. Not the brand's product for that occasion (job02: packaging photos for "abis Natal, terus Lebaran").
+16. A PAGE IS SHOWN AS A PAGE: a website the viewer is sent to fills the screen as one whole page. A small card floating in the
+    middle of the frame "looks odd" (job02: parcelin.id as a rounded card on a dark blurred background).
+17. THE ENDING FOLLOWS THE LAST LINE: a closing line such as a slogan ("lebih cepat lebih baik") ends on a brand closing animation
+    (logo and the brand's other marks). A profile/contact card (job02's Instagram-profile ending) is right only when the speaker
+    ends with "contact me / hubungi aku".
+18. ASK FIRST: the assets and confirmations a job needs are asked for at the START, in one list, not discovered after delivery
+    (job02: closing content, logo file, music and the moment photos were all decided by assumption).
+Also from this message: the visual design of job02 was judged "already better, keep improving" (3): the look decisions of job02
+(theme from the footage, chat bubbles, grey beat, timeline) are a baseline to build on, not a template.

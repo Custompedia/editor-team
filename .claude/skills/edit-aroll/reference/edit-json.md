@@ -69,7 +69,8 @@ jenis yang dibutuhkan kalimatnya saja (`visual-thinking.md`). Blok `theme` di co
 | `outro_frames` | Frame tambahan setelah segmen terakhir untuk kartu penutup. 45 sampai 75 |
 | `max_quiet_s` | Opsional, bawaan `6.0`. Rentang terpanjang (detik) tanpa perubahan visual sebelum `build_timeline.py` menolak build. Perubahan visual = event masuk/keluar, item/klik/stabilo muncul di dalam event, atau zoom pembicara berganti. Kata subtitle tidak dihitung. Outro tidak dihitung. Waktu di atas footage bergerak (`clip`, atau `split` dengan `src` video) tidak pernah dihitung sepi. Lihat 4.6 |
 | `quiet_ok` | Opsional: `[{"from": <jangkar>, "to": <jangkar>, "why": "<alasan>"}]`. Menyatakan bahwa rentang tanpa perubahan visual di situ memang disengaja. `why` wajib. Lihat 4.6 |
-| `music` | Opsional: `{"src": "music/bed.mp3", "volume": 0.06}` |
+| `cut_ok` | Opsional: `[{"join": <n>, "why": "<alasan>"}]`. `join` n = sambungan antara segmen ke-n dan ke-(n+1) (mulai dari 1). Menyatakan bahwa sambungan itu boleh memperlihatkan pembicara di kedua sisinya. Tanpa entri ini `build_timeline.py` menolak build (CUT CHECK): hapus potongannya, atau tutup dengan insert layar penuh yang sudah penuh ≥7 frame sebelum sambungan dan masih ada ≥6 frame sesudahnya. `why` wajib dan harus alasan gambar (pindah tempat, pergantian bagian yang memang terlihat), bukan "audionya bersih" |
+| `music` | `{"src": "music/bed.mp3", "volume": 0.06}`. Dipertimbangkan di setiap video (`workflow.md` 6.2, Musik) |
 | `full_types` | Opsional: daftar jenis event yang menutup seluruh layar. Default `photo, clip, screenshot, custom, outro`. `split` bukan layar penuh |
 | `events` | Semua visual. Lihat 4.3 |
 

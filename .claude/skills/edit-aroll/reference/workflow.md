@@ -56,6 +56,11 @@ Folder privat tidak bisa diunduh: minta user membuka aksesnya ("siapa saja yang 
 - **Butuh dari user:** daftar semua yang hanya bisa didapat dari user (rekaman layar aplikasi yang disebut, screenshot profil berlogin,
   logo, foto produk, ejaan nama, akun). Tulis di `work/STATE.md` bagian "Butuh dari user" dan laporkan ke lead SEKARANG, bukan di Tahap 6.
   Lanjutkan dengan cadangan bertanda `ASUMSI` selama menunggu.
+- **Tanya di awal (permintaan pemilik, job02):** daftar itu selalu memuat, dengan usulan bawaan untuk tiap butir supaya user cukup
+  menjawab "ya": (1) isi penutup: logo dan tanda brand apa saja, akun, situs, ajakan; (2) file logo resmi; (3) musik: lagu pilihan
+  user atau bebas dicari; (4) foto/footage yang kemungkinan dibutuhkan naskah; (5) akun dan ejaan. Setelah Tahap 3 (naskah sudah
+  terbaca), kirim **pertanyaan naskah** ke lead dalam satu daftar kedua: kalimat mana yang butuh aset dari user, kalimat terakhir
+  dan penutup yang diusulkan untuknya, kata yang tidak terverifikasi. Jangan menunggu jawaban; jangan pula menyimpan pertanyaan sampai laporan akhir.
 - Referensi gaya kalau ada: dipelajari untuk memahami KENAPA sebuah keputusan bekerja, bukan untuk ditiru bentuknya.
 - Apa pun yang tidak disebut user: isi dengan default dan tandai `ASUMSI`.
 
@@ -109,7 +114,14 @@ Tulis `work/roll_map.md`. Per klip:
 
 Cara mengenali take ulang: dua kalimat dengan awal yang sama atau makna yang sama, baik di klip yang sama maupun klip lain. Satu klip pendek yang seluruh isinya mengulang bagian klip lain adalah take cadangan utuh.
 
-Cara memilih take: (1) kalimatnya selesai tanpa tersendat, (2) tidak ada kata yang diulang atau dikoreksi, (3) energi dan kecepatan bicaranya cocok dengan kalimat sebelum dan sesudahnya, (4) kalau setara, pilih yang lebih pendek. Jangan otomatis memilih take terakhir.
+**Take dasar (permintaan pemilik, job02).** Kalau ada lebih dari satu take dari naskah yang sama, pilih SATU take sebagai dasar
+seluruh video: take yang paling utuh dari awal sampai akhir (paling sedikit tersendat, energi stabil, gambar baik). Take lain hanya
+menjadi sumber untuk kalimat yang di take dasar rusak atau tidak ada, dan setiap pengambilan dari take lain adalah satu potongan yang
+harus ditutup gambar (Tahap 3). Tulis di `roll_map.md`: take dasar, alasannya, dan berapa potongan yang dibutuhkan tiap pilihan take
+dasar. Mencampur dua take kalimat demi kalimat menghasilkan audio yang rapi dan gambar yang meloncat: job02 v4 punya 5 potongan
+dalam 52,7 dtk dan pemilik menilainya "kebanyakan cut… patah-patah".
+
+Cara memilih take untuk satu kalimat (dalam take dasar yang punya take ulang di dalamnya): (1) kalimatnya selesai tanpa tersendat, (2) tidak ada kata yang diulang atau dikoreksi, (3) energi dan kecepatan bicaranya cocok dengan kalimat sebelum dan sesudahnya, (4) kalau setara, pilih yang lebih pendek. Jangan otomatis memilih take terakhir.
 
 Kata yang ditandai `?`, nama brand, angka, dan istilah asing jangan dipercaya begitu saja. Cocokkan dengan brief. Kalau masih ragu, potong 3 sampai 5 detik bagian itu dan transkrip ulang bagian pendek tersebut, atau tandai sebagai `ASUMSI` untuk dikonfirmasi user.
 
@@ -134,7 +146,25 @@ Uji sambungan: baca naskah final dari atas ke bawah. Di setiap pergantian segmen
 
 Jumlah potongan: untuk satu pembicara yang lancar, biasanya 3 sampai 8 segmen per 2 menit. Roll yang banyak tersendat boleh lebih. Lebih baik satu segmen panjang yang utuh daripada tiga potongan kecil yang masing-masing menghemat setengah detik.
 
-**Gate:** hook di 3 detik pertama. Uji sambungan lolos di setiap pergantian segmen. Durasi perkiraan masuk target brief. Setiap bagian yang dibuang punya alasan.
+**Gambar harus mengalir (syarat pemilik 12).** Naskah yang enak didengar belum tentu enak dilihat: di setiap potongan, posisi kepala,
+tangan, dan benda yang dipegang berpindah seketika, dan penonton melihatnya sebagai video yang ter-skip. Karena itu untuk SETIAP
+potongan di `script.md`, tulis tiga hal:
+
+1. **Kenapa harus dipotong.** Alasan yang sah: take ulang, salah ucap, mulai ulang, jeda mati yang panjang, kalimat yang menyimpang.
+   Bukan alasan: menghemat setengah detik, kalimat di take lain sedikit lebih rapi, jeda napas, kata pengisi yang wajar.
+2. **Apa yang terlihat di sambungan.** Pilihan, urut dari yang terbaik: (a) tidak dipotong (biarkan jeda atau kata pengisinya);
+   (b) sambungan tertutup visual layar penuh yang MEMANG menggambarkan kalimat di situ, sudah penuh di layar sebelum potongan dan
+   masih ada sesudahnya; (c) sambungan jatuh di pergantian yang memang terlihat sebagai pergantian (pindah tempat, pindah bagian
+   dengan judul); (d) sambungan terbuka dengan alasan tertulis (`cut_ok`). Visual yang dipasang hanya untuk menutup potongan, tanpa
+   hubungan dengan kalimatnya, adalah hiasan dan ditolak: kalau tidak ada visual yang cocok di situ, kurangi potongannya.
+3. **Frame di kedua sisi.** Buka frame terakhir sebelum dan pertama sesudah potongan (contact sheet Tahap 1 atau `sheet.py`): kalau
+   pembicara sedang bergerak, memegang benda, atau menoleh, geser potongan ke tempat ia diam.
+
+Hitung dan tulis: jumlah potongan, satu potongan per berapa detik, dan berapa yang terbuka. Sebagai pembanding (bukan kuota): di atas
+kira-kira satu potongan per 15 dtk untuk pembicara yang lancar, periksa lagi alasan tiap potongan. Menukar durasi dengan aliran itu
+wajar: video 58 dtk yang mengalir lebih baik daripada 52 dtk yang patah-patah.
+
+**Gate:** hook di 3 detik pertama. Uji sambungan lolos di setiap pergantian segmen. Durasi perkiraan masuk target brief. Setiap bagian yang dibuang punya alasan. Satu take dasar dipilih; setiap potongan punya alasan, rencana gambar di sambungannya, dan frame kedua sisinya sudah dilihat. Pertanyaan naskah sudah dikirim ke lead.
 
 ### Tahap 4. Titik potong presisi
 
@@ -261,7 +291,16 @@ Logo berformat SVG diunduh sebagai PNG transparan (dan vektornya kalau server me
 
 **Efek suara**: empat efek di `video/public/sfx/` dibuat `tools/make_sfx.sh` dengan ffmpeg. Tidak perlu mengunduh apa pun. Situs efek suara gratis sering menolak unduhan otomatis (HTTP 403), jadi jangan bergantung padanya.
 
-**Musik (opsional)**: hanya kalau user minta atau memberi filenya. Taruh di `video/public/music/`, isi `music` di `edit.json`, volume 0,05 sampai 0,08 (jauh di bawah suara). Jangan mengunduh lagu berhak cipta.
+**Musik (wajib dipertimbangkan; syarat pemilik 13: "pastikan backsound sesuai dengan momen").** Setiap video diberi musik latar
+kecuali user menolak atau isinya memang lebih kuat tanpa musik (tulis alasannya). Urutannya: lagu dari user kalau ada; kalau tidak,
+lagu bebas royalti yang lisensinya mengizinkan pemakaian komersial di platform tujuan (catat judul, pembuat, URL, lisensi, dan
+atribusi yang diminta); kalau tidak ada sumber yang bisa dijangkau dari container ini, laporkan ke lead dan jangan memakai lagu
+berhak cipta. Memilih: tulis dulu nada tiap bagian naskah (pembuka, isi, belokan, ajakan), lalu pilih lagu yang nadanya cocok dengan
+bagian terpanjang dan tidak melawan belokan. "Sesuai momen" berarti musik ikut berubah di belokan naskah: turun atau berhenti sesaat
+di kalimat pembalik, naik lagi di ajakan, selesai bersama penutup (bukan terpotong). Kit sekarang hanya punya satu lagu dengan satu
+volume dan fade di awal dan akhir (`edit-json.md`, `music`): perubahan per momen butuh komponen generik kecil (kebijakan kode) dan
+dilaporkan ke lead. Agent tidak mendengar: periksa lagu dengan angka (durasi, kenyaringan, bagian yang berubah lewat envelope) dan
+katakan di laporan bahwa rasa musiknya belum dinilai telinga. Aturan lama tetap: Taruh di `video/public/music/`, isi `music` di `edit.json`, volume 0,05 sampai 0,08 (jauh di bawah suara). Jangan mengunduh lagu berhak cipta.
 
 **Gate:** setiap kalimat punya baris di `visual_plan.md` yang menjawab rantai keputusan (termasuk kalimat tanpa grafik, dengan alasan).
 Setiap visual punya aset yang sudah dibuka dan dilihat, dan sumbernya terjangkau dari container (atau sudah diminta ke user, dengan cadangan
