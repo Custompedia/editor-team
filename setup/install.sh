@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Editor Team: install the A-roll editing kit into a Claude Code cloud container.
 # Idempotent: safe to run again. Usage: bash setup/install.sh   (from anywhere)
-# Result: kit in /home/user/editkit, jobs in /home/user/jobs, skill in ~/.claude/skills/edit-aroll, doctor READY.
+# Result: kit in /home/user/editkit, jobs in /home/user/jobs, skill at /home/user/editkit/skill, doctor READY.
 set -euo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 K=/home/user/editkit
@@ -38,8 +38,13 @@ bash $K/tools/install_fonts.sh >/dev/null && echo "fonts ok"
 # 6) Whisper large-v3 (~3 GB, once per container)
 python3 -c "from faster_whisper import WhisperModel; WhisperModel('large-v3', device='cpu', compute_type='int8')" >>$LOG 2>&1 && echo "whisper ok"
 
-# 7) skill available globally too (the repo's .claude/skills already covers sessions opened in this repo)
-mkdir -p ~/.claude/skills/edit-aroll && cp "$REPO/.claude/skills/edit-aroll/SKILL.md" ~/.claude/skills/edit-aroll/SKILL.md
+# 7) skill at a stable path for workers: /home/user/editkit/skill -> this repo's skill folder (always current).
+#    No global copy in ~/.claude/skills: the repo's .claude/skills is loaded when a chat opens in this repo,
+#    and a second copy would list the skill twice and can go stale.
+ln -sfn "$REPO/.claude/skills/edit-aroll" $K/skill
+rm -rf "$HOME/.claude/skills/edit-aroll"
+rm -f $K/GUIDE-edit-aroll.md $K/STYLE_NOTES.md   # moved into the skill / docs
+test -f $K/skill/SKILL.md && test -f $K/skill/reference/workflow.md && echo "skill ok"
 
 # 8) preflight
 cd $K && python3 tools/doctor.py | grep -E "FAIL|RESULT"

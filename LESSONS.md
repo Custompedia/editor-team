@@ -25,7 +25,7 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - User feedback on v4: "rada kurang". Wanted: more creative treatment (customer questions as left/right chat bubbles at the
   open, dark/dim beat on the "gabisa" punchline), more and clearer visuals with judgement on when NOT to, good real images,
   neat animation, deliberate full-screen vs not, and a full-screen Pinterest ending instead of a small IG chip.
-  The user shared reference edits (Drive 1WrAilhmWzUBkdZGg0X-5fp4JYrzF8UlT) → distilled into editkit/STYLE_NOTES.md.
+  The user shared reference edits (Drive 1WrAilhmWzUBkdZGg0X-5fp4JYrzF8UlT) → distilled into .claude/skills/edit-aroll/reference/style-notes.md.
 - Lesson: "clean" must not mean "sparse". Guide density targets matter; a 15% insert share read as flat to the user.
 - Worker requirement: Opus 5.5, effort high.
 
@@ -37,8 +37,17 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
   third-party article proof with highlight, big full-screen ending.
 - Brand naming seen in references: "Parcelinpack" (JPNN article) and IG @parcelinpack (~132k followers); v4 used
   @parcelincompany from the website footer -> confirm with user; prefer the account the brand itself shows in its videos.
-- Gap list of components to build is in editkit/STYLE_NOTES.md section 5 (pingrid, grade, tags, stamp, form, box3d, ...).
+- Gap list of components to build is in .claude/skills/edit-aroll/reference/style-notes.md section 5 (pingrid, grade, tags, stamp, form, box3d, ...).
 
 ## 2026-11-23 — repo becomes source of truth
 - Pushed kit to Custompedia/editor-team. Verified a from-scratch install using only the repo (fresh venv + node_modules):
   doctor READY, new_job, transcribe, Remotion render OK. Everything a new chat needs is in the repo.
+
+## 2026-11-23 — repo restructure (token efficiency)
+- One skill, progressive disclosure: SKILL.md 150k -> 11.5k chars (map + rules); details in reference/*.md read per stage.
+  Embedded kit code (74k chars, and stale: old Google-Fonts theme) removed from the instructions; code lives only in editkit/.
+  Checked: 523/524 lines of guide Bagian 1,3-9 carried over verbatim (only a heading renamed).
+- CLAUDE.md is lead-only and short (loaded every turn); worker rules moved into the skill.
+- Workers read the skill at /home/user/editkit/skill (symlink to the repo). No global ~/.claude/skills copy.
+- Not yet proven on a real job: confirm on the next job that the worker reads the reference files at the named stages
+  (STATE.md must list them); if a worker skips them, tighten SKILL.md.

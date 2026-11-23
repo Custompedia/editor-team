@@ -1,7 +1,7 @@
 # STYLE NOTES — kenapa edit referensi user lebih bagus, dan cara menerapkannya di roll APA PUN
 
 Ditulis 2026-11-22 dari studi 3 video referensi user (dikirim setelah user menilai job01 final_v4 "jujur rada kurang").
-Baca SETELAH `GUIDE-edit-aroll.md` dan `/home/user/CLAUDE.md`. Kalau bertentangan: CLAUDE.md (preferensi user) > catatan ini > guide.
+Baca setelah `SKILL.md` dan `workflow.md`. Kalau bertentangan: preferensi user di `SKILL.md` > catatan ini > `design.md`/guide.
 
 **Ini PRINSIP, bukan template.** Jangan menyalin warna kuning, font Playfair, chat bubble, atau layar hitam-putih ke setiap video.
 Yang disalin adalah *cara memutuskan*: kalimat mana yang diberi visual, visual jenis apa, seberapa besar, berapa lama, dan bagaimana
@@ -9,7 +9,10 @@ masuk-keluarnya. Warna/font/gaya tetap diputuskan per video dari brief, brand, d
 
 ---
 
-## 0. Bahan yang dipelajari (bisa dibuka ulang)
+## 0. Bahan yang dipelajari
+
+(File hasil studi ada di container sesi 2026-11-22 dan tidak ikut ke repo. Video referensinya bisa diunduh ulang dari
+Drive `1WrAilhmWzUBkdZGg0X-5fp4JYrzF8UlT` kalau perlu dilihat lagi.)
 
 | File | Isi | Durasi |
 |---|---|---|

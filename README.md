@@ -17,16 +17,29 @@ Kalau setup script tidak jalan / repo belum ter-clone saat itu, Claude tetap men
 
 ## Yang terinstal (sama di setiap chat)
 - Kit di `/home/user/editkit`: skrip edit-aroll, template Remotion 4.0.290, efek suara, font sistem (Plus Jakarta Sans,
-  Playfair Display, Poppins), `STYLE_NOTES.md`, `new_job.sh`.
+  Playfair Display, Poppins), `new_job.sh`.
 - Python venv: faster-whisper 1.2.1 (model large-v3), av<17, numpy, pillow, playwright (versi = browser bawaan), gdown, yt-dlp.
 - Node: Remotion + Chrome Headless Shell (versi dikunci di package-lock.json).
-- Skill `edit-aroll` (global + di repo), folder job `/home/user/jobs` + registry worker.
+- Skill `edit-aroll` dari repo (path stabil untuk worker: `/home/user/editkit/skill`), folder job `/home/user/jobs` + registry worker.
 
-## Isi
-- `CLAUDE.md`: peran lead/worker, aturan job, preferensi gaya, catatan environment cloud.
-- `.claude/skills/edit-aroll/SKILL.md`: guide lengkap 11 tahap.
-- `editkit/`: skrip, template Remotion, font, efek suara (sudah dites di cloud).
-- `setup/install.sh`: instalasi idempoten.
-- `setup/cloud-setup-script.sh`: isi untuk Setup script environment.
-- `LESSONS.md`: pelajaran per job (makin ke kanan makin improve).
-- `editkit/STYLE_NOTES.md`: standar kualitas dari video referensi user.
+## Struktur repo
+```
+CLAUDE.md                      aturan untuk lead (pendek, dimuat di setiap chat)
+LESSONS.md                     pelajaran per job (makin ke kanan makin improve)
+.claude/skills/edit-aroll/
+  SKILL.md                     peta kerja + aturan worker (dimuat hanya saat dipakai)
+  reference/
+    workflow.md                11 tahap lengkap dengan gate
+    edit-json.md               format work/edit.json dan jenis event
+    style-notes.md             standar kualitas dari video referensi user + quality bar
+    design.md                  standar desain bawaan + per jenis roll
+    kit.md                     menyiapkan job, struktur folder, daftar skrip
+    troubleshooting.md         masalah cloud + masalah umum
+editkit/                       skrip, template Remotion, font, efek suara, new_job.sh (satu-satunya tempat kode)
+setup/install.sh               instalasi idempoten;  setup/cloud-setup-script.sh  untuk Setup script environment
+docs/worker-brief-template.md  template instruksi worker
+docs/GUIDE-original.md         arsip guide asli (tidak dibaca secara default)
+```
+
+Prinsip: satu skill dengan file referensi yang dibaca saat dibutuhkan (hemat token), kode hanya di `editkit/`
+(tidak ditempel di dokumen), aturan lead di `CLAUDE.md`, aturan worker di skill.

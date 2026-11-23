@@ -1,7 +1,11 @@
 ---
-name: edit-aroll
+title: edit-aroll (arsip guide asli)
 description: Mengedit A-roll (video orang bicara / talking head, jenis konten apa pun) menjadi 1 video pendek siap publish di komputer lokal. Memilih take, memotong, subtitle per kata, visual dari sumber nyata yang mengikuti isi omongan, render dengan Remotion, lalu QA frame per frame. Pakai saat user memberi klip mentah dan minta diedit.
 ---
+
+> **ARSIP.** Ini guide asli dari user, disimpan utuh sebagai rujukan. JANGAN dipakai sebagai instruksi kerja dan jangan
+> mengekstrak kode dari sini: blok kodenya versi lama (memuat Google Fonts, yang membuat render macet di cloud).
+> Instruksi kerja yang berlaku: `.claude/skills/edit-aroll/` (SKILL.md + reference/). Kode yang berlaku: `editkit/`.
 
 # Guide lengkap: edit A-roll menjadi 1 video siap publish
 
