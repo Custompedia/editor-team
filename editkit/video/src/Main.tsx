@@ -55,7 +55,7 @@ const Speaker: React.FC = () => {
         return (
           <Sequence key={i} from={s.start} durationInFrames={s.dur} layout="none">
             <Audio src={staticFile(s.src)} startFrom={Math.round(s.in * FPS)} endAt={Math.round(s.in * FPS) + s.dur}
-              volume={(f) => interpolate(f, [0, 2, s.dur - 2, s.dur], [0, 1, 1, 0], cl)} />
+              volume={(f) => interpolate(f, [0, s.fi ?? 2, s.dur - (s.fo ?? 2), s.dur], [0, 1, 1, 0], cl)} />
             {!covered && (
               <AbsoluteFill style={{transform: `translate(${fr.x || 0}px, ${(fr.y || 0) + down}px) scale(${z})`, transformOrigin: '50% 45%'}}>
                 <OffthreadVideo muted src={staticFile(s.src)} startFrom={Math.round(s.in * FPS)} style={{width: 1080, height: 1920}} />
@@ -83,7 +83,7 @@ const Subs: React.FC = () => {
   const inn = interpolate(frame - c.f, [0, 4], [0, 1], cl);
   const ink = lightK(frame) > 0.5;                                  // on a bright insert: dark text, soft white glow
   const sh = ink ? '0 0 16px rgba(255,255,255,0.95)' : shadow;
-  const top = 1270 + Math.min(120, speakerShift(frame) * 0.4);      // in split layout the speaker sits lower: keep the text under the chin
+  const top = (data.subTop ?? 1270) + (c.dy ?? 0) + Math.min(120, speakerShift(frame) * 0.4);   // sub_top in edit.json: caption band top (per video, from where the mouth sits)      // in split layout the speaker sits lower: keep the text under the chin
   return (
     <AbsoluteFill style={{top, height: 260, justifyContent: 'center', alignItems: 'center', flexDirection: 'column', opacity: 0.25 + 0.75 * inn, transform: `translateY(${(1 - inn) * 10}px)`}}>
       {/* on a bright full-screen insert the dark caption gets a calm backing in the panel colour, so it stays readable over busy pages */}

@@ -81,12 +81,18 @@ for k, fixes in E.get("timing", {}).items():
 segs, f = [], 0
 for s in E["segments"]:
     d = round((s["out"] - s["in"]) * FPS)
-    segs.append({"k": s["clip"], "src": E["clips"][s["clip"]] + ".mp4", "in": s["in"], "out": s["out"], "start": f, "dur": d})
+    # optional "fade_in"/"fade_out" (frames, default 2): audio fade at this segment's edges. 1 frame where a word starts or ends
+    # right at the cut point (a 2-frame fade would soften its first consonant / last vowel). Never 0: a hard edge clicks.
+    segs.append({"k": s["clip"], "src": E["clips"][s["clip"]] + ".mp4", "in": s["in"], "out": s["out"], "start": f, "dur": d,
+                 "fi": max(1, int(s.get("fade_in", 2))), "fo": max(1, int(s.get("fade_out", 2)))})
     f += d
 total = f + E.get("outro_frames", 0)
 
 def T(k, t):
     """source time in clip k -> output frame (time inside a removed part snaps to the next kept segment)"""
+    for s in segs:      # strictly inside a segment first: two segments of one clip can touch (a hook taken from the start of
+        if s["k"] == k and s["in"] <= t < s["out"]:      # the same take, then the body continuing from that exact point)
+            return s["start"] + round((t - s["in"]) * FPS)
     for s in segs:
         if s["k"] == k and s["in"] - 0.05 <= t <= s["out"] + 0.05:
             return s["start"] + round((t - s["in"]) * FPS)
@@ -124,8 +130,14 @@ for k in E["clips"]:
             if t and any(s["k"] == k and w["s"] < s["out"] and w["e"] > s["in"] for s in segs):
                 print(f"WARNING: word {k}{i} '{w['w']}' ({w['s']}-{w['e']}) only partly inside a segment -> no subtitle. If it is audible, fix its time in \"timing\"; if not, ignore.")
             continue
-        if not t: continue
-        words.append({"k": k, "i": i, "t": t, "f": T(k, max(w["s"], seg["in"])), "e": T(k, min(w["e"], seg["out"]))})
+        at = lambda x: seg["start"] + round((x - seg["in"]) * FPS)     # frames inside the word's OWN segment
+        if not t:
+            # a hidden token right after a shown word of the same segment (second half of "cetak-mencetak", a hidden
+            # stutter) is still being SPOKEN: the shown word's caption lasts until the hidden token ends, no blank gap.
+            if words and words[-1]["k"] == k and words[-1].get("last_i") == i - 1 and words[-1]["segEnd"] == seg["start"] + seg["dur"]:
+                words[-1]["e"] = max(words[-1]["e"], at(min(w["e"], seg["out"]))); words[-1]["last_i"] = i
+            continue
+        words.append({"k": k, "i": i, "t": t, "f": at(max(w["s"], seg["in"])), "e": at(min(w["e"], seg["out"])), "segEnd": seg["start"] + seg["dur"], "last_i": i, "e0": at(min(w["e"], seg["out"]))})
 words.sort(key=lambda w: w["f"])
 
 # 4) subtitle chunks: short phrases; a trailing run of *emphasised* words becomes the big line
@@ -137,12 +149,12 @@ def flush():
     j = len(cur)
     while j > 0 and cur[j - 1]["t"].startswith("*"): j -= 1
     strip = lambda ws: [{"t": w["t"].replace("*", ""), "f": w["f"]} for w in ws]
-    subs.append({"f": cur[0]["f"], "t": cur[-1]["e"], "small": strip(cur[:j]), "big": strip(cur[j:])})
+    subs.append({"f": cur[0]["f"], "t": cur[-1]["e"], "small": strip(cur[:j]), "big": strip(cur[j:]), "segEnd": cur[-1]["segEnd"]})
     cur = []
 for w in words:
     if cur:
         prev = cur[-1]; ln = sum(len(x["t"]) for x in cur) + len(cur)
-        if (w["f"] - prev["e"] > 9                                   # pause
+        if (w["f"] - prev.get("e0", prev["e"]) > 9                   # pause (spoken end of the shown word: a hidden tail does not change the grouping)
                 or (prev["t"].startswith("*") and not w["t"].startswith("*"))  # keyword ends the chunk
                 or re.search(r'[.?!"”]$', prev["t"])                # sentence end
                 or ln + len(w["t"]) > MAXC or len(cur) >= MAXW
@@ -152,8 +164,16 @@ for w in words:
     cur.append(w)
 flush()
 for a, b in zip(subs, subs[1:]):
-    a["t"] = min(max(a["t"] + 4, a["f"] + 8), b["f"])     # hold a little, never overlap the next chunk
+    a["t"] = min(max(a["t"] + 4, a["f"] + 8), b["f"], a["segEnd"])     # hold a little, never overlap the next chunk, never across a cut
 if subs: subs[-1]["t"] = min(total, subs[-1]["t"] + 10)
+for x in subs: x.pop("segEnd", None)
+# optional "caption_dy": [{"from": anchor, "to": anchor, "dy": px, "why": "..."}] moves the caption band down (or up) for the
+# chunks that START in that range: for a moment where the speaker leans into the lens and the mouth drops into the caption band.
+for r in E.get("caption_dy", []):
+    if not str(r.get("why", "")).strip(): raise SystemExit("ERROR: caption_dy entry needs a \"why\"")
+    a, b = anchor(r["from"]), anchor(r["to"])
+    for x in subs:
+        if a <= x["f"] <= b: x["dy"] = int(r["dy"])
 
 # 5) events (visuals) -> frames
 events = []
@@ -166,6 +186,8 @@ for ev in E.get("events", []):
         for key in list(it):
             if key == "at": it["f"] = anchor(it.pop("at"))
             elif key.endswith("_at"): it[key] = anchor(it[key])
+        for ch in it.get("changes", []):          # later changes inside an item (e.g. swatches: a tile changes colour)
+            if "at" in ch: ch["f"] = anchor(ch.pop("at"))
     if e["type"] == "custom": e.setdefault("light", True)   # diagrams are bright by default -> dark subtitles over them
     if e["t"] - e["f"] < 20: print("WARNING: event shorter than 20 frames:", e["type"], e["f"], e["t"])
     events.append(e)
@@ -195,9 +217,12 @@ for e in fulls:
     else: groups.append([e])
 hidden = [g[0]["f"] + 12 for g in groups if g[-1]["t"] < total]
 joins = [s["start"] for s in segs[1:] if not any(e["f"] + 7 <= s["start"] < e["t"] - 6 for e in fulls)]
+# a join between two DIFFERENT clips is already a change of shot (other framing): no extra punch-in there, so each
+# clip keeps its own framing (e.g. a wider introduction shot between close-ups). Same-clip joins still get the punch-in.
+zoom_joins = [s["start"] for p, s in zip(segs, segs[1:]) if s["start"] in joins and p["k"] == s["k"]]
 shots, z = [], 1.0
-for c in sorted(set([0] + hidden + joins)):
-    if c: z = 1.0 if z > 1.03 else (1.09 if c in joins else 1.07)
+for c in sorted(set([0] + hidden + zoom_joins)):
+    if c: z = 1.0 if z > 1.03 else (1.09 if c in zoom_joins else 1.07)
     shots.append({"f": c, "z": z})
 
 # 7) sound effects
@@ -225,10 +250,12 @@ for e in events:
 MAXQ = float(E.get("max_quiet_s", 6.0))
 talk_end = min([e["f"] for e in events if e["type"] == "outro"] + [total])      # the outro card is not part of the talk
 changes = {s["f"] for s in shots}
+changes |= {j for j in joins if j not in zoom_joins}     # a visible join between two different clips changes the whole picture
 for e in events:
     changes |= {e["f"], e["t"]} | {v for key, v in e.items() if key.endswith("_at") and isinstance(v, int)}
     for it in e.get("items", []):
         changes |= {v for key, v in it.items() if (key == "f" or key.endswith("_at")) and isinstance(v, int)}
+        changes |= {ch["f"] for ch in it.get("changes", []) if isinstance(ch.get("f"), int)}
     if e["type"] == "screenshot":   # marker highlights draw on at their own time (same default as Visuals.tsx)
         changes |= {e["f"] + h.get("at", 20 + i * 26) for i, h in enumerate(e.get("highlights", [])) if e["f"] + h.get("at", 20 + i * 26) < e["t"]}
 pts = sorted({0, talk_end} | {c for c in changes if 0 < c < talk_end})
@@ -259,7 +286,7 @@ nchg = len(pts) - 2
 longest = max(stretches, key=lambda s: s[1] - s[0]) if stretches else (0, 0)
 print(f"QUIET CHECK (talk {talk_end / FPS:.1f}s, outro excluded, max_quiet_s {MAXQ:g}): {nchg} visual changes, avg unchanged stretch {talk_end / FPS / max(1, nchg + 1):.1f}s"
       f" | longest unchanged stretch {(longest[1] - longest[0]) / FPS:.1f}s at {fmt(longest[0])}-{fmt(longest[1])}")
-print("  (visual change = an event in/out, an item/click/highlight appearing, a speaker zoom change; subtitle words do not count;"
+print("  (visual change = an event in/out, an item/click/highlight appearing, a speaker zoom change, a visible join between two different clips; subtitle words do not count;"
       " time on moving footage - clip, split with a video src - is never quiet; a static insert held long still is)")
 print(f"  screen time (moving footage {100 * sum(on_moving(f) for f in range(talk_end)) / max(1, talk_end):.0f}% of the talk): " + " | ".join(f"{n} {100 * kind[k] / max(1, talk_end):.0f}%" for k, n in
       (("full", "full-screen"), ("split", "split"), ("overlay", "speaker+overlay"), ("speaker", "speaker only"))))
@@ -316,7 +343,7 @@ if MUSIC and MUSIC.get("points"):
     MUSIC["points"] = sorted([{"f": anchor(p["at"]), "v": float(p["v"]), "ramp": int(p.get("ramp", 12))} for p in MUSIC["points"]], key=lambda p: p["f"])
     print("music points: " + ", ".join(f"{fmt(p['f'])} x{p['v']:g}" for p in MUSIC["points"]))
 json.dump({"fps": FPS, "total": total, "theme": THEME, "segs": segs, "framing": E.get("framing", {}), "subs": subs, "events": events,
-           "fullTypes": sorted(FULL_TYPES), "shots": shots, "sfx": sfx, "keepCase": E.get("keep_case", []), "music": MUSIC},
+           "fullTypes": sorted(FULL_TYPES), "shots": shots, "sfx": sfx, "keepCase": E.get("keep_case", []), "music": MUSIC, "subTop": int(E.get("sub_top", 1270))},
           open("video/src/data.json", "w"), ensure_ascii=False, indent=1)
 
 # report: read it every time

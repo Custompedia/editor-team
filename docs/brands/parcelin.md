@@ -79,7 +79,28 @@ bio, ikon Threads) adalah crop dari screenshot dan tidak disimpan di repo** (rep
 - Musik yang dipakai: "Good Vibe Background Music", Seth_Makes_Sounds, Freesound 661782, CC0; volume 0,05, turun di "Gimana? Nggak bisa".
 - Whisper: "Parcellen", "Parcelon", "parcel ini" → "Parcelin" (pemilik mengonfirmasi brand); "softbook" → "softbox".
 
+## Catatan job04–06 (2026-11-24)
+- **Situs baru: parcelincreative.com** (dari pemilik: penutup video memakai alamat ini). parcelin.id masih 404. Di situs baru tertulis
+  "PT. Parcelin Creative Indonesia", "#BikinDiParcelin", "8+ tahun"; font Inter; hero oranye (#DE6B17 dari pixel) dengan tombol kuning (#FFD447).
+- Gambar situs di path `/placeholder/…` (foto tim, mesin cetak, box "Never Stop Playing") dan logo klien di `/content/clients`
+  (BCA, Gojek, Shopee, Pertamina, Wardah, Somethinc): **belum dikonfirmasi pemilik** apakah asli dan boleh tampil. Tanyakan sebelum final.
+- Klip perkenalan (dipakai ulang antar video): "Hai, … yang belum kenal, aku Putri, aku owner dari PT Parcelin yang udah 8 tahun lebih di
+  dunia percetakan, dan aku senang banget untuk sharing lika-liku di industri ini." Kata setelah "Hai," tidak terverifikasi ("buat yang" /
+  "biar" / tidak ada): dikosongkan di subtitle sampai pemilik menjawab. Nama PT di subtitle "PT Parcelin" (belum dikonfirmasi).
+- **Format baru dari pemilik: hook → perkenalan → isi.** Hook dicari dari video topiknya sendiri; klip perkenalan diselipkan setelah hook.
+  Pemilik minta satu video pratinjau utuh sebelum render akhir, dan memperhatikan posisi serta transisi hook.
+- Revisi atas video jadi (job04): di grid portofolio pemilik memakai foto klien Mergic, Clarkia Giftery, Sari Madu Bakery, Sachi (kiriman
+  pemilik sendiri); kartu penutup "@parcelinpack · parcelincreative.com".
+- Musik job05: "Good Vibe Background Music" (Freesound 661782, CC0); job06: "Vanilla Lofi Beat" (Freesound 691510, CC0), keduanya Seth_Makes_Sounds.
+- Kipas Pantone bebas kredit: flickr.com/photos/135481151@N08/21156820029 (Public Domain Mark).
+
 ## Riwayat
+- job04 (revisi video jadi "Softbox bisa 100 pcs?", 94 dtk): empat foto grid 1:13 diganti, alamat situs di penutup diganti. Final terkirim.
+- job05 (toleransi warna cetak, klip …1524): final_v2 177,7 dtk, hook dipindah ke depan ("Jadi jangan komplain kalau ada selisih warna
+  tipis-tipis… itu normal banget"), 4 sambungan, aksen kuning #FFD447. job06 (warna layar vs cetak, klip …0340): final_v2 126,9 dtk, hook =
+  awal rekaman ("Nih, ada yang komen… Nggak bisa."), 3 sambungan, aksen oranye #DE6B17. Keduanya: format hook → perkenalan → isi, penutup
+  di wajah dengan ajakan komen tanpa logo. Pemilik belum menjawab pertanyaan isi saat final dikirim (logo klien, foto `/placeholder/`,
+  nama PT, warna aksen seri, kata setelah "Hai,"): tanyakan lagi di job berikutnya sebelum memakai ulang.
 - job03 (Cara Hitung Hardbox; 5 klip = 2 bagian berurutan + 3 take jembatan gagal): final_v4 125,3 dtk, **2 potongan**, urutan rekam,
   penutup profil IG buatan kode. Pemilik atas pratinjau v3: "bagus sih editannya".
 - job02 (Box Lebaran, pengingat pesan packaging Lebaran dari sekarang; 2 take naskah yang sama, 62,8 dtk dan 86,6 dtk): final_v4 52,7 dtk.

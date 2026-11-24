@@ -182,3 +182,55 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Not verified by anyone but the owner's ears: the two joins (0:52, 1:28), the kept false start "Kita bisa—" (~1:33), the music.
 - Cost: one worker session ~2 h 20 min including three renders (~25 min each for 125 s). A render round is still the expensive unit;
   catching "Ulangi" before render 1 would have saved one.
+
+## job04–06 (2026-11-24) — revision of a flattened export + first "hook → perkenalan → isi" jobs (Parcelin)
+Status: all three delivered (job04 final_rev1; job05 final_v2, 177.7 s; job06 final_v2, 126.9 s). The owner had not answered the
+content questions when the finals went out; they are listed as assumptions in the delivery message.
+- **job04 = revision of a finished phone-editor export, no project files.** The 11-stage skill does not apply and the brief must say so.
+  What worked: decode the affected ranges, MEASURE geometry and timing from the frames (card boxes, stagger, fade weights, font by
+  overlay), subtract the old layer in the cross-fade frames, composite, ONE full x264 encode (CRF 15) with the audio stream copied.
+  QA for this kind of job: frame count and specs equal to the source, audio packet md5 equal, blackdetect, SSIM/PSNR on the frames
+  OUTSIDE the changed ranges, every-frame strips of each transition from the final file. Two phases with a stop: stills + short
+  clips first, full encode on approval. CRF 15 made the file 180 MB against a 113 MB source: next time target the source bitrate.
+- "Jangan sentuh yang tidak aku suruh": say plainly that a flattened file must be re-encoded once as a whole, and back "unchanged"
+  with numbers (audio md5, SSIM), not with a promise.
+- **The owner asked "sampai mana" four times in about three hours.** Three workers on 4 vCPU queue on the heavy lock; the first
+  full preview arrived after ~1 h 50 min. What helped: sending a preview the lead had only looked at briefly, with the unchecked
+  parts named (job03 lesson, confirmed). Missing: an ETA in the first reply, and one short status line unprompted at each milestone.
+- **New format hook → perkenalan → isi** (intro clip shared by several topic videos). Hook = a line the speaker says in the topic
+  clip: either the clip's own opening (0 extra cuts, job06) or a line MOVED to the front (1 extra cut in the body, covered by a
+  visual, job05). Both format joins are shot-size changes (close-up ↔ medium): `cut_ok` with a picture reason, no automatic
+  punch-in at a join between different clips, one music bed across both joins, prompt-free slice test on each join.
+- A background worker cannot message the lead mid-run: "report after Tahap 3" works as a FILE (`work/report_tahap3.md`) that the
+  lead reads while the worker continues.
+- **Sister jobs drift.** Two workers on two videos of the same series (same brand, same intro clip, same site) chose different
+  accents (yellow #FFD447 vs orange #DE6B17), different endings, and handled the same uncertain word differently (one hid it, one
+  kept it). Lead rule: when jobs share a brand/series/clip, decide the shared things ONCE and put them in every brief (theme,
+  ending, subtitle of the shared clip, shared assets), or let one worker do Tahap 0 for all.
+- Lead rejections on the previews (all passed technical QA): captions touching the lips in split layouts; full-screen code-drawn
+  swatch panels that were more than half empty and removed the speaker for 29% of the video; a public-domain photo that showed a
+  politician's portrait; CC BY photos where the sister job had found a Public Domain Mark one; an article highlight on a sentence
+  that was not being said; an empty panel for 1–2 s before its first item.
+- The 5-hour usage limit stopped both workers mid-job. STATE.md plus SendMessage after the reset resumed them without loss. Ask
+  workers to update STATE.md after every finished item, not only before renders.
+- Brand site assets under `/placeholder/…` on parcelincreative.com (team photo, printing machine, box): the path suggests stock
+  or dummy images. Ask the owner before the final; a label like "tim Parcelin" on such a photo is a claim.
+- "Pastikan di akhir jadi 1 video" was ambiguous (one output? one preview video?). The owner later asked "jadi output ada berapa
+  video". When several clips arrive, state the number of output videos in the first reply as a question, not as an assumption line.
+- **A final went out with a subtitle bug that both workers' previews already had.** A shown word followed by a hidden token
+  (second half of "cetak-mencetak", a combined big word) left the caption EMPTY for 0.3–0.7 s while the speaker kept talking:
+  18 places in job05, 7 in job06. job05's QA5 found it only after the lead had sent final_v1 (the lead delivered on its own picture
+  checks before the worker's report arrived). Both were re-rendered as v2. Rules: (1) the lead does not deliver a final before the
+  worker's QA report is in; (2) QA5 looks for caption gaps >= 0.3 s inside speech, not only for wrong words; (3) a bug found in one
+  sister job is checked in the other at once (done here, and it was there). Fixed in the kit: a hidden token extends the shown word.
+- A worker reported the `Made with Remotion` tag missing from a final; it was there (its ffprobe output had been cut by `head`).
+  The lead's own ffprobe settled it. Keep checking the tag yourself.
+- The owner answered "lanjutkan" and "apakah sudah" instead of the questions. The lead then rendered finals on its recommended
+  defaults and said so, with neutral labels where a claim was unconfirmed ("mesin cetak" instead of "cetakan di Parcelin"). Long
+  question lists were not read: ask at most three questions at a time, the ones that change the picture most.
+- **Kit: ported to editkit after the finals** (merged from both job copies, both jobs rebuilt with identical numbers, tsc clean,
+  four stills rendered): per-segment `fade_in`/`fade_out`; touching segments of one take map words to the right segment; a
+  caption never holds across a cut; no punch-in at a join between different clips, and such a join counts as a visual change in
+  the QUIET CHECK; hidden token extends the shown word; `sub_top`; `caption_dy` (with reason); `items[].changes` anchors;
+  `custom` `swatch` and `swatches` (full screen or inside `split`); `gallery` `fit: contain`. Open: `swatch` and `swatches` are
+  two near-twins from the two jobs; merge them into one when the next job needs either.
