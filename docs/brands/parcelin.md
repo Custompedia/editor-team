@@ -79,6 +79,14 @@ bio, ikon Threads) adalah crop dari screenshot dan tidak disimpan di repo** (rep
 - Musik yang dipakai: "Good Vibe Background Music", Seth_Makes_Sounds, Freesound 661782, CC0; volume 0,05, turun di "Gimana? Nggak bisa".
 - Whisper: "Parcellen", "Parcelon", "parcel ini" → "Parcelin" (pemilik mengonfirmasi brand); "softbook" → "softbox".
 
+## Situs baru (pemilik, 2026-11-24, job04-rev)
+- Situs brand sekarang **https://parcelincreative.com/** ("bukan parcelin.id lagi tapi pake web yang baru"). parcelin.id masih 404.
+  Semua penyebutan situs di video (halaman yang dibuka, baris penutup) memakai parcelincreative.com.
+- Halaman depan (dicek 1440x900): hero oranye "APAPUN KEBUTUHAN BISNISMU #BikinDiParcelin", tombol "Lihat Produk" / "Minta Penawaran",
+  nav pil di bawah. **CTA kanan bawah** = tombol bulat `a[aria-label="Chat via WhatsApp"]` → `wa.me/6281717772020` dengan pesan
+  "Halo Parcelin, saya ingin bertanya tentang produk." (terbuka di tab baru, api.whatsapp.com).
+- URL logo lama (`parcelin.id/parcelin-icon.png`) ikut mati: ambil logo dari situs baru atau minta file ke pemilik.
+
 ## Riwayat
 - job03 (Cara Hitung Hardbox; 5 klip = 2 bagian berurutan + 3 take jembatan gagal): final_v4 125,3 dtk, **2 potongan**, urutan rekam,
   penutup profil IG buatan kode. Pemilik atas pratinjau v3: "bagus sih editannya".
