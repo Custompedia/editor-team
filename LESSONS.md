@@ -182,3 +182,42 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Not verified by anyone but the owner's ears: the two joins (0:52, 1:28), the kept false start "Kita bisa—" (~1:33), the music.
 - Cost: one worker session ~2 h 20 min including three renders (~25 min each for 125 s). A render round is still the expensive unit;
   catching "Ulangi" before render 1 would have saved one.
+
+## job04–06 (2026-11-24) — revision of a flattened export + first "hook → perkenalan → isi" jobs (Parcelin)
+Status when written: job04 final delivered; job05 and job06 at preview v2, waiting for the owner. Update this entry after the finals.
+- **job04 = revision of a finished phone-editor export, no project files.** The 11-stage skill does not apply and the brief must say so.
+  What worked: decode the affected ranges, MEASURE geometry and timing from the frames (card boxes, stagger, fade weights, font by
+  overlay), subtract the old layer in the cross-fade frames, composite, ONE full x264 encode (CRF 15) with the audio stream copied.
+  QA for this kind of job: frame count and specs equal to the source, audio packet md5 equal, blackdetect, SSIM/PSNR on the frames
+  OUTSIDE the changed ranges, every-frame strips of each transition from the final file. Two phases with a stop: stills + short
+  clips first, full encode on approval. CRF 15 made the file 180 MB against a 113 MB source: next time target the source bitrate.
+- "Jangan sentuh yang tidak aku suruh": say plainly that a flattened file must be re-encoded once as a whole, and back "unchanged"
+  with numbers (audio md5, SSIM), not with a promise.
+- **The owner asked "sampai mana" four times in about three hours.** Three workers on 4 vCPU queue on the heavy lock; the first
+  full preview arrived after ~1 h 50 min. What helped: sending a preview the lead had only looked at briefly, with the unchecked
+  parts named (job03 lesson, confirmed). Missing: an ETA in the first reply, and one short status line unprompted at each milestone.
+- **New format hook → perkenalan → isi** (intro clip shared by several topic videos). Hook = a line the speaker says in the topic
+  clip: either the clip's own opening (0 extra cuts, job06) or a line MOVED to the front (1 extra cut in the body, covered by a
+  visual, job05). Both format joins are shot-size changes (close-up ↔ medium): `cut_ok` with a picture reason, no automatic
+  punch-in at a join between different clips, one music bed across both joins, prompt-free slice test on each join.
+- A background worker cannot message the lead mid-run: "report after Tahap 3" works as a FILE (`work/report_tahap3.md`) that the
+  lead reads while the worker continues.
+- **Sister jobs drift.** Two workers on two videos of the same series (same brand, same intro clip, same site) chose different
+  accents (yellow #FFD447 vs orange #DE6B17), different endings, and handled the same uncertain word differently (one hid it, one
+  kept it). Lead rule: when jobs share a brand/series/clip, decide the shared things ONCE and put them in every brief (theme,
+  ending, subtitle of the shared clip, shared assets), or let one worker do Tahap 0 for all.
+- Lead rejections on the previews (all passed technical QA): captions touching the lips in split layouts; full-screen code-drawn
+  swatch panels that were more than half empty and removed the speaker for 29% of the video; a public-domain photo that showed a
+  politician's portrait; CC BY photos where the sister job had found a Public Domain Mark one; an article highlight on a sentence
+  that was not being said; an empty panel for 1–2 s before its first item.
+- The 5-hour usage limit stopped both workers mid-job. STATE.md plus SendMessage after the reset resumed them without loss. Ask
+  workers to update STATE.md after every finished item, not only before renders.
+- Brand site assets under `/placeholder/…` on parcelincreative.com (team photo, printing machine, box): the path suggests stock
+  or dummy images. Ask the owner before the final; a label like "tim Parcelin" on such a photo is a claim.
+- "Pastikan di akhir jadi 1 video" was ambiguous (one output? one preview video?). The owner later asked "jadi output ada berapa
+  video". When several clips arrive, state the number of output videos in the first reply as a question, not as an assumption line.
+- **Kit changes made in job copies, NOT yet in editkit** (port after the finals prove them; the two jobs edited the same files
+  differently, so it is a merge): `build_timeline.py` per-segment `fade_in`/`fade_out`, fix for words/anchors at the border of two
+  touching segments of the same take, no subtitle hold across a join, no punch-in between different clips, `sub_top`,
+  `caption_dy` (with reason); `Main.tsx` per-segment audio fade; `Visuals.tsx` components `swatches` (job06) and `swatch` with
+  split mode and `label_at` (job05), `split` with a custom component, `gallery` `fit: contain`.
