@@ -182,3 +182,33 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Not verified by anyone but the owner's ears: the two joins (0:52, 1:28), the kept false start "Kita bisa—" (~1:33), the music.
 - Cost: one worker session ~2 h 20 min including three renders (~25 min each for 125 s). A render round is still the expensive unit;
   catching "Ulangi" before render 1 would have saved one.
+
+## job04-rev — revisi video jadi "Box Lebaran" (…230555, ekspor CapCut): situs baru + baris penutup (2026-11-24)
+- Delivered final_revB (52,65 s). Owner's request: at 0:42 show the new site parcelincreative.com and click the bottom-right CTA; end
+  line parcelin.id → parcelincreative.com. Brand fact recorded in docs/brands/parcelin.md.
+- The project that made the video was gone (job folders are not in the repo; the file was the owner's CapCut re-export). So the revision
+  was a PATCH on the delivered frames, not a rebuild: measure the laptop screen per frame (pure scale + shift), capture the real site with
+  Playwright on virtual time (50 consecutive frames, real 3D motion and real hover state), composite only inside the screen, re-typeset
+  the end line from per-frame measurements of the old one (font found by glyph positions + pixel RMSE). Proof that nothing else moved:
+  0 changed pixels outside the declared region before encoding, audio stream copy with identical md5, same frame count. One full
+  re-encode (crf 13) instead of splicing GOPs from two encoders. Preview ~55 min, final + QA ~25 min.
+- Owner's gate, stated twice: "kasih aku view frame-nya dulu, kalau ku acc baru render akhir". And the owner asked "udah?" six times in
+  90 minutes while the folder was still empty. Rule for the lead: brief the worker to write TWO early full-size stills as soon as the
+  first composite exists and to message the lead; forward them at once, labelled "not final". A site screenshot is not a video frame:
+  the owner said so ("i mean preview frame video").
+- The real CTA was weak on screen: an orange button on an orange hero, ~40 px in the mockup, under the cursor. Not faked. What kept it
+  honest and readable: a narrower real viewport (1024 px, same layout) so the real button is as large as the old green one, the cursor
+  pausing BESIDE the button for ~8 frames, the site's real hover state, a white click ripple. Two variants shown; lead recommended B.
+- The owner answered the A/B question with "kalau menurut kamu sudah sesuai, langsung aja dibuat" in a message about the other jobs. The
+  lead read it as leave to use its own recommendation, said so in the reply, and rendered B. Open: the owner has not confirmed B.
+- First two minutes of a fresh container: the proxy refused drive.google.com, the brand site and huggingface.co (403), then allowed all
+  of them. I almost told the owner to change the environment's network settings. Rule: on a refusal at session start, finish the kit
+  install, retry after 2–3 minutes with curl AND python, and only then report a blocked host.
+- `doctor.py` said READY while Whisper was not cached and the model download had just failed: READY means "installed", not "can
+  transcribe". Check the "whisper model" line, and re-run install.sh once the network answers.
+- Three opus/high workers in parallel reached the 5-hour usage limit together at ~3 h, right after two final renders had finished and
+  before their QA. Nothing was lost (STATE.md before each heavy step; files on disk); SendMessage after the reset resumed each one.
+  Rule: on resume, look at out/ and the newest log first, then tell the worker exactly what exists and what is missing.
+- Not verified by anyone: the audio was not listened to (it is bit-identical to the source), the motion was judged on frames only.
+- Open question for the owner: revisions of older videos would be faster if each job's small text files (edit.json, script, sources)
+  were archived. They are not, because the repo is public and job folders are excluded by rule.
