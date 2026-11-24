@@ -45,3 +45,18 @@ tipis di kiri baris pertama), logo Custompedia lengkap di tengah bawah di atas g
 - Render Remotion ±25 menit per 125 detik: episode 15–20 menit tidak layak dirender penuh lewat Remotion. Rencana yang masuk akal:
   Remotion hanya untuk bagian bergrafis (teaser, perkenalan) dan lapisan transparan; badan podcast digabung dengan ffmpeg
   (logo, timecode, grading). Belum dibuktikan.
+
+## 5. Aset asli dari pemilik (Drive `1zMlbK_FRUlqFKy9WdNFSQUK-9MwNqobM`, dilihat lead 2026-11-24)
+Folder berisi `01 RAW` (5 klip kamera utama ±19 GB, 2 klip kamera kedua ±13,5 GB, rekaman 2026-10-16) dan `02 ASSET`. Video referensi
+sendiri TIDAK ada di folder, jadi bagian 3 (teaser dan subtitle-nya, zoom, musik) tetap belum dilihat.
+
+| Aset | Spesifikasi | Isi |
+|---|---|---|
+| `Cerita Perintis Bumper In (masking logo).mov` | 6,0 dtk, 3840x2160, 29,97 fps, alpha, tanpa audio | Dibuka oleh bentuk tanda Custompedia yang membesar di atas gambar di bawahnya, lalu logo acara terketik di latar biru gradasi, frame terakhir kembali tembus pandang: dipasang DI ATAS sambungan teaser → podcast |
+| `Bumper Out/Final Bumper Out.mov` | 6,0 dtk, format sama, audio senyap | Logo acara + "powered by custompedia" |
+| `Lower Third/LT - Mas Radhyt.mov` | 3416x808, 60 fps, 8,47 dtk, alpha | Ikon bersudut bulat muncul, pil biru terbuka berisi "RADHYTA MM. / OWNER CUSTOMPEDIA AGENCY", lalu menutup. Ikon "dP" di frame referensi 0:55 = awal lower third TAMU dengan desain yang sama |
+| `Lower Third/Lower Third.aep` | templat After Effects | Tidak bisa dibuka di container; string di dalamnya: font Poppins SemiBold / Regular / Light, teks contoh saja. Lower third tamu harus dibuat ulang menyerupai `.mov` |
+| `2 hours count timecode ...mp4` | 1920x1080, 24 fps, 2 jam | Angka putih di atas hitam: sumber "detik-an di bawah" (dikecilkan, hitamnya dihilangkan). Audionya tidak dipakai |
+| `LOGO/` | PNG putih dan hitam, EPS | Logo acara dan tanda Custompedia |
+
+Font keluarga desain ini: **Poppins** (dari templat lower third).
