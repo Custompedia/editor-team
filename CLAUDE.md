@@ -25,6 +25,9 @@ name, handle, logo, colour or ending from an earlier job, and tell the worker th
   brand spelling in subtitles. Run `docs/review-tests.md` (T1–T31) on your own contact sheet and the build log.
   **Reject an edit that passes technical QA but fails T1, T3, T5, T19, T24 (a subtitle word nobody verified) T25 (the picture jumps / too many cuts) or T31 (identity borrowed from another brand), or reads thin or crowded** (job01 v4: clean ≠ sparse).
   Never forward a worker's claim you did not check.
+  A FINAL goes to the user only after the worker's QA report is in (job05: final_v1 went out on the lead's own picture checks, then
+  the worker's QA5 found 18 empty-caption gaps). When jobs share a brand, series or clip, decide theme, ending and shared-clip
+  subtitles ONCE in every brief; a bug found in one sister job is checked in the others at once.
 - Deliver finals with SendUserFile + a short report: what was cut, visuals and sources, assumptions, what is unverified
   (nobody listened to the audio — ask the user to watch once with sound).
 
@@ -44,6 +47,7 @@ name, handle, logo, colour or ending from an earlier job, and tell the worker th
 
 ## What to ask the user for — AT THE START (owner, job02: "aset/konfirmasi yang dibutuhkan kamu tanyakan di awal")
 Two lists, each sent once, each with a proposed default per item so the user can answer "ya"; then continue on `ASUMSI`:
+State the NUMBER of output videos as the first question when several clips arrive. At most three questions per message (job04–06: long lists got "lanjutkan").
 1. **Before the worker starts:** whose video it is (which company, or none), brand name + exact spelling, the account the video is published on and the handles to show,
    **closing content** (which logos/marks, handle, site, CTA) and the **logo file**, **music** (the user's track, or free to choose),
    brand colours, portfolio/product photos, platform, reference video, and a screen recording or screenshot of any logged-in app

@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Img, OffthreadVideo, interpolate, staticFile, useCurrentFrame, Easing} from 'remotion';
+import {AbsoluteFill, Img, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame, Easing} from 'remotion';
 import {SANS, SERIF, EMPH_STYLE, ACCENT, ON_ACCENT, MARKER, LIGHT, INK, FPS, cl, ease, sp} from './theme';
 
 /* ---------- shared pieces ---------- */
@@ -287,7 +287,8 @@ const Gallery: React.FC<{e: any}> = ({e}) => {
         return (
           <div key={i} style={{position: 'absolute', left: 60 + c * (W + gap), top: top + r * (H + gap), width: W, height: H, borderRadius: 22, overflow: 'hidden',
             boxShadow: '0 16px 40px rgba(0,0,0,0.18)', opacity: Math.min(1, p * 1.4), transform: `translateY(${(1 - p) * 50}px) scale(${0.94 + 0.06 * p})`}}>
-            <Img src={staticFile(it.img)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: it.pos || '50% 50%', display: 'block',
+            <Img src={staticFile(it.img)} style={{width: '100%', height: '100%', objectFit: it.fit || e.fit || 'cover', objectPosition: it.pos || '50% 50%', display: 'block',
+              background: (it.fit || e.fit) === 'contain' ? '#fff' : undefined, boxSizing: 'border-box', padding: (it.fit || e.fit) === 'contain' ? (e.pad ?? 34) : 0,
               transform: `scale(${(e.zoom || 1) * interpolate(f, [0, e.t - e.f], [1.0, 1.05])})`}} />
           </div>
         );
@@ -438,7 +439,110 @@ const IgPage: React.FC<{e: any}> = ({e}) => {
     </AbsoluteFill>
   );
 };
-const CUSTOM: Record<string, React.FC<{e: any}>> = {bars: Bars, timeline: Timeline, igprofile: IgProfile, page: Page, gallery: Gallery, measure: Measure, igpage: IgPage};
+
+/* ---------- swatches: ONE colour code shown as it ends up on different screens / paper ----------
+   Illustration of a relation ("the same code looks different"), drawn only because a photo of it cannot be honest
+   (a photo of two screens is re-rendered by the viewer's own screen). Tiles appear as they are spoken; a tile can
+   change colour later (calibration, brightness) with a short tag. Works full screen or inside a split panel (e.h).
+   {name:"swatches", label, sub?, code?, items:[{at, text, c, paper?: true, changes?: [{at, c, tag}]}], stamp?, stamp_at?} */
+const Swatches: React.FC<{e: any}> = ({e}) => {
+  const f = useCurrentFrame();
+  const H = e.h ?? 1920;
+  const n = Math.max(2, e.items.length);
+  const compact = H < 700;                            // short split panel: label on top, tiles fill the rest
+  const k = e.size ?? 1;                              // size: scale of tiles + text (full-screen conclusion can be large)
+  const gap = 34 * k, W = Math.min(300 * k, (1080 - 120 - (n - 1) * gap) / n), TH = compact ? H - 200 : Math.min(W * 1.15, H - 330);
+  const x0 = (1080 - (n * W + (n - 1) * gap)) / 2, y0 = e.top ?? (compact ? 110 : Math.max(190, (H - TH) / 2 + 40));
+  const labelTop = compact ? 40 : y0 - 120 * k;
+  const lp = sp(f, 0);
+  const stF = e.stamp_at !== undefined ? e.stamp_at - e.f : null;
+  const st = stF !== null ? sp(f, stF, {damping: 10, stiffness: 200, mass: 0.6}) : 0;
+  return (
+    <AbsoluteFill style={{background: LIGHT}}>
+      <div style={{position: 'absolute', left: 0, right: 0, top: labelTop, textAlign: 'center', opacity: lp}}>
+        <span style={{fontFamily: SANS, fontWeight: 800, fontSize: 40 * k, color: INK, letterSpacing: 3, textTransform: 'uppercase'}}>{e.label}</span>
+        {e.code ? <span style={{marginLeft: 18, fontFamily: SANS, fontWeight: 800, fontSize: 36 * k, color: ON_ACCENT, background: e.code_c || ACCENT, padding: '6px 16px', borderRadius: 10, verticalAlign: 'middle'}}>{e.code}</span> : null}
+      </div>
+      {e.items.map((it: any, i: number) => {
+        const at = it.f - e.f;
+        const p = sp(f, at, {damping: 15, stiffness: 170, mass: 0.7});
+        let col = it.c, tag = '', tp = 0;
+        for (const ch of it.changes || []) {
+          const ca = ch.f - e.f;
+          if (f >= ca) { col = ch.c; tag = ch.tag || tag; tp = sp(f, ca, {damping: 14, stiffness: 200, mass: 0.6}); }
+        }
+        return (
+          <div key={i} style={{position: 'absolute', left: x0 + i * (W + gap), top: y0, width: W, opacity: Math.min(1, p * 1.4), transform: `translateY(${(1 - p) * 60}px)`}}>
+            <div style={{width: W, height: TH, borderRadius: it.paper ? 6 : 26, background: col, transition: 'none',
+              boxShadow: it.paper ? '0 18px 30px rgba(0,0,0,0.22), inset 0 0 0 2px rgba(255,255,255,0.25)' : `0 0 0 12px ${INK}, 0 22px 40px rgba(0,0,0,0.25)`,
+              backgroundImage: it.paper ? 'repeating-linear-gradient(115deg, rgba(255,255,255,0.07) 0 3px, rgba(0,0,0,0.04) 3px 6px)' : undefined}} />
+            <div style={{marginTop: compact ? (it.paper ? 10 : 20) : it.paper ? 26 : 36, textAlign: 'center', fontFamily: SANS, fontWeight: 700, fontSize: 34 * k, lineHeight: 1.15, color: INK}}>{it.text}</div>
+            {tag ? <div style={{position: 'absolute', left: '50%', top: TH / 2 - 34, transform: `translateX(-50%) scale(${tp})`, whiteSpace: 'nowrap', fontFamily: SANS, fontWeight: 800, fontSize: 30, color: '#fff', background: INK, padding: '10px 18px', borderRadius: 14}}>{tag}</div> : null}
+          </div>
+        );
+      })}
+      {stF !== null && f >= stF ? (
+        <div style={{position: 'absolute', left: 0, right: 0, top: y0 + TH / 2 - 70, textAlign: 'center', transform: `scale(${0.6 + 0.4 * st}) rotate(${-6 * st}deg)`, opacity: Math.min(1, st * 1.5)}}>
+          <span style={{fontFamily: SERIF, fontStyle: EMPH_STYLE, fontWeight: 900, fontSize: 92 * k, color: '#fff', background: '#D7261E', padding: '6px 34px', borderRadius: 18, border: '6px solid #fff', boxShadow: '0 16px 40px rgba(0,0,0,0.35)'}}>{e.stamp}</span>
+        </div>
+      ) : null}
+      {e.sub ? <div style={{position: 'absolute', right: 40, bottom: 26, fontFamily: SANS, fontWeight: 600, fontSize: 26, color: INK, opacity: 0.55}}>{e.sub}</div> : null}
+    </AbsoluteFill>
+  );
+};
+
+/* ---------- swatch: colour patches that appear one by one as they are named, with an optional verdict ----------
+   For talk ABOUT colours themselves (two prints of one colour, min/standard/max, blue vs green, +-10%): the patch IS the thing.
+   Colours are illustrative ("contoh" in sub). {type:"custom", name:"swatch", label?, sub?,
+    items:[{at: anchor, color: "#RRGGBB", text}], mark?: {kind: "ok"|"x", text} + mark_at: anchor} */
+const Swatch: React.FC<{e: any; base?: number; ph?: number}> = ({e, base, ph}) => {
+  // abs = absolute video frame (works as a full-screen insert AND inside a split panel, whose Sequence starts earlier)
+  const abs = useCurrentFrame() + (base ?? e.f);
+  const split = ph !== undefined;                       // split mode: fill the panel (height ph), speaker stays below
+  const PH = ph ?? 1920;
+  const n = e.items.length, gap = split ? 28 : 34, side = 50;
+  const W = (1080 - 2 * side - (n - 1) * gap) / n;
+  const top = split ? 118 : 330;                        // full: below the kit label; split: below a small label row
+  const textH = split ? 64 : 80;
+  const markH = e.mark && !split ? 130 : 0;
+  const H = split ? PH - top - textH - 34 : Math.min(620, 1180 - top - textH - markH);
+  const x0 = side;
+  const mk = e.mark && e.mark_at !== undefined ? sp(abs, e.mark_at, {damping: 14, stiffness: 180, mass: 0.6}) : 0;
+  const markEl = e.mark ? (
+    <div style={{display: 'flex', alignItems: 'center', gap: 16, opacity: Math.min(1, mk * 1.4), transform: `scale(${0.85 + 0.15 * mk})`, transformOrigin: split ? '100% 50%' : '50% 50%'}}>
+      <div style={{width: split ? 58 : 84, height: split ? 58 : 84, borderRadius: 42, background: e.mark.kind === 'x' ? '#E5484D' : '#2F9E5B', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <svg width={split ? 34 : 50} height={split ? 34 : 50} viewBox="0 0 50 50">{e.mark.kind === 'x'
+          ? <path d="M14 14 L36 36 M36 14 L14 36" stroke="#fff" strokeWidth={8} strokeLinecap="round" />
+          : <path d="M12 26 L21 35 L38 16" stroke="#fff" strokeWidth={8} fill="none" strokeLinecap="round" strokeLinejoin="round" />}</svg>
+      </div>
+      <div style={{fontFamily: SANS, fontWeight: 800, fontSize: split ? 40 : 56, color: INK, letterSpacing: -1}}>{e.mark.text}</div>
+    </div>
+  ) : null;
+  return (
+    <AbsoluteFill style={{background: LIGHT, height: PH}}>
+      {split ? (
+        <div style={{position: 'absolute', left: side, right: side, top: 42, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+          <div style={{display: 'flex', alignItems: 'baseline', gap: 16}}>
+            <span style={{fontFamily: SANS, fontWeight: 800, fontSize: 44, color: INK, letterSpacing: -1}}>{e.label}</span>
+            {e.sub ? <span style={{fontFamily: SANS, fontWeight: 600, fontSize: 26, color: '#fff', background: INK, padding: '4px 12px', borderRadius: 10}}>{e.sub}</span> : null}
+          </div>
+          {markEl}
+        </div>
+      ) : <Label ink label={e.label} sub={e.sub} />}
+      {e.items.map((it: any, i: number) => {
+        const p = sp(abs, it.f, {damping: 16, stiffness: 170, mass: 0.7});
+        return (
+          <div key={i} style={{position: 'absolute', left: x0 + i * (W + gap), top, width: W, opacity: Math.min(1, p * 1.4), transform: `translateY(${(1 - p) * 40}px)`}}>
+            <div style={{width: W, height: H, borderRadius: 28, background: it.color, boxShadow: '0 18px 40px rgba(0,0,0,0.16)'}} />
+            <div style={{height: textH, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: SANS, fontWeight: 800, fontSize: split ? 38 : 50, color: INK, letterSpacing: -0.5, opacity: it.label_at !== undefined ? interpolate(abs, [it.label_at - 2, it.label_at + 5], [0, 1], cl) : 1}}>{it.text}</div>
+          </div>
+        );
+      })}
+      {!split && e.mark ? <div style={{position: 'absolute', left: 0, right: 0, top: top + H + textH + 30, display: 'flex', justifyContent: 'center'}}>{markEl}</div> : null}
+    </AbsoluteFill>
+  );
+};
+const CUSTOM: Record<string, React.FC<any>> = {bars: Bars, timeline: Timeline, igprofile: IgProfile, page: Page, gallery: Gallery, measure: Measure, igpage: IgPage, swatches: Swatches, swatch: Swatch};
 
 /* ---------- outro: brand/creator end card over an image ----------
    {type:"outro", img, logo?, handle?, cta?} */
@@ -501,7 +605,9 @@ export const SplitPanel: React.FC<{e: any; p: (e: any, frame: number) => number}
   const press = clickF !== null ? interpolate(f, [clickF, clickF + 3, clickF + 9], [0, 1, 0], cl) : 0;
   return (
     <div style={{position: 'absolute', left: 0, top: 0, width: 1080, height: H, overflow: 'hidden', background: e.bg || (e.fit === 'contain' ? LIGHT : '#000'), transform: `translateY(${-(1 - k) * H}px)`, opacity: fade, boxShadow: '0 14px 40px rgba(0,0,0,0.35)'}}>
-      {e.src ? <OffthreadVideo muted src={staticFile(e.src)} startFrom={Math.round((e.from || 0) * FPS)} style={media} /> : <Img src={staticFile(e.img)} style={media} />}
+      {e.custom && CUSTOM[e.custom] ? React.createElement(CUSTOM[e.custom], {e, base: e.f - lead, ph: H})
+        : e.name && CUSTOM[e.name] ? <Sequence from={lead} layout="none">{React.createElement(CUSTOM[e.name], {e: {...e, h: H}})}</Sequence>
+        : e.src ? <OffthreadVideo muted src={staticFile(e.src)} startFrom={Math.round((e.from || 0) * FPS)} style={media} /> : <Img src={staticFile(e.img)} style={media} />}
       {e.caption ? (
         <div style={{position: 'absolute', left: 44, bottom: 36, fontFamily: SANS, fontWeight: 700, fontSize: 34, color: INK, background: 'rgba(255,255,255,0.94)', padding: '10px 22px', borderRadius: 16, opacity: interpolate(f, [lead + 6, lead + 14], [0, 1], cl)}}>{e.caption}</div>
       ) : null}

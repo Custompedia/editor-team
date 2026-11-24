@@ -184,7 +184,8 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
   catching "Ulangi" before render 1 would have saved one.
 
 ## job04–06 (2026-11-24) — revision of a flattened export + first "hook → perkenalan → isi" jobs (Parcelin)
-Status when written: job04 final delivered; job05 and job06 at preview v2, waiting for the owner. Update this entry after the finals.
+Status: all three delivered (job04 final_rev1; job05 final_v2, 177.7 s; job06 final_v2, 126.9 s). The owner had not answered the
+content questions when the finals went out; they are listed as assumptions in the delivery message.
 - **job04 = revision of a finished phone-editor export, no project files.** The 11-stage skill does not apply and the brief must say so.
   What worked: decode the affected ranges, MEASURE geometry and timing from the frames (card boxes, stagger, fade weights, font by
   overlay), subtract the old layer in the cross-fade frames, composite, ONE full x264 encode (CRF 15) with the audio stream copied.
@@ -216,8 +217,20 @@ Status when written: job04 final delivered; job05 and job06 at preview v2, waiti
   or dummy images. Ask the owner before the final; a label like "tim Parcelin" on such a photo is a claim.
 - "Pastikan di akhir jadi 1 video" was ambiguous (one output? one preview video?). The owner later asked "jadi output ada berapa
   video". When several clips arrive, state the number of output videos in the first reply as a question, not as an assumption line.
-- **Kit changes made in job copies, NOT yet in editkit** (port after the finals prove them; the two jobs edited the same files
-  differently, so it is a merge): `build_timeline.py` per-segment `fade_in`/`fade_out`, fix for words/anchors at the border of two
-  touching segments of the same take, no subtitle hold across a join, no punch-in between different clips, `sub_top`,
-  `caption_dy` (with reason); `Main.tsx` per-segment audio fade; `Visuals.tsx` components `swatches` (job06) and `swatch` with
-  split mode and `label_at` (job05), `split` with a custom component, `gallery` `fit: contain`.
+- **A final went out with a subtitle bug that both workers' previews already had.** A shown word followed by a hidden token
+  (second half of "cetak-mencetak", a combined big word) left the caption EMPTY for 0.3–0.7 s while the speaker kept talking:
+  18 places in job05, 7 in job06. job05's QA5 found it only after the lead had sent final_v1 (the lead delivered on its own picture
+  checks before the worker's report arrived). Both were re-rendered as v2. Rules: (1) the lead does not deliver a final before the
+  worker's QA report is in; (2) QA5 looks for caption gaps >= 0.3 s inside speech, not only for wrong words; (3) a bug found in one
+  sister job is checked in the other at once (done here, and it was there). Fixed in the kit: a hidden token extends the shown word.
+- A worker reported the `Made with Remotion` tag missing from a final; it was there (its ffprobe output had been cut by `head`).
+  The lead's own ffprobe settled it. Keep checking the tag yourself.
+- The owner answered "lanjutkan" and "apakah sudah" instead of the questions. The lead then rendered finals on its recommended
+  defaults and said so, with neutral labels where a claim was unconfirmed ("mesin cetak" instead of "cetakan di Parcelin"). Long
+  question lists were not read: ask at most three questions at a time, the ones that change the picture most.
+- **Kit: ported to editkit after the finals** (merged from both job copies, both jobs rebuilt with identical numbers, tsc clean,
+  four stills rendered): per-segment `fade_in`/`fade_out`; touching segments of one take map words to the right segment; a
+  caption never holds across a cut; no punch-in at a join between different clips, and such a join counts as a visual change in
+  the QUIET CHECK; hidden token extends the shown word; `sub_top`; `caption_dy` (with reason); `items[].changes` anchors;
+  `custom` `swatch` and `swatches` (full screen or inside `split`); `gallery` `fit: contain`. Open: `swatch` and `swatches` are
+  two near-twins from the two jobs; merge them into one when the next job needs either.

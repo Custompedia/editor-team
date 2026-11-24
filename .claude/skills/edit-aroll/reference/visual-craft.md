@@ -231,7 +231,10 @@ event yang ada. **Belum** = butuh komponen kecil generik di `video/src` job itu 
 | Penutup di atas foto (logo, akun, ajakan) | Sekarang | `outro` (`img`, `logo`, `handle`, `cta`) |
 | Logo di belakang kepala pembicara | Tidak praktis | Butuh pemisahan pembicara per frame (terlalu berat di CPU ini). Pakai ruang kosong di samping kepala atau logo layar penuh singkat |
 | Halaman situs/aplikasi satu layar penuh (bukan kartu) | Sekarang | `custom` `page`: tangkapan panjang halaman asli (`shot.py`), scroll ke bagian yang disebut, garis di sekeliling nama/tombol (`mark`), titik sentuh (`tap`). `screenshot` (kartu) tetap untuk kutipan |
-| Beberapa foto asli muncul bergantian; garis ukur di atas foto | Sekarang | `custom` `gallery`; `custom` `measure` |
+| Beberapa foto asli muncul bergantian; garis ukur di atas foto | Sekarang | `custom` `gallery` (`fit: "contain"` + `pad` untuk logo di ubin putih); `custom` `measure` |
+| Petak warna yang dibandingkan / satu kode warna di beberapa layar | Sekarang, hanya untuk omongan tentang warna itu sendiri | `custom` `swatch`, `custom` `swatches`; layar penuh atau di dalam `split` (pembicara tetap terlihat: pilihan bawaan). Petak mengisi panel, petak pertama sudah ada saat panel masuk |
+| Caption menjauh dari bibir | Sekarang | `sub_top` (seluruh video), `caption_dy` (rentang, dengan alasan); kata yang disembunyikan setelah kata tampil memperpanjang tampilnya, jadi caption tidak kosong di tengah kalimat |
+| Format hook → perkenalan → isi (klip berbeda) | Sekarang | Segmen bersentuhan dari take yang sama, `fade_in`/`fade_out` per segmen, tanpa punch-in di sambungan antar-klip, sambungan itu dihitung perubahan visual; tetap perlu `cut_ok` beralasan gambar |
 | Profil akun pemilik dibangun dengan kode (penutup "hubungi aku") | Sekarang, hanya atas permintaan pemilik | `custom` `igpage` + `hold_end`; semua teks dari screenshot, foto = crop asli, tap di tombol pesan |
 | Musik latar | Sekarang | `music` (`src`, `volume`, `points` berjangkar kata untuk turun/naik per momen), fade awal dan akhir. Satu lagu; berganti lagu: tidak |
 | Gerbang potongan gambar (sambungan terbuka) | Sekarang | Laporan CUT CHECK; sambungan dengan pembicara terlihat di kedua sisi menghentikan build kecuali ada `cut_ok` beralasan (`edit-json.md`) |
