@@ -10,7 +10,7 @@
 | Playwright: `Executable doesn't exist` | Versi paket Python `playwright` tidak sama dengan browser bawaan di `/opt/pw-browsers` | Pasang versi yang sama dengan Node playwright global (dikerjakan `setup/install.sh`). JANGAN `playwright install` |
 | `stock.py photo/video`: `nothing found` | Pexels menolak browser otomatis | Jangan ditembus. Pakai halaman resmi brand, `stock.py open` (Openverse), atau aset user |
 | `stock.py commons`: `HTTP 429` terus-menerus | Wikimedia membatasi akses dari container ini | Jangan ditembus. Logo dari situs resmi brand / user |
-| `yt-dlp`: `Sign in to confirm you're not a bot` | YouTube menolak tanpa login | Minta file mp4 ke user. Tanpa cookie, tanpa akal-akalan |
+| `yt-dlp`: `Sign in to confirm you're not a bot` | YouTube menolak tanpa login | Minta file mp4 ke user. Tanpa cookie, tanpa akal-akalan. Sambil menunggu, yang terbuka tanpa login: oEmbed (`https://www.youtube.com/oembed?url=<url>&format=json`: judul, kanal) dan `https://i.ytimg.com/vi/<id>/maxres{default,1,2,3}.jpg` (thumbnail + tiga frame asli 1280x720): cukup untuk elemen yang menetap (logo, timecode), tidak untuk animasi |
 | Instagram/Pinterest menampilkan dinding login di `shot.py` | Halaman butuh login | Cari halaman publik lain (situs resmi, halaman pin, profil publik). Jangan login. Untuk tampilan IG/TikTok/aplikasi: minta screenshot atau rekaman layar ke user lewat lead (daftar "Butuh dari user"); jangan menggambar UI-nya dengan kode |
 | `gdown: command not found` | venv belum aktif | `source .venv/bin/activate && gdown ...` |
 | Satu frame hitam di hasil render | Glitch render Remotion (job01 v2) | Render ulang; `blackdetect` wajib di QA 1 |

@@ -182,3 +182,14 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Not verified by anyone but the owner's ears: the two joins (0:52, 1:28), the kept false start "Kita bisa—" (~1:33), the music.
 - Cost: one worker session ~2 h 20 min including three renders (~25 min each for 125 s). A render round is still the expensive unit;
   catching "Ulangi" before render 1 would have saved one.
+
+## 2026-11-24 — referensi podcast "Cerita Perintis" Eps 001 (Custompedia, YouTube) — studi belum lengkap
+- Job jenis baru: podcast panjang 16:9 dua orang, bukan A-roll pendek 9:16. Pemilik meminta desainnya disamakan dengan episode 001 di
+  kanalnya sendiri: teaser bersubtitle, bumper, lalu podcast tanpa subtitle; logo acara kiri atas, tanda Custompedia kanan atas,
+  timecode di tengah bawah; grading tipis untuk skin tone.
+- YouTube tetap menolak dari container (yt-dlp dan halaman: bot check). Tanpa login masih terbuka: oEmbed dan empat gambar
+  `i.ytimg.com` (thumbnail + tiga frame asli). Dari situ posisi elemen yang menetap bisa diukur; animasi tidak. Aturan lead: katakan
+  ke pemilik persis mana yang sudah dilihat dan mana yang belum, dan minta file mp4 di pesan yang sama.
+- Kalau referensinya video di kanal pemilik sendiri, minta file ekspor aslinya (dan file proyek/aset: logo, bumper, font) sekaligus:
+  itu lebih tepat daripada meniru dari video terkompresi.
+- Catatan: `docs/reference-studies/cerita-perintis-eps001.md` (bagian 3 = yang belum dilihat; isi sebelum menulis brief).
