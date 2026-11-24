@@ -87,7 +87,27 @@ bio, ikon Threads) adalah crop dari screenshot dan tidak disimpan di repo** (rep
   "Halo Parcelin, saya ingin bertanya tentang produk." (terbuka di tab baru, api.whatsapp.com).
 - URL logo lama (`parcelin.id/parcelin-icon.png`) ikut mati: ambil logo dari situs baru atau minta file ke pemilik.
 
+## Seri edukasi "Putri" (pemilik, 2026-11-24, job05/job06)
+- Format baru dari pemilik: **cari hook → perkenalan → isi**. Klip perkenalan terpisah (…230835, 11,8 dtk): "Hai, [buat] yang belum
+  kenal, aku Putri, aku owner dari PT Parcelin yang udah 8 tahun lebih di dunia percetakan, dan aku senang banget untuk sharing
+  lika-liku di industri ini." Kata kedua ("buat"/"biar") terbelah di mesin dan ditulis "buat" atas keputusan lead: BELUM dikonfirmasi pemilik.
+- Pembicara menyebut dirinya **Putri**, "Mbak Put"; judul nama yang dipakai: "OWNER PT PARCELIN / Putri" (nama PT belum dikonfirmasi pemilik).
+- Look seri: aksen #DE6B17 (pixel parcelincreative.com), panel #FFF8EE, ink #2A201A, Inter + Inter Display (font situs baru); caption
+  66/58 px; chip ±43–48 px. Footage: selfie dekat, tirai emas, cahaya hangat.
+- Penutup seri: kalimat terakhir = ajakan komen → teks ajakan sederhana, selesai di wajah, tanpa closing logo, tanpa handle di layar.
+- Musik yang dipakai: "Lofi Fusion Background Music" (Freesound 655516) dan "Vanilla Lofi Beat" (Freesound 691510), keduanya
+  Seth_Makes_Sounds, CC0; hook tanpa musik, musik masuk di perkenalan.
+- Aset yang diminta dan belum dikirim pemilik: screenshot komentar yang dibantah (topik warna layar vs cetak), foto/rekaman swatch
+  minimum/standar/maksimum, mesin cek warna, cetak live di Parcelin, file logo resmi (di situs hanya ikon 192 px).
+- Fakta layanan yang diucapkan pemilik (topik toleransi warna): toleransi ΔE 2,0–3,5; swatch min/standar/maks untuk cetakan di atas
+  5.000/10.000 dengan biaya (mesin naik dua kali), gratis di atas 50–100 ribu; bisa melihat cetak live di Parcelin.
+
 ## Riwayat
+- job06 (toleransi warna cetak, klip …221524 180 dtk + perkenalan): final_v1 177,45 dtk, hook 7,9 dtk dari menit 2:01, 5 sambungan
+  (2 format, 2 mulai ulang, 1 pangkasan ajakan supaya < 3:00). Diserahkan atas penilaian lead; tanggapan pemilik belum ada.
+- job05 (warna layar vs cetak, klip …230340 130 dtk + perkenalan): final_v2 130,9 dtk, hook 4,0 dtk dari menit 1:10, 3 sambungan.
+  Diserahkan atas penilaian lead; tanggapan pemilik belum ada.
+- job04-rev (revisi Box Lebaran …230555): situs baru di 0:42 + baris penutup; tambalan pada berkas jadi, varian B.
 - job03 (Cara Hitung Hardbox; 5 klip = 2 bagian berurutan + 3 take jembatan gagal): final_v4 125,3 dtk, **2 potongan**, urutan rekam,
   penutup profil IG buatan kode. Pemilik atas pratinjau v3: "bagus sih editannya".
 - job02 (Box Lebaran, pengingat pesan packaging Lebaran dari sekarang; 2 take naskah yang sama, 62,8 dtk dan 86,6 dtk): final_v4 52,7 dtk.

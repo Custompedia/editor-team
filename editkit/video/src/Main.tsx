@@ -51,13 +51,18 @@ const Speaker: React.FC = () => {
     <AbsoluteFill style={{backgroundColor: '#000', filter: mf}}>
       {data.segs.map((s: any, i: number) => {
         const fr = data.framing[s.k] || {}; // per-clip reframing so the face sits in the same place in every clip
-        const z = (fr.scale || 1) * (shot.z + drift);
+        // designed move at a join (segment enter/exit, generic): extra scale k and screen offset, eased in-out
+        const lf = frame - s.start; let k = 1, mx = 0, my = 0;
+        const io = {...cl, easing: Easing.inOut(Easing.cubic)};
+        if (s.enter) { const q = interpolate(lf, [0, s.enter.frames], [1, 0], io); k *= 1 + (s.enter.scale - 1) * q; mx += s.enter.x * q; my += s.enter.y * q; }
+        if (s.exit) { const q = interpolate(lf, [s.dur - s.exit.frames, s.dur - 1], [0, 1], io); k *= 1 + (s.exit.scale - 1) * q; mx += s.exit.x * q; my += s.exit.y * q; }
+        const z = (fr.scale || 1) * (shot.z + drift) * k;
         return (
           <Sequence key={i} from={s.start} durationInFrames={s.dur} layout="none">
             <Audio src={staticFile(s.src)} startFrom={Math.round(s.in * FPS)} endAt={Math.round(s.in * FPS) + s.dur}
               volume={(f) => interpolate(f, [0, 2, s.dur - 2, s.dur], [0, 1, 1, 0], cl)} />
             {!covered && (
-              <AbsoluteFill style={{transform: `translate(${fr.x || 0}px, ${(fr.y || 0) + down}px) scale(${z})`, transformOrigin: '50% 45%'}}>
+              <AbsoluteFill style={{transform: `translate(${(fr.x || 0) + mx}px, ${(fr.y || 0) + my + down + (shot.y || 0)}px) scale(${z})`, transformOrigin: '50% 45%'}}>
                 <OffthreadVideo muted src={staticFile(s.src)} startFrom={Math.round(s.in * FPS)} style={{width: 1080, height: 1920}} />
               </AbsoluteFill>
             )}
@@ -80,7 +85,7 @@ const Subs: React.FC = () => {
   const frame = useCurrentFrame();
   const c = data.subs.find((s: any) => frame >= s.f && frame < s.t);
   if (!c) return null;
-  const inn = interpolate(frame - c.f, [0, 4], [0, 1], cl);
+  const inn = c.f === 0 ? 1 : interpolate(frame - c.f, [0, 4], [0, 1], cl);   // job06: a caption on frame 0 is fully visible at once
   const ink = lightK(frame) > 0.5;                                  // on a bright insert: dark text, soft white glow
   const sh = ink ? '0 0 16px rgba(255,255,255,0.95)' : shadow;
   const top = 1270 + Math.min(120, speakerShift(frame) * 0.4);      // in split layout the speaker sits lower: keep the text under the chin
@@ -90,9 +95,9 @@ const Subs: React.FC = () => {
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', padding: ink ? '10px 34px 14px' : 0, borderRadius: 30,
         background: ink ? `${LIGHT}E8` : 'transparent', boxShadow: ink ? '0 8px 26px rgba(0,0,0,0.12)' : 'none', maxWidth: 1000}}>
       {c.small.length > 0 && (
-        <div style={{fontFamily: SANS, fontWeight: 700, fontSize: c.big.length ? 50 : 56, color: ink ? INK : '#fff', textShadow: sh, letterSpacing: -0.5, textAlign: 'center', padding: ink ? 0 : '0 70px', lineHeight: 1.15}}>
+        <div style={{fontFamily: SANS, fontWeight: 700, fontSize: c.big.length ? 58 : 66,   /* job06: was 50/56, read as small on a phone */ color: ink ? INK : '#fff', textShadow: sh, letterSpacing: -0.5, textAlign: 'center', padding: ink ? 0 : '0 70px', lineHeight: 1.15}}>
           {c.small.map((w: any, i: number) => (
-            <span key={i} style={{opacity: frame >= w.f - 1 ? 1 : 0.5, marginRight: 13, display: 'inline-block'}}>{clean(w.t)}</span>
+            <span key={i} style={{opacity: frame >= w.f - 1 ? 1 : 0.68, marginRight: 13, display: 'inline-block'}}>{clean(w.t)}</span>
           ))}
         </div>
       )}
