@@ -193,3 +193,36 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Kalau referensinya video di kanal pemilik sendiri, minta file ekspor aslinya (dan file proyek/aset: logo, bumper, font) sekaligus:
   itu lebih tepat daripada meniru dari video terkompresi.
 - Catatan: `docs/reference-studies/cerita-perintis-eps001.md` (bagian 3 = yang belum dilihat; isi sebelum menulis brief).
+
+## job04 — podcast "Cerita Perintis" (Custompedia), 48 menit, 16:9, dua kamera — job pertama di luar A-roll pendek
+- Status saat catatan ini ditulis: final_v1 (48:40) selesai dan sudah direvisi sekali di tingkat segmen; final_v2 menunggu nama, jabatan
+  dan logo tamu dari pemilik. Belum ada penilaian pemilik atas hasil akhir.
+- Yang berjalan baik: (1) aset asli pemilik (bumper, lower third, timecode, logo) + tiga frame referensi cukup untuk mencocokkan semua
+  elemen yang menetap secara terukur (kotak ukur di still pembanding); (2) alur per-segmen: tiap shot satu segmen dengan setelan x264
+  identik, concat tanpa encode ulang. Revisi 38 shot dan tambalan lower third hanya merender segmen yang berubah, bukan 48 menit;
+  (3) preview 2,5 menit sebelum render penuh menangkap dua masalah (subtitle, grade) saat masih murah.
+- Yang ditolak lead, semuanya lolos QA teknis worker lebih dulu:
+  - Subtitle teaser v1 terlalu kecil (±27 px) dan putih di atas meja marmer putih. v2 dilaporkan "satu posisi tetap" tetapi lead mengukur
+    baris teks di still worker sendiri: tiap chunk kedua 84 px lebih tinggi (event ASS tumpang tindih ditumpuk libass). Aturan lead: klaim
+    posisi/ukuran diukur dari piksel (rentang baris teks per still), bukan dibaca dari laporan.
+  - Grade v1 nyaris tidak mengubah apa pun; wajah lebih gelap dari referensi. v2 mengukur luma/hue kulit terhadap frame referensi
+    (studio yang sama) dan bergerak sebagian ke sana. "Grading tipis" tetap butuh sasaran terukur.
+  - Lima sambungan single tamu (crop master) -> single tamu (kamera kedua): ukuran hampir sama, sudut sedikit beda = terlihat meloncat.
+    Aturan "shot bersebelahan tidak pernah sama" di worker membandingkan NAMA kamera, bukan siapa yang tampil. Aturan baru: dua shot
+    bersebelahan harus beda orang atau jelas beda ukuran; bila ragu siapa yang bicara, pakai gambar lebar.
+- Temuan footage: kamera utama mati dua kali di tengah obrolan (±3,4 menit hanya terekam kamera kedua dengan mic kamera). Dipakai,
+  ditandai untuk didengar pemilik. Intro take pertama gagal dan dibuang. 4 potongan isi dalam 48 menit, semuanya di ganti kamera.
+- Teknis (dari worker, sudah dibuktikan di job ini): `eq=saturation` menggeser hue kulit ±5°, `hue=s` tidak; event ASS yang tumpang
+  tindih ditumpuk libass (pakai `\pos` dan akhir ≤ awal berikutnya); `color` + `alphamerge` bisa meloloskan frame pertama tanpa alpha
+  (kotak putih di frame 0 pada 41 segmen: ditangkap QA worker); x264 `faster` ±17 fps untuk komposit 4K → 1080p di 4 vCPU (48 menit ≈ 83
+  menit); deteksi siapa bicara dari gerak mulut di crop wajah bekerja, dari level/spektrum audio mixer mono tidak.
+- Proses lead:
+  - Saya bilang ke pemilik "video tidak bisa diunggah ke Drive" sebelum mencobanya. Alasannya ternyata lain (unggah lewat referensi file
+    ada, batas 10 MB), kesimpulannya sama. Aturan: uji dulu dengan satu file kecil, baru nyatakan batasnya, dengan angka.
+  - Connector Drive yang disambungkan pemilik di tengah sesi langsung aktif di sesi yang sama (dokumentasi bilang butuh sesi baru).
+  - Worker berhenti karena batas pemakaian 5 jam tepat setelah render selesai; STATE.md-nya tertinggal 2,5 jam. Lead memeriksa disk
+    (238 segmen .ok, log EXIT 0) dan menuliskan keadaan itu di pesan resume.
+  - Nama tamu tidak pernah diucapkan lengkap dan jabatannya tidak disebut: minta nama, jabatan, logo tamu di DAFTAR PERTAMA untuk job
+    podcast (sebelum worker mulai), bersama file video referensi.
+- Terbuka: referensi Eps 001 tetap belum dilihat (teaser, subtitle, zoom, musik = ASUMSI); kit belum punya alur 16:9/podcast (script job
+  ada di folder job, belum dipindah ke `editkit/`); pengiriman file 4 GB lewat chat belum diuji.
