@@ -96,8 +96,11 @@ bio, ikon Threads) adalah crop dari screenshot dan tidak disimpan di repo** (rep
 
 ## Riwayat
 - job04 (revisi video jadi "Softbox bisa 100 pcs?", 94 dtk): empat foto grid 1:13 diganti, alamat situs di penutup diganti. Final terkirim.
-- job05 (toleransi warna cetak, klip …1524) dan job06 (warna layar vs cetak, klip …0340): format hook → perkenalan → isi; saat ditulis
-  keduanya di pratinjau v2, menunggu pemilik.
+- job05 (toleransi warna cetak, klip …1524): final_v2 177,7 dtk, hook dipindah ke depan ("Jadi jangan komplain kalau ada selisih warna
+  tipis-tipis… itu normal banget"), 4 sambungan, aksen kuning #FFD447. job06 (warna layar vs cetak, klip …0340): final_v2 126,9 dtk, hook =
+  awal rekaman ("Nih, ada yang komen… Nggak bisa."), 3 sambungan, aksen oranye #DE6B17. Keduanya: format hook → perkenalan → isi, penutup
+  di wajah dengan ajakan komen tanpa logo. Pemilik belum menjawab pertanyaan isi saat final dikirim (logo klien, foto `/placeholder/`,
+  nama PT, warna aksen seri, kata setelah "Hai,"): tanyakan lagi di job berikutnya sebelum memakai ulang.
 - job03 (Cara Hitung Hardbox; 5 klip = 2 bagian berurutan + 3 take jembatan gagal): final_v4 125,3 dtk, **2 potongan**, urutan rekam,
   penutup profil IG buatan kode. Pemilik atas pratinjau v3: "bagus sih editannya".
 - job02 (Box Lebaran, pengingat pesan packaging Lebaran dari sekarang; 2 take naskah yang sama, 62,8 dtk dan 86,6 dtk): final_v4 52,7 dtk.
