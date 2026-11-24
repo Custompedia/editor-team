@@ -148,6 +148,18 @@ Urutan berpikir:
 1. Tentukan satu pesan utama dari brief.
 2. Pilih struktur sesuai jenis konten (Bagian 6).
 3. Pilih hook: kalimat paling kuat yang membuat orang mau mendengar lanjutannya. Hook berada di 3 detik pertama. Hook boleh diambil dari tengah roll dan dipindah ke depan, asal kalimat itu berdiri sendiri dan tidak terdengar janggal saat diulang nanti. Kalau roll sudah dibuka dengan kuat, jangan dipindah-pindah.
+   **Format "hook → perkenalan → isi"** (pemilik memberi klip perkenalan terpisah; job05/job06): hook diambil dari DALAM klip isi,
+   perkenalan diselipkan sesudahnya, lalu isi mulai dari awalnya. Yang berlaku:
+   - Laporkan 2–3 kandidat hook (kata persis, in/out, durasi, detik payoff, apakah kalimatnya terulang di tempat aslinya) dan satu
+     rekomendasi. Hook terbaik membuka pertanyaan yang dijawab isi; kalimat yang terulang 15 detik kemudian atau menegur penonton
+     di detik pertama ditolak. Kalimat hook boleh tetap terdengar lagi di tempat aslinya bila letaknya jauh (kesimpulan).
+   - Hook tidak menyapa; sapaan pertama ada di perkenalan. Frame 0 sudah menyebut topik (`title` + `instant`).
+   - Dua sambungan format adalah `cut_ok` yang sah, tetapi wajah di klip berbeda jarang sama besar: ukur jarak dan posisi pupil di
+     kedua sisi, lalu pakai `segments[].enter`/`exit` (masuk diperbesar pada titik mata shot sebelumnya lalu mundur; dorong masuk
+     sebelum potong). Satu gerak per sambungan: jangan menumpuk hitam-putih, blur dan bunyi di titik yang sama. Musik boleh baru
+     masuk di perkenalan.
+   - Subtitle klip perkenalan yang dipakai di beberapa video harus identik: satu worker menetapkan, yang lain menyalin transkripnya.
+   - Uji slice tanpa prompt di kedua sisi tiap sambungan sebelum render; kirim strip frame sambungan ke lead sebagai pratinjau.
 4. Susun sisanya mengikuti urutan bicara asli sebisa mungkin. Memindahkan kalimat hanya kalau membuat cerita lebih jelas.
 5. Buang: take ulang yang kalah, salah ucap, mulai ulang, basa-basi pembuka, kalimat yang mengulang isi kalimat sebelumnya, dan menyimpang dari pesan utama.
 6. Sebelum membuang pengulangan di akhir, tanyakan apakah itu kesimpulan yang bisa menyambung ke visual awal (`visual-thinking.md` 2.2).

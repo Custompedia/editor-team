@@ -22,9 +22,13 @@ name, handle, logo, colour or ending from an earlier job, and tell the worker th
 - Plan first: present the plan and open questions to the user before work starts. If the user is waiting for the result,
   continue on clearly marked assumptions (`ASUMSI`) instead of stalling, and list them in the report.
 - Review critically before relaying: verify files, specs and `Made with Remotion` tag, open a contact sheet yourself, check the
-  brand spelling in subtitles. Run `docs/review-tests.md` (T1–T31) on your own contact sheet and the build log.
+  brand spelling in subtitles. Run `docs/review-tests.md` (T1–T35) on your own contact sheet and the build log.
   **Reject an edit that passes technical QA but fails T1, T3, T5, T19, T24 (a subtitle word nobody verified) T25 (the picture jumps / too many cuts) or T31 (identity borrowed from another brand), or reads thin or crowded** (job01 v4: clean ≠ sparse).
   Never forward a worker's claim you did not check.
+- **Preview before the final render** (owner, job04: "kasih aku view frame-nya dulu, kalau ku acc baru render akhir"): brief the worker
+  to write two early full-size stills first and message you; forward them at once, labelled not final. Then the full frame sheet,
+  the join strips and a half-resolution draft with sound. A site screenshot is not a video frame. If the owner hands the decision
+  back ("kalau menurut kamu sudah sesuai, langsung aja"), list every decision you took on their behalf in the delivery report.
 - Deliver finals with SendUserFile + a short report: what was cut, visuals and sources, assumptions, what is unverified
   (nobody listened to the audio — ask the user to watch once with sound).
 

@@ -438,7 +438,48 @@ const IgPage: React.FC<{e: any}> = ({e}) => {
     </AbsoluteFill>
   );
 };
-const CUSTOM: Record<string, React.FC<{e: any}>> = {bars: Bars, timeline: Timeline, igprofile: IgProfile, page: Page, gallery: Gallery, measure: Measure, igpage: IgPage};
+/* ---------- swatches (job06, generic): colour tiles that appear as each one is named, to SHOW a colour concept ----------
+   {type:"custom", name:"swatches", label?, sub?, note?: "ilustrasi warna",
+    items: [{at: anchor, color: "#RRGGBB", label: "minimum", sub?: "lebih terang"}],
+    verdict?: {text: "masih normal", ok: true|false}, verdict_at: anchor}
+   Code because "toleransi warna / delta E / min-standar-maks" is a relation between colours with no physical object to film;
+   the base colour is sampled from the real cards in the footage. Tiles are plain fills (no gradients, no decoration). */
+const Swatches: React.FC<{e: any}> = ({e}) => {
+  const f = useCurrentFrame();
+  const n = e.items.length;
+  const gap = 40, w = n <= 2 ? 360 : Math.min(290, (940 - gap * (n - 1)) / n), h = n <= 2 ? 640 : 600;   // job06 review: bigger block, centred between label and caption
+  const x0 = (1080 - (n * w + (n - 1) * gap)) / 2, y0 = n <= 2 ? 400 : 440;
+  const vp = e.verdict ? sp(f, e.verdict_at - e.f, {damping: 13, stiffness: 190, mass: 0.6}) : 0;
+  return (
+    <AbsoluteFill style={{background: LIGHT}}>
+      <Label ink label={e.label} sub={e.sub} />
+      {e.items.map((it: any, i: number) => {
+        const at = it.f - e.f;
+        const p = sp(f, at, {damping: 15, stiffness: 170, mass: 0.7});
+        return (
+          <div key={i} style={{position: 'absolute', left: x0 + i * (w + gap), top: y0, width: w, opacity: Math.min(1, p * 1.5), transform: `translateY(${(1 - p) * 50}px)`}}>
+            <div style={{width: w, height: h, borderRadius: 26, background: it.color, boxShadow: '0 18px 40px rgba(42,32,26,0.16)'}} />
+            <div style={{marginTop: 26, textAlign: 'center', fontFamily: SANS, fontWeight: 800, fontSize: n <= 2 ? 50 : 44, color: INK, letterSpacing: -0.5}}>{it.label}</div>
+            {it.sub ? <div style={{marginTop: 6, textAlign: 'center', fontFamily: SANS, fontWeight: 600, fontSize: 30, color: INK, opacity: 0.6}}>{it.sub}</div> : null}
+          </div>
+        );
+      })}
+      {e.verdict ? (
+        <div style={{position: 'absolute', left: 0, right: 0, top: y0 + h + 104, display: 'flex', justifyContent: 'center', opacity: Math.min(1, vp * 1.4), transform: `scale(${0.8 + 0.2 * vp})`}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: 18, background: e.verdict.ok ? ACCENT : INK, color: e.verdict.ok ? ON_ACCENT : '#fff', borderRadius: 60, padding: '16px 40px 16px 20px', fontFamily: SANS, fontWeight: 800, fontSize: 46}}>
+            <svg width={56} height={56} viewBox="0 0 56 56"><circle cx={28} cy={28} r={28} fill="#fff" opacity={0.95} />
+              {e.verdict.ok ? <path d="M15 29 L24 38 L41 19" stroke={ACCENT} strokeWidth={7} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                : <path d="M18 18 L38 38 M38 18 L18 38" stroke={INK} strokeWidth={7} strokeLinecap="round" />}</svg>
+            {e.verdict.text}
+          </div>
+        </div>
+      ) : null}
+      {e.note ? <div style={{position: 'absolute', left: 0, right: 0, top: 1252, textAlign: 'center', fontFamily: SANS, fontWeight: 600, fontSize: 26, color: INK, opacity: 0.45, letterSpacing: 2}}>{e.note}</div> : null}
+    </AbsoluteFill>
+  );
+};
+
+const CUSTOM: Record<string, React.FC<{e: any}>> = {bars: Bars, timeline: Timeline, igprofile: IgProfile, page: Page, gallery: Gallery, measure: Measure, igpage: IgPage, swatches: Swatches};
 
 /* ---------- outro: brand/creator end card over an image ----------
    {type:"outro", img, logo?, handle?, cta?} */
@@ -468,8 +509,8 @@ const Outro: React.FC<{e: any}> = ({e}) => {
 export const Insert: React.FC<{e: any; chained: boolean; prevChained: boolean}> = ({e, chained, prevChained}) => {
   const f = useCurrentFrame();
   const d = e.t - e.f;
-  const inn = prevChained ? 1 : interpolate(f, [0, 7], [0, 1], {...cl, easing: ease});          // fade in over the speaker
-  const out = chained || e.type === 'outro' || e.hold_end ? 1 : interpolate(f, [d - 6, d], [1, 0], cl);          // fade back to the speaker
+  const inn = prevChained || e.hard ? 1 : interpolate(f, [0, 7], [0, 1], {...cl, easing: ease});   // hard (job06, generic): straight cut in/out, e.g. a synced punch-in on the same footage          // fade in over the speaker
+  const out = chained || e.type === 'outro' || e.hold_end || e.hard ? 1 : interpolate(f, [d - 6, d], [1, 0], cl);          // fade back to the speaker
   const slide = prevChained ? interpolate(f, [0, 12], [1, 0], {...cl, easing: Easing.bezier(0.45, 0, 0.15, 1)}) : 0; // push over the previous insert
   const body = e.type === 'photo' ? <Photo e={e} /> : e.type === 'clip' ? <Clip e={e} /> : e.type === 'screenshot' ? <Screenshot e={e} /> : e.type === 'outro' ? <Outro e={e} /> : React.createElement(CUSTOM[e.name], {e});
   return (
@@ -523,8 +564,9 @@ export const Overlay: React.FC<{e: any}> = ({e}) => {
   const d = e.t - e.f;
   const out = interpolate(f, [d - 7, d], [1, 0], cl);
   if (e.type === 'title') {
-    const p = sp(f, 0, {damping: 14, stiffness: 160, mass: 0.7});
-    const hl = interpolate(f, [8, 20], [0, 1], {...cl, easing: ease});
+    // instant (job06, generic): already fully on screen at its first frame (a title on frame 0 of the video, no entry animation)
+    const p = e.instant ? 1 : sp(f, 0, {damping: 14, stiffness: 160, mass: 0.7});
+    const hl = e.instant ? 1 : interpolate(f, [8, 20], [0, 1], {...cl, easing: ease});
     return (
       <AbsoluteFill style={{opacity: out}}>
         <div style={{position: 'absolute', left: 0, right: 0, top: 120, textAlign: 'center', transform: `translateY(${(1 - p) * -60}px) scale(${0.9 + 0.1 * p})`, opacity: p}}>

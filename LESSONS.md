@@ -182,3 +182,70 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Not verified by anyone but the owner's ears: the two joins (0:52, 1:28), the kept false start "Kita bisa—" (~1:33), the music.
 - Cost: one worker session ~2 h 20 min including three renders (~25 min each for 125 s). A render round is still the expensive unit;
   catching "Ulangi" before render 1 would have saved one.
+
+## job04-rev — revisi video jadi "Box Lebaran" (…230555, ekspor CapCut): situs baru + baris penutup (2026-11-24)
+- Delivered final_revB (52,65 s). Owner's request: at 0:42 show the new site parcelincreative.com and click the bottom-right CTA; end
+  line parcelin.id → parcelincreative.com. Brand fact recorded in docs/brands/parcelin.md.
+- The project that made the video was gone (job folders are not in the repo; the file was the owner's CapCut re-export). So the revision
+  was a PATCH on the delivered frames, not a rebuild: measure the laptop screen per frame (pure scale + shift), capture the real site with
+  Playwright on virtual time (50 consecutive frames, real 3D motion and real hover state), composite only inside the screen, re-typeset
+  the end line from per-frame measurements of the old one (font found by glyph positions + pixel RMSE). Proof that nothing else moved:
+  0 changed pixels outside the declared region before encoding, audio stream copy with identical md5, same frame count. One full
+  re-encode (crf 13) instead of splicing GOPs from two encoders. Preview ~55 min, final + QA ~25 min.
+- Owner's gate, stated twice: "kasih aku view frame-nya dulu, kalau ku acc baru render akhir". And the owner asked "udah?" six times in
+  90 minutes while the folder was still empty. Rule for the lead: brief the worker to write TWO early full-size stills as soon as the
+  first composite exists and to message the lead; forward them at once, labelled "not final". A site screenshot is not a video frame:
+  the owner said so ("i mean preview frame video").
+- The real CTA was weak on screen: an orange button on an orange hero, ~40 px in the mockup, under the cursor. Not faked. What kept it
+  honest and readable: a narrower real viewport (1024 px, same layout) so the real button is as large as the old green one, the cursor
+  pausing BESIDE the button for ~8 frames, the site's real hover state, a white click ripple. Two variants shown; lead recommended B.
+- The owner answered the A/B question with "kalau menurut kamu sudah sesuai, langsung aja dibuat" in a message about the other jobs. The
+  lead read it as leave to use its own recommendation, said so in the reply, and rendered B. Open: the owner has not confirmed B.
+- First two minutes of a fresh container: the proxy refused drive.google.com, the brand site and huggingface.co (403), then allowed all
+  of them. I almost told the owner to change the environment's network settings. Rule: on a refusal at session start, finish the kit
+  install, retry after 2–3 minutes with curl AND python, and only then report a blocked host.
+- `doctor.py` said READY while Whisper was not cached and the model download had just failed: READY means "installed", not "can
+  transcribe". Check the "whisper model" line, and re-run install.sh once the network answers.
+- Three opus/high workers in parallel reached the 5-hour usage limit together at ~3 h, right after two final renders had finished and
+  before their QA. Nothing was lost (STATE.md before each heavy step; files on disk); SendMessage after the reset resumed each one.
+  Rule: on resume, look at out/ and the newest log first, then tell the worker exactly what exists and what is missing.
+- Not verified by anyone: the audio was not listened to (it is bit-identical to the source), the motion was judged on frames only.
+- Open question for the owner: revisions of older videos would be faster if each job's small text files (edit.json, script, sources)
+  were archived. They are not, because the repo is public and job folders are excluded by rule.
+
+## job05 + job06 — seri edukasi Parcelin, format baru pemilik "hook → perkenalan → isi" (2026-11-24)
+- Delivered job05 final_v2 (130,9 s, "warna layar vs cetak") and job06 final_v1 (177,45 s, "toleransi warna cetak"). Two workers in
+  parallel on one Drive link (two topics + one shared 11,8 s introduction clip), a third on job04-rev. Owner feedback on the finals: none yet.
+- The owner's format: find the hook INSIDE the topic clip, insert the introduction clip after it, then the content. What made the two
+  format joins work on frames: measure pupil distance/position on both sides (the intro was framed 1,3x wider), enter the intro
+  enlarged at the hook's eye point and ease back over 14 frames, push in before cutting to the content. One move per join. The
+  black-and-white beat a worker wanted on the hook's punchline read as a second change at the same point and was dropped.
+  Now kit: `segments[].enter/exit`. Workflow rule added under Tahap 3.
+- Hook choice that held up: a claim that opens a question, taken from late in the clip and left audible again in its place
+  (job06: 2:01 → front; job05: 1:10 → front). Rejected: the line that repeats 15 s later, the line that scolds the viewer first.
+- Lead review caught on the first frame sheet, before any final render: a card insert that cropped the speaker at nose and eyes
+  (T6), an empty first frame (T15), numeric labels "ΔE 2,0 / 3,5" on tiles whose colours were not computed (T19 → now computed with
+  CIE76 and stated), captions and chips too small and pale on a black garment. All four became series-wide fixes because the second
+  worker shared the look. Rule: when two workers share a series, send every review note that touches the look to both, and name
+  who writes brief.md and who copies. Tests T32–T35 added.
+- Shared clip, shared subtitle: the two workers heard the intro's second word differently ("buat" 7 / "biar" 6 / other 2; the
+  re-transcription of both finals heard no word at all). The lead asked the owner three times, got no answer, and wrote "buat"
+  (the full transcript's word) rather than an ellipsis on screen. This bends the job02 rule ("blank it and ask"): flagged in the
+  delivery report as unconfirmed. If the owner says otherwise, both videos need a re-render.
+- A worker did not hand over a file it knew was wrong: job05 final_v1 passed technical QA but one subtitle said "tolong jangan"
+  where 7 of 8 slices heard "tolong-tolong"; it rendered v2. The lead had already sent v1 to the owner while that QA was running,
+  and had to send a replacement. Rule: do not send a final before the worker's QA4/QA5 on that file is in; send a preview instead.
+- Whisper inserted "sih/kasih" at a join in the re-transcription of job06's final. The worker showed it is a language-model
+  insertion: two clean slices separated by 0,3 s of digital silence still produced it 4/6. That test is the way to tell an
+  inserted word from a leftover syllable.
+- Duration: job06 was 3:06; the lead trimmed the second comment invitation (8,5 s) to get under 3:00 for Reels, which added one
+  join in the last 10 s (deliberate punch-in + chip). The 3:00 limit is the lead's belief, not checked against the platform today.
+- Assets: the owner sent none. Sentences about the brand's own machines, swatches and live printing stayed on the speaker with
+  emphasis text; stock photos only for generic concepts (colour fan), labelled. The comment the speaker rebuts ("ada yang komen…
+  ini aku sensor namanya") is shown as a quote bubble without a name, not as an imitation of a comment.
+- Kit: ported after the renders proved them: `segments[].enter/exit`, event `punch`, `title.instant`, insert `hard`, custom
+  `swatches`, captions 66/58 px with 0,68 opacity for unspoken words, caption on frame 0 fully visible. Known gap: `scene_check.py`
+  does not know `punch` (its frames show as UNEXPLAINED).
+- Cost: transcripts at +35 min, Tahap 3 reports at +55 min, first frame sheet at +80 min, drafts at +110 min, finals at ~5 h wall
+  clock including a 2 h usage-limit stop. Half-resolution drafts took ~35 min each; they were worth it for the owner to hear the hook.
+- Not verified by anyone: the audio of all three finals (joins, the word "buat", the end of the long hook, the music level).

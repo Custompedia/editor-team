@@ -221,9 +221,13 @@ event yang ada. **Belum** = butuh komponen kecil generik di `video/src` job itu 
 | Daftar bertambah satu per satu di atas pembicara | Sekarang | `chips` (`items[].at`, `n`; `top`/`step`/`scale` supaya tumpukan tidak menyentuh wajah) |
 | Judul pembuka dengan sorotan | Sekarang | `title` (`line1`, `line2`) |
 | Kata besar di caption | Sekarang | `*kata` di `text`/`script` |
-| Punch-in pembicara | Perkiraan | Otomatis hanya di sambungan potongan yang terlihat dan setelah insert; punch-in di kata pilihan tanpa memotong: belum |
+| Punch-in pembicara | Sekarang | Otomatis di sambungan potongan yang terlihat dan setelah insert; di kata pilihan tanpa memotong: event `punch` (`z`, `pivot`, `dy`) |
+| Sambungan dua pengambilan dengan ukuran wajah berbeda (match lalu tarik mundur / dorong masuk) | Sekarang | `segments[].enter` / `exit` (`scale`, `x`, `y`, `frames`); mata dicocokkan dari ukuran pupil, satu gerak per sambungan |
+| Judul sudah penuh di frame 0 | Sekarang | `title` + `instant: true`; caption pada frame 0 juga langsung penuh |
+| Ubin warna untuk konsep warna (toleransi, pembanding) | Sekarang | `custom` `swatches`; angka pada ubin hanya kalau dihitung |
 | Hitam-putih / gelap pada pembicara (belokan) | Sekarang | `mood` (`gray`, `dim`); hanya lapisan pembicara, ramp 4 frame |
-| Masuk langsung (hard cut), blur-in, kilat, fade hitam | Belum | Insert kit selalu fade 7 frame + skala kecil, keluar fade 6 frame, rantai = geser 12 frame. Mengubahnya = parameter generik di `Insert` job |
+| Masuk langsung (hard cut) | Sekarang | `hard: true` pada insert layar penuh |
+| Blur-in, kilat, fade hitam | Belum | Insert kit: fade 7 frame + skala kecil, keluar fade 6 frame, rantai = geser 12 frame. Mengubahnya = parameter generik di `Insert` job |
 | Ketik per huruf, judul/kata bebas posisi, hitung angka | Belum | Komponen kecil; atau kata besar di caption |
 | Caption kecil berkotak di atas insert | Belum | Kit: satu mode; gelap otomatis di insert `light: true` |
 | Diagram angka | Sekarang (batang, garis waktu) | `custom` `bars`, `custom` `timeline` (jarak waktu sebelum sebuah peristiwa); diagram lain = komponen baru dengan alasan tertulis |

@@ -81,7 +81,13 @@ for k, fixes in E.get("timing", {}).items():
 segs, f = [], 0
 for s in E["segments"]:
     d = round((s["out"] - s["in"]) * FPS)
-    segs.append({"k": s["clip"], "src": E["clips"][s["clip"]] + ".mp4", "in": s["in"], "out": s["out"], "start": f, "dur": d})
+    sg = {"k": s["clip"], "src": E["clips"][s["clip"]] + ".mp4", "in": s["in"], "out": s["out"], "start": f, "dur": d}
+    # optional designed move at a join (job05, generic): "enter"/"exit": {"scale": k, "x": px, "y": px, "frames": n}
+    #   enter = the segment starts at k x its framing (+x,y screen px) and eases back to normal over n frames (match + pull back);
+    #   exit  = over its last n frames it eases from normal to k x (+x,y) (push in to match the next shot). Zoom does not punch there.
+    for key in ("enter", "exit"):
+        if s.get(key): sg[key] = {"scale": float(s[key].get("scale", 1)), "x": float(s[key].get("x", 0)), "y": float(s[key].get("y", 0)), "frames": int(s[key].get("frames", 14))}
+    segs.append(sg)
     f += d
 total = f + E.get("outro_frames", 0)
 
@@ -170,6 +176,10 @@ for ev in E.get("events", []):
     if e["t"] - e["f"] < 20: print("WARNING: event shorter than 20 frames:", e["type"], e["f"], e["t"])
     events.append(e)
 events.sort(key=lambda e: e["f"])
+# "punch" (generic, job05): {"type": "punch", "start": anchor, "end": anchor, "z": 1.12} = speaker punch-in on a chosen word, no cut
+#   (emphasis without a graphic, visual-craft.md 3). It only changes the speaker zoom (shots); it is not drawn as an overlay.
+punches = [e for e in events if e["type"] == "punch"]
+events = [e for e in events if e["type"] != "punch"]
 fulls = [e for e in events if e["type"] in FULL_TYPES]
 for a, b in zip(fulls, fulls[1:]):
     if b["f"] < a["t"]: raise SystemExit(f"full-screen events overlap: {a['type']}@{a['f']}-{a['t']} and {b['type']}@{b['f']}")
@@ -195,10 +205,27 @@ for e in fulls:
     else: groups.append([e])
 hidden = [g[0]["f"] + 12 for g in groups if g[-1]["t"] < total]
 joins = [s["start"] for s in segs[1:] if not any(e["f"] + 7 <= s["start"] < e["t"] - 6 for e in fulls)]
+designed = {sg["start"] for i, sg in enumerate(segs) if i and (sg.get("enter") or segs[i - 1].get("exit"))}   # move transition: base zoom, no punch-in
 shots, z = [], 1.0
 for c in sorted(set([0] + hidden + joins)):
-    if c: z = 1.0 if z > 1.03 else (1.09 if c in joins else 1.07)
+    if c: z = 1.0 if (c in designed or z > 1.03) else (1.09 if c in joins else 1.07)
     shots.append({"f": c, "z": z})
+if punches:
+    def zat(f):
+        z = shots[0]["z"]
+        for sh in shots:
+            if sh["f"] <= f: z = sh["z"]
+        return z
+    marks = sorted({sh["f"] for sh in shots} | {p["f"] for p in punches} | {p["t"] for p in punches})
+    new_shots = []
+    for b in marks:
+        pp = next((p for p in punches if p["f"] <= b < p["t"]), None)
+        if pp:   # zoom about a point ~400 px below the kit origin (mouth/chin line) so the mouth never slides into the subtitle band
+            zb = zat(b); zp = round(zb * float(pp.get("z", 1.12)), 4)
+            new_shots.append({"f": b, "z": zp, "y": round(-(zp - zb) * float(pp.get("pivot", 400)) + float(pp.get("dy", 0)))})
+        else: new_shots.append({"f": b, "z": zat(b)})
+    shots = new_shots
+    print("punch-ins: " + ", ".join(f"{p['f']}->{p['t']} x{p.get('z', 1.12)}" for p in punches))
 
 # 7) sound effects
 sfx = []

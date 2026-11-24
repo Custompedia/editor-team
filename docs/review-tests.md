@@ -57,6 +57,14 @@ Syarat pemilik (lengkap: `docs/owner-requirements.md`, 1–18): 1 kapan visual �
 
 | T31 | Identitas di layar milik video INI? | `work/brief.md` menyebut pemilik video (brand berprofil / perusahaan baru / tanpa perusahaan) dengan bukti dari footage atau user. Tidak ada nama, akun, logo, warna, slogan, atau penutup yang berasal dari profil brand lain atau dari job sebelumnya. Video tanpa perusahaan: tidak ada logo atau akun usaha | `brief.md`, contact sheet, still penutup | semua brand / tanpa brand |
 
+## Tambahan dari job04–job06 (2026-11-24)
+| # | Pertanyaan | Lulus bila | Cara cek |
+|---|---|---|---|
+| T32 | Sambungan antara dua pengambilan (format hook → perkenalan → isi) terbaca sebagai SATU gerak? | Ukuran dan posisi mata cocok di frame sebelum/sesudah; satu gerak per sambungan (tidak ditumpuk hitam-putih + blur + bunyi); hook tidak menyapa; frame 0 sudah menyebut topik | Strip frame demi frame di tiap sambungan, still f0 |
+| T33 | Angka pada visual buatan memang dihitung? | Label angka pada warna/batang/ubin tertentu punya rumus dan nilai di laporan; kalau tidak, hanya angka yang diucapkan yang tampil | Laporan + still |
+| T34 | Punch-in dan crop tidak memotong wajah, teks kecil terbaca di HP? | Tidak ada setengah wajah di tepi frame; dahi/dagu tidak terpotong sampai sesak; chip dan caption ≥ kira-kira 40 px pada lebar 1080 | Contact sheet + still ukuran penuh |
+| T35 | Pemilik melihat frame sebelum render akhir, bila ia memintanya? | Still awal diteruskan begitu ada; lembar semua frame + strip sambungan + draf bersuara dikirim; render akhir hanya setelah acc atau setelah pemilik menyerahkan keputusan ke lead (tulis keputusan yang diambil atas namanya) | Riwayat percakapan |
+
 Cara cepat T24 dan sambungan (lead, tanpa mendengar): cetak kata transkrip sumber di sekitar setiap `in`/`out` dan setiap koreksi, lalu
 envelope 20 ms dari `work/tx/<klip>.wav` di rentang itu. Blok nyaring = suku kata; hitung apakah teks subtitle muat. Transkrip ulang final
 yang berbeda dari subtitle (kata tambahan di sambungan, kata hilang) selalu ditanyakan ke worker, bukan diabaikan.
