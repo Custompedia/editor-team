@@ -200,11 +200,11 @@ ada visual yang menggambarkan kalimatnya atau `quiet_ok` dengan alasan. Tanda la
 Laporan build (QUIET CHECK) mencetak jumlah perubahan, rata-rata rentang, dan porsi layar (penuh / split / pembicara + overlay / pembicara saja)
 supaya lead bisa mempertanyakan edit yang jauh lebih jarang atau jauh lebih padat dari video sejenis (`visual-thinking.md` 7).
 
----
-
 - **Kartu terang layar penuh harus terisi gambarnya** (job05 v4 dikembalikan lead): foto atau ubin mengisi kira-kira ≥ 60% tinggi
   layar di atas pita subtitle; kartu dengan satu foto kecil dan sisanya polos terbaca kosong walau QUIET CHECK lolos. Kalau resolusi
   foto yang menghalangi, ganti fotonya (CC0 beresolusi cukup) atau pakai `split`; jangan mengecilkan gambarnya.
+
+---
 
 ## 9. Apa yang kit bisa sekarang
 
