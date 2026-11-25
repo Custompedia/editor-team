@@ -6,8 +6,8 @@ Fakta dan permintaan pemilik untuk video Custompedia saja. Setiap baris diberi s
 - Kanal YouTube "Custompedia" (`@CustompediaCreative`); acara "Cerita Perintis" "with @radhytam" (oEmbed + logo acara, 2026-11-24).
 - Host: lower third aslinya "RADHYTA MM. / OWNER CUSTOMPEDIA AGENCY"; di subtitle ditulis "Mas Radhyt" (nama file aset pemilik
   `LT - Mas Radhyt.mov`). Whisper menulis "Radit" dan "Trita Perintis": dikoreksi dengan bukti aset, bukan tebakan.
-- Tamu job04: dipanggil "Koh Tommy" di rekaman; ejaan, jabatan, logo BELUM DIKONFIRMASI (2026-11-24). Usahanya terdengar "Sumber Bahagia" dan
-  "Sinar Bahagia" (ejaan Whisper, belum dikonfirmasi). Pencarian publik tidak menemukan apa pun.
+- Tamu job04: Tommy Handoko, usaha "Sinar Bahagia" (kata pemilik + logo, 2026-11-25); lower third "TOMMY HANDOKO / SINAR BAHAGIA", tanpa
+  jabatan (permintaan tamu lewat pemilik). "Sumber Bahagia" (usaha percetakannya) hanya ejaan Whisper, belum dikonfirmasi.
 
 ## Logo, warna, font
 - Aset di Drive pemilik `1zMlbK_FRUlqFKy9WdNFSQUK-9MwNqobM/02 ASSET`: bumper in (6 dtk, alpha, dipasang di atas sambungan teaser → podcast),
@@ -27,5 +27,8 @@ Fakta dan permintaan pemilik untuk video Custompedia saja. Setiap baris diberi s
 - Desain dan animasi subtitle teaser, musik, ada tidaknya zoom, kapan persisnya lower third muncul. Yang dipakai di job04 adalah ASUMSI:
   Poppins SemiBold putih satu baris di tengah bawah dengan gradasi gelap, musik CC0 hanya di teaser, tanpa animasi zoom.
 
+## Permintaan pemilik untuk video brand ini
+- Logo tamu di lower third tampil UTUH (lambang + tulisan); kartu dipanjangkan, bukan logonya dipotong (2026-11-25).
+
 ## Riwayat
-- job04 (episode tamu "Koh Tommy", rekaman 2026-10-16): lihat `LESSONS.md`.
+- job04 (episode Tommy Handoko, rekaman 2026-10-16): final_v2 48:40 dikirim 2026-11-25 sebagai 11 bagian; penilaian pemilik belum ada. Lihat `LESSONS.md`.

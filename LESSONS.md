@@ -226,3 +226,17 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
     podcast (sebelum worker mulai), bersama file video referensi.
 - Terbuka: referensi Eps 001 tetap belum dilihat (teaser, subtitle, zoom, musik = ASUMSI); kit belum punya alur 16:9/podcast (script job
   ada di folder job, belum dipindah ke `editkit/`); pengiriman file 4 GB lewat chat belum diuji.
+
+## job04 — penyerahan (2026-11-25): final_v2 dikirim, belum ada penilaian pemilik
+- Data tamu datang sehari kemudian lewat chat: nama "Tommy Handoko", usaha "Sinar Bahagia", tanpa jabatan, logo PDF lebar (2:1). Lead
+  mengusulkan hanya lambangnya di kotak ikon; pemilik menolak: logo HARUS utuh, kartunya yang dipanjangkan. Aturan: logo pihak lain
+  tidak dipotong tanpa izin; kalau bentuknya tidak muat, ubah wadahnya dan tunjukkan ukurannya (tulisan di logo jadi ±18 px: dilaporkan).
+- Tambalan lower third = render ulang satu segmen (±1 menit) + concat. Alur per-segmen terbukti lagi.
+- Batas kirim, DIUKUR (bukan dari pesan galat): SendUserFile menolak 3724 MiB ("500 MiB limit") dan juga menolak 480 MiB; menerima 364 dan
+  360 MiB. Connector Drive: 10 MB per file lewat referensi `sha256:<hash>:<path>` dan hanya dari scratchpad. Master 3,9 GB dikirim sebagai
+  11 bagian 360 MiB (`split -b 360M`, hash gabungan dicek sama) + petunjuk gabung satu baris untuk Windows dan Mac; laporan teks ke Drive.
+  Aturan lead: uji batas kirim dengan file besar SEBELUM render akhir (preview 175 MiB lolos tidak membuktikan apa-apa untuk 4 GB), dan
+  sebut ke pemilik sejak awal bahwa video panjang tiba sebagai bagian-bagian. Salinan satu-file ≤355 MiB (HEVC ±1 Mbps) dibuat worker kedua.
+- Worker utama memakai ±730 ribu token untuk job ini; tugas mekanis sesudahnya (salinan ringkas) diberikan ke worker baru dengan brief pendek.
+- Untuk job podcast berikutnya: minta di daftar pertama nama + logo tamu dan file referensi; putuskan dari awal cara serah-terima file besar
+  (kredensial unggah Drive di environment akan menghapus langkah gabung manual).
