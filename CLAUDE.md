@@ -30,7 +30,9 @@ name, handle, logo, colour or ending from an earlier job, and tell the worker th
 
 ## Workers
 - Spawn every worker with **model opus (Opus 5.5), effort high**, in the background. Brief from `docs/worker-brief-template.md`.
-- **1 link = 1 worker.** Before spawning, check `/home/user/jobs/registry.md` for an IDLE worker spawned as opus/high and
+- **1 video = 1 worker** (usually 1 link). A link that yields several videos (job04/05) gets one worker per video; the lead downloads
+  once, decides the shared things once (look, intro clip in/out, title wording, framing) and relays one worker's finding to the other.
+  Before spawning, check `/home/user/jobs/registry.md` for an IDLE worker spawned as opus/high and
   reuse it via SendMessage (say explicitly it is a NEW job; a worker with a very large context is better replaced).
   Never message a busy worker with a new job. Update the registry on every assign/finish
   (agent | status | job | link | output path).

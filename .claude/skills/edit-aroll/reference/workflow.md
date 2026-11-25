@@ -215,7 +215,7 @@ Subtitle dibuat otomatis dari kata transkrip yang lolos potongan. Tugas di tahap
 - **Kata penting**: beri awalan `*`. Kata bertanda tampil di baris besar dengan font dan warna penekanan dari `theme`. Pilih 1 sampai 2 kata per kalimat, dan hanya kata yang membawa makna: angka, nama, kata kunci topik, kata yang ditekan pembicara. Kalau semua ditandai, tidak ada yang menonjol.
 - **Kata yang disembunyikan**: isi `""` di `text`, atau `_` di `script`, untuk kata tersendat yang masih terdengar tapi tidak perlu dibaca.
 - **Waktu kata yang salah**: kalau subtitle muncul terlalu cepat atau lambat dibanding suaranya (biasanya kata pertama setelah potongan), betulkan waktunya di `timing` berdasarkan envelope.
-- **Huruf besar**: subtitle ditampilkan huruf kecil semua kecuali kata yang diawali entri `keep_case` (nama brand, singkatan). Kalau user ingin huruf besar normal, ubah fungsi `clean` di `Main.tsx`.
+- **Huruf besar**: subtitle ditampilkan huruf kecil semua kecuali kata yang diawali entri `keep_case` (nama brand, singkatan). Nama orang yang diucapkan (pembicara memperkenalkan diri, nama klien) juga masuk `keep_case` (job04 v2: "aku putri"). Kalau user ingin huruf besar normal, ubah fungsi `clean` di `Main.tsx`.
 
 Jalankan `python3 tools/build_timeline.py` dan baca seluruh daftar subtitle yang dicetak, dari atas ke bawah, sebagai penonton. Perhatikan juga setiap `WARNING`: kata yang separuhnya terpotong berarti titik potong atau `timing` perlu dibetulkan.
 

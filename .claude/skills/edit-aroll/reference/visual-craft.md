@@ -202,6 +202,10 @@ supaya lead bisa mempertanyakan edit yang jauh lebih jarang atau jauh lebih pada
 
 ---
 
+- **Kartu terang layar penuh harus terisi gambarnya** (job05 v4 dikembalikan lead): foto atau ubin mengisi kira-kira ≥ 60% tinggi
+  layar di atas pita subtitle; kartu dengan satu foto kecil dan sisanya polos terbaca kosong walau QUIET CHECK lolos. Kalau resolusi
+  foto yang menghalangi, ganti fotonya (CC0 beresolusi cukup) atau pakai `split`; jangan mengecilkan gambarnya.
+
 ## 9. Apa yang kit bisa sekarang
 
 Teknik di file ini tidak semuanya ada di kit. **Sekarang** = event/field yang ada (`edit-json.md`). **Perkiraan** = bisa didekati dengan
@@ -233,6 +237,8 @@ event yang ada. **Belum** = butuh komponen kecil generik di `video/src` job itu 
 | Halaman situs/aplikasi satu layar penuh (bukan kartu) | Sekarang | `custom` `page`: tangkapan panjang halaman asli (`shot.py`), scroll ke bagian yang disebut, garis di sekeliling nama/tombol (`mark`), titik sentuh (`tap`). `screenshot` (kartu) tetap untuk kutipan |
 | Beberapa foto asli muncul bergantian; garis ukur di atas foto | Sekarang | `custom` `gallery`; `custom` `measure` |
 | Profil akun pemilik dibangun dengan kode (penutup "hubungi aku") | Sekarang, hanya atas permintaan pemilik | `custom` `igpage` + `hold_end`; semua teks dari screenshot, foto = crop asli, tap di tombol pesan |
+| Foto asli + vonis; rentang angka; deret contoh (min/standar/maks); penutup logo brand | Sekarang | `custom` `compare`, `range`, `swatches`, `closing` (`edit-json.md` 4.3) |
+| Kartu komentar buatan (nama dan avatar buram) | Sekarang, hanya atas perintah pemilik | `comment`; bukan bukti, tidak pernah dengan nama akun |
 | Musik latar | Sekarang | `music` (`src`, `volume`, `points` berjangkar kata untuk turun/naik per momen), fade awal dan akhir. Satu lagu; berganti lagu: tidak |
 | Gerbang potongan gambar (sambungan terbuka) | Sekarang | Laporan CUT CHECK; sambungan dengan pembicara terlihat di kedua sisi menghentikan build kecuali ada `cut_ok` beralasan (`edit-json.md`) |
 | Gerbang rentang sepi + porsi layar | Sekarang | `max_quiet_s`, `quiet_ok`, laporan QUIET CHECK (`edit-json.md` 4.6) |

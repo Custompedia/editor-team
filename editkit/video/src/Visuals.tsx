@@ -438,7 +438,158 @@ const IgPage: React.FC<{e: any}> = ({e}) => {
     </AbsoluteFill>
   );
 };
-const CUSTOM: Record<string, React.FC<{e: any}>> = {bars: Bars, timeline: Timeline, igprofile: IgProfile, page: Page, gallery: Gallery, measure: Measure, igpage: IgPage};
+/* ---------- job04 components (generic; candidates for the kit). Anchors are top-level "*_at" fields (build_timeline resolves those). ---------- */
+const RUST = (e: any) => e.color || ACCENT;   // emphasis colour ON the light panel (job04: rust #AB5F29, tan is too pale on cream)
+const PanelTitle: React.FC<{label?: string; sub?: string; hi: string}> = ({label, sub, hi}) => {
+  const f = useCurrentFrame();
+  const p = sp(f, 2);
+  if (!label) return null;
+  return (
+    <div style={{position: 'absolute', left: 0, right: 0, top: 190, textAlign: 'center', opacity: p, transform: `translateY(${(1 - p) * 24}px)`}}>
+      <div style={{fontFamily: SANS, fontWeight: 800, fontSize: 40, letterSpacing: 6, color: hi}}>{label}</div>
+      {sub ? <div style={{fontFamily: SANS, fontWeight: 600, fontSize: 30, color: INK, opacity: 0.6, marginTop: 6}}>{sub}</div> : null}
+    </div>
+  );
+};
+const Badge: React.FC<{kind?: string; text: string; hi: string; p: number}> = ({kind, text, hi, p}) => (
+  <div style={{display: 'inline-flex', alignItems: 'center', gap: 18, background: '#fff', borderRadius: 60, padding: '14px 40px 14px 14px', boxShadow: '0 14px 36px rgba(46,33,25,0.22)',
+    transform: `scale(${0.6 + 0.4 * p})`, opacity: Math.min(1, p * 1.5)}}>
+    <div style={{width: 76, height: 76, borderRadius: 38, background: hi, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <svg width={40} height={40} viewBox="0 0 40 40">
+        {kind === 'no' ? <path d="M10 10 L30 30 M30 10 L10 30" stroke="#fff" strokeWidth={7} strokeLinecap="round" />
+          : <path d="M8 21 L17 30 L33 11" stroke="#fff" strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" fill="none" />}
+      </svg>
+    </div>
+    <span style={{fontFamily: SANS, fontWeight: 800, fontSize: 50, color: INK, letterSpacing: -0.5}}>{text}</span>
+  </div>
+);
+
+/* compare (job04): a REAL photo (crop of the thing being talked about) shown large on the light panel, with one verdict badge
+   that pops in on the word. {type:"custom", name:"compare", img, pos?, label?, sub?, color?, stamp_text?, stamp_kind?: "ok"|"no", stamp_at?: anchor}
+   Code adds only the verdict; the picture is the real object. */
+const Compare: React.FC<{e: any}> = ({e}) => {
+  const f = useCurrentFrame();
+  const hi = RUST(e);
+  const z = interpolate(f, [0, e.t - e.f], [1.0, 1.06]);
+  const top = e.label ? 320 : 220;
+  const st = e.stamp_at !== undefined ? sp(f, e.stamp_at - e.f, {damping: 12, stiffness: 200, mass: 0.6}) : 0;
+  return (
+    <AbsoluteFill style={{background: LIGHT}}>
+      <PanelTitle label={e.label} sub={e.sub} hi={hi} />
+      <div style={{position: 'absolute', left: 60, right: 60, top, height: 820, borderRadius: 30, overflow: 'hidden', boxShadow: '0 24px 60px rgba(46,33,25,0.22)'}}>
+        <Img src={staticFile(e.img)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: e.pos || '50% 50%', transform: `scale(${z})`}} />
+      </div>
+      {e.stamp_at !== undefined && f >= e.stamp_at - e.f ? (
+        <div style={{position: 'absolute', left: 0, right: 0, top: top + 820 - 60, textAlign: 'center'}}>
+          <Badge kind={e.stamp_kind} text={e.stamp_text} hi={hi} p={st} />
+        </div>
+      ) : null}
+    </AbsoluteFill>
+  );
+};
+
+/* range (job04): a number range on a ruler (e.g. a tolerance "delta E 2.0 to 3.5"), drawn as it is spoken.
+   Diagram because a tolerance range is a number with no physical picture.
+   {type:"custom", name:"range", label?, sub?, color?, unit: "ΔE", min: 0, max: 5, ticks: [0,1,2,3,4,5], from: 2.0, to: 3.5,
+    from_at: anchor, to_at: anchor, unit_at?: anchor, from_text, to_text, band_text?, note_text?, note_at?: anchor} */
+const Range: React.FC<{e: any}> = ({e}) => {
+  const f = useCurrentFrame();
+  const hi = RUST(e);
+  const X0 = 130, X1 = 950, Y = 940;
+  const x = (v: number) => X0 + ((X1 - X0) * (v - e.min)) / (e.max - e.min);
+  const draw = interpolate(f, [2, 16], [1, 0], {...cl, easing: ease});
+  const a = sp(f, (e.from_at ?? e.f) - e.f, {damping: 14, stiffness: 170});
+  const g = interpolate(f, [(e.to_at ?? e.f) - e.f - 2, (e.to_at ?? e.f) - e.f + 10], [0, 1], {...cl, easing: ease});
+  const xa = x(e.from), xb = xa + (x(e.to) - xa) * g;
+  const nt = e.note_at !== undefined ? sp(f, e.note_at - e.f) : 0;
+  const u = sp(f, (e.unit_at ?? e.from_at ?? e.f) - e.f, {damping: 14, stiffness: 170});   // the unit can appear when it is named, before the number
+  return (
+    <AbsoluteFill style={{background: LIGHT}}>
+      <PanelTitle label={e.label} sub={e.sub} hi={hi} />
+      <svg width={1080} height={1920} style={{position: 'absolute'}}>
+        <text x={540} y={600} textAnchor="middle" fontFamily={SERIF} fontWeight={800} fontSize={140} fill={INK}>
+          <tspan opacity={Math.min(1, u * 1.4)}>{e.unit}</tspan><tspan opacity={Math.min(1, a * 1.4)}>{' ' + e.from_text}</tspan><tspan fill={hi} opacity={g}>{' – ' + e.to_text}</tspan>
+        </text>
+        <path d={`M${X0} ${Y} H${X1}`} stroke={INK} strokeOpacity={0.25} strokeWidth={10} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={draw} />
+        {e.ticks.map((t: number, i: number) => (
+          <g key={i} opacity={interpolate(f, [4 + i * 2, 10 + i * 2], [0, 1], cl)}>
+            <path d={`M${x(t)} ${Y - 22} V${Y + 22}`} stroke={INK} strokeOpacity={0.35} strokeWidth={5} strokeLinecap="round" />
+            <text x={x(t)} y={Y + 80} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={38} fill={INK} opacity={0.55}>{t}</text>
+          </g>
+        ))}
+        <rect x={xa - 6} y={Y - 40} width={Math.max(12, xb - xa + 12)} height={80} rx={40} fill={hi} opacity={0.92 * Math.min(1, a)} />
+        {e.band_text ? <text x={(x(e.from) + x(e.to)) / 2} y={Y - 74} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={38} fill={hi} opacity={g}>{e.band_text}</text> : null}
+      </svg>
+      {e.note_at !== undefined && f >= e.note_at - e.f ? (
+        <div style={{position: 'absolute', left: 0, right: 0, top: 1100, textAlign: 'center'}}><Badge kind="ok" text={e.note_text} hi={hi} p={nt} /></div>
+      ) : null}
+    </AbsoluteFill>
+  );
+};
+
+/* swatches (job04): a row of sample tiles (e.g. minimum / standard / maximum print swatch) that appear one by one as named,
+   optional bracket under them and optional brand logo above. Tiles are REAL crops; tone shifts are an illustration (say so in sub).
+   {type:"custom", name:"swatches", label?, sub?, color?, items:[{at, img, text, hi_at?: anchor}], hi_index?: 1, bracket_text?, bracket_at?, logo?, logo_text?, logo_at?} */
+const Swatches: React.FC<{e: any}> = ({e}) => {
+  const f = useCurrentFrame();
+  const hi = RUST(e);
+  const n = e.items.length, gap = 28, W = (1080 - 2 * 70 - (n - 1) * gap) / n, H = W * 1.45, top = 470;
+  const br = e.bracket_at !== undefined ? interpolate(f, [e.bracket_at - e.f, e.bracket_at - e.f + 12], [0, 1], {...cl, easing: ease}) : 0;
+  const lg = e.logo_at !== undefined ? sp(f, e.logo_at - e.f, {damping: 13, stiffness: 170}) : 0;
+  return (
+    <AbsoluteFill style={{background: LIGHT}}>
+      <PanelTitle label={e.label} sub={e.sub} hi={hi} />
+      {e.items.map((it: any, i: number) => {
+        const p = sp(f, it.f - e.f, {damping: 15, stiffness: 170, mass: 0.7});
+        // highlight: items with "hi_at" move the frame tile to tile as each is named (job04 v3); otherwise fixed hi_index
+        const steps = e.items.map((x: any, j: number) => ({j, at: x.hi_at})).filter((x: any) => x.at !== undefined && f >= x.at - e.f);
+        const active = e.items.some((x: any) => x.hi_at !== undefined) ? (steps.length ? steps[steps.length - 1].j : -1) : (e.hi_index ?? 1);
+        const on = i === active;
+        return (
+          <div key={i} style={{position: 'absolute', left: 70 + i * (W + gap), top, width: W, opacity: Math.min(1, p * 1.4), transform: `translateY(${(1 - p) * 50}px)`}}>
+            <div style={{width: W, height: H, borderRadius: 24, overflow: 'hidden', boxShadow: '0 16px 40px rgba(46,33,25,0.2)', outline: on ? `8px solid ${hi}` : 'none', outlineOffset: 6}}>
+              <Img src={staticFile(it.img)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+            </div>
+            <div style={{marginTop: 26, textAlign: 'center', fontFamily: SANS, fontWeight: 800, fontSize: 40, letterSpacing: 3, color: on ? hi : INK}}>{it.text}</div>
+          </div>
+        );
+      })}
+      {e.bracket_at !== undefined ? (
+        <svg width={1080} height={1920} style={{position: 'absolute'}}>
+          <path d={`M90 ${top + H + 110} V${top + H + 140} H990 V${top + H + 110}`} stroke={hi} strokeWidth={8} fill="none" strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - br} />
+          <text x={540} y={top + H + 215} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={46} fill={INK} opacity={br}>{e.bracket_text}</text>
+        </svg>
+      ) : null}
+      {e.logo_at !== undefined && f >= e.logo_at - e.f ? (
+        <div style={{position: 'absolute', left: 0, right: 0, top: 300, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 22, opacity: Math.min(1, lg * 1.4), transform: `scale(${0.8 + 0.2 * lg})`}}>
+          <Img src={staticFile(e.logo)} style={{height: 110}} />
+          {e.logo_text ? <span style={{fontFamily: SANS, fontWeight: 800, fontSize: 60, color: INK, letterSpacing: -1}}>{e.logo_text}</span> : null}
+        </div>
+      ) : null}
+    </AbsoluteFill>
+  );
+};
+
+/* closing (job04/job05): brand closing on the light panel: the REAL logo file grows in, then the handle (and optional line) rises in.
+   {type:"custom", name:"closing", logo, handle?, line?, hold_end: true} */
+const Closing: React.FC<{e: any}> = ({e}) => {
+  const f = useCurrentFrame();
+  const p = sp(f, 2, {damping: 16, stiffness: 120, mass: 0.9});
+  const h = sp(f, 14, {damping: 16, stiffness: 150});
+  const z = interpolate(f, [0, e.t - e.f], [1.0, 1.04]);
+  return (
+    <AbsoluteFill style={{background: LIGHT}}>
+      <div style={{position: 'absolute', top: 500, left: 0, width: 1080, display: 'flex', flexDirection: 'column', alignItems: 'center', transform: `scale(${z})`}}>
+        <Img src={staticFile(e.logo)} style={{width: 500, opacity: Math.min(1, p * 1.3), transform: `scale(${0.82 + 0.18 * p})`}} />
+        {e.handle ? <div style={{marginTop: 70, fontFamily: SANS, fontWeight: 800, fontSize: 64, color: INK, letterSpacing: -0.5, opacity: h, transform: `translateY(${(1 - h) * 30}px)`}}>{e.handle}</div> : null}
+        {e.line ? <div style={{marginTop: 10, fontFamily: SANS, fontWeight: 600, fontSize: 36, color: INK, opacity: 0.6 * h}}>{e.line}</div> : null}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+const CUSTOM: Record<string, React.FC<{e: any}>> = {bars: Bars, timeline: Timeline, igprofile: IgProfile, page: Page, gallery: Gallery, measure: Measure, igpage: IgPage,
+  compare: Compare, range: Range, swatches: Swatches, closing: Closing};
 
 /* ---------- outro: brand/creator end card over an image ----------
    {type:"outro", img, logo?, handle?, cta?} */
@@ -468,7 +619,7 @@ const Outro: React.FC<{e: any}> = ({e}) => {
 export const Insert: React.FC<{e: any; chained: boolean; prevChained: boolean}> = ({e, chained, prevChained}) => {
   const f = useCurrentFrame();
   const d = e.t - e.f;
-  const inn = prevChained ? 1 : interpolate(f, [0, 7], [0, 1], {...cl, easing: ease});          // fade in over the speaker
+  const inn = prevChained || e.f === 0 ? 1 : interpolate(f, [0, 7], [0, 1], {...cl, easing: ease});          // fade in over the speaker; an insert that opens the video is full on frame 0 (job04)
   const out = chained || e.type === 'outro' || e.hold_end ? 1 : interpolate(f, [d - 6, d], [1, 0], cl);          // fade back to the speaker
   const slide = prevChained ? interpolate(f, [0, 12], [1, 0], {...cl, easing: Easing.bezier(0.45, 0, 0.15, 1)}) : 0; // push over the previous insert
   const body = e.type === 'photo' ? <Photo e={e} /> : e.type === 'clip' ? <Clip e={e} /> : e.type === 'screenshot' ? <Screenshot e={e} /> : e.type === 'outro' ? <Outro e={e} /> : React.createElement(CUSTOM[e.name], {e});
@@ -533,6 +684,38 @@ export const Overlay: React.FC<{e: any}> = ({e}) => {
             <div style={{position: 'absolute', left: 0, top: 22, bottom: 10, width: `${hl * 100}%`, background: ACCENT, borderRadius: 14, transform: 'skewX(-8deg)'}} />
             <span style={{position: 'relative', fontFamily: SERIF, fontStyle: EMPH_STYLE, fontWeight: 800, fontSize: 132, color: hl > 0.5 ? ON_ACCENT : '#fff', lineHeight: 1.15}}>{e.line2}</span>
           </div>
+        </div>
+      </AbsoluteFill>
+    );
+  }
+  if (e.type === 'comment') {
+    /* comment (job05, owner order "capture coment buatin aja"): a comment card built in code with NO real account: the avatar is a
+       neutral blurred disc and the name is a blurred bar from the first frame (no name is ever drawn). Text = the quoted comment.
+       {type:"comment", text, top?, mark_at?: anchor (ring around the blurred name: "ini aku sensor namanya"), x_at?: anchor (red X stamp)} */
+    const p = sp(f, 0, {damping: 14, stiffness: 170, mass: 0.7});
+    const mk = e.mark_at !== undefined && f >= e.mark_at - e.f ? sp(f, e.mark_at - e.f, {damping: 14, stiffness: 180, mass: 0.6}) : 0;
+    const xp = e.x_at !== undefined && f >= e.x_at - e.f ? sp(f, e.x_at - e.f, {damping: 9, stiffness: 220, mass: 0.6}) : 0;
+    return (
+      <AbsoluteFill style={{opacity: out}}>
+        <div style={{position: 'absolute', left: 50, right: 50, top: e.top ?? 96, transform: `translateY(${(1 - p) * -40}px) scale(${0.92 + 0.08 * p})`, opacity: Math.min(1, p * 1.5), transformOrigin: '50% 0%'}}>
+          <div style={{display: 'flex', gap: 26, alignItems: 'flex-start', background: '#fff', borderRadius: 34, padding: '30px 40px 26px 30px', boxShadow: '0 20px 50px rgba(0,0,0,0.42)'}}>
+            <div style={{width: 96, height: 96, borderRadius: 48, flexShrink: 0, overflow: 'hidden', background: '#d9d4cf'}}>
+              <div style={{width: 96, height: 96, background: 'radial-gradient(circle at 50% 38%, #b9b2ab 0 22%, transparent 23%), radial-gradient(ellipse at 50% 100%, #b9b2ab 0 42%, transparent 43%)', filter: 'blur(7px)'}} />
+            </div>
+            <div style={{flex: 1}}>
+              <div style={{position: 'relative', display: 'inline-block', marginTop: 4}}>
+                <div style={{width: 250, height: 30, borderRadius: 15, background: '#bdb6b0', filter: 'blur(5px)'}} />
+                {mk ? <div style={{position: 'absolute', left: -18, top: -16, right: -18, bottom: -16, borderRadius: 30, border: `5px solid ${e.mark_color || ACCENT}`, opacity: Math.min(1, mk * 1.4), transform: `scale(${1.2 - 0.2 * mk})`}} /> : null}
+              </div>
+              <div style={{fontFamily: SANS, fontWeight: 600, fontSize: 46, lineHeight: 1.25, color: '#15151a', marginTop: 16, letterSpacing: -0.4}}>{e.text}</div>
+              <div style={{fontFamily: SANS, fontWeight: 600, fontSize: 28, color: '#8e8e93', marginTop: 14}}>{e.reply ?? 'Balas'}</div>
+            </div>
+          </div>
+          {xp ? (
+            <div style={{position: 'absolute', right: -14, top: -34, width: 128, height: 128, borderRadius: 64, background: '#E5332A', display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${xp}) rotate(${(1 - xp) * -40}deg)`, boxShadow: '0 12px 28px rgba(0,0,0,0.45)', border: '6px solid #fff'}}>
+              <svg width={64} height={64} viewBox="0 0 60 60"><path d="M12 12 L48 48 M48 12 L12 48" stroke="#fff" strokeWidth={10} strokeLinecap="round" /></svg>
+            </div>
+          ) : null}
         </div>
       </AbsoluteFill>
     );

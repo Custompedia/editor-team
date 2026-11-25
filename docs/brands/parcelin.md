@@ -79,7 +79,28 @@ bio, ikon Threads) adalah crop dari screenshot dan tidak disimpan di repo** (rep
 - Musik yang dipakai: "Good Vibe Background Music", Seth_Makes_Sounds, Freesound 661782, CC0; volume 0,05, turun di "Gimana? Nggak bisa".
 - Whisper: "Parcellen", "Parcelon", "parcel ini" → "Parcelin" (pemilik mengonfirmasi brand); "softbook" → "softbox".
 
+## Catatan job04 + job05 (2026-11-25)
+- **Logo dP dari pemilik** (2000x2000, latar putih; tan #D5A079, rust #AB5F29, batang cokelat #775B44). File TIDAK disimpan di repo
+  (repo publik): minta lagi, atau ambil dari kartu penutup final lama di Drive pemilik.
+- **Look seri "Putri, owner PT Parcelin"** (latar gorden cokelat-emas, kerudung hitam): aksen subtitle TAN #D5A079 di atas gelap;
+  penekanan di panel krem RUST #AB5F29 (tan terlalu pucat di krem, rust terlalu lemah di hitam); light #FBF4EA; ink #2E2119; Poppins
+  ExtraBold tegak.
+- **Klip perkenalan** (11,8 dtk; dipakai in ±0,4–0,58 / out 9,75): "Hai, [kata ke-2 belum terverifikasi] yang belum kenal, aku Putri,
+  aku owner dari PT Parcelin, yang udah 8 tahun lebih di dunia percetakan, dan aku senang banget untuk sharing lika-liku di
+  industri ini." Judul: baris kecil "OWNER PT PARCELIN", nama besar "Putri"; kata besar "8 tahun"; tanpa logo/foto.
+- **Format yang diminta pemilik untuk seri ini:** hook → perkenalan → pembahasan, pilih yang penting, maksimal 90 dtk.
+- **Penutup yang dipakai:** logo dP + @parcelinpack saja (ASUMSI; isi "dkk" masih belum dikonfirmasi pemilik).
+- **Komentar yang di-roasting:** pemilik minta capture komentar dibuat ("buatin aja"); dibuat dengan nama dan avatar buram.
+- Musik: job04 "Good Vibe Background Music" (Freesound 661782, CC0); job05 "Vanilla Lofi Beat" (Freesound 691510, CC0), keduanya
+  Seth_Makes_Sounds.
+- Foto CC0 yang terbukti cocok untuk topik warna cetak: rawpixel 5946872 (mesin offset, rol CMYK), rawpixel 5924630 (kipas warna),
+  rawpixel 5912545 (desainer di depan layar), rawpixel 6033175 (pabrik cetak), StockSnap P3GRWHODKN (chart swatch + loupe). CC BY 2.0
+  yang dipakai job05 dan butuh kredit: dinding TV toko (Rusty Clark, Flickr 8244662987), kalibrator layar (psd, Flickr 91732050).
+- Masih diminta dari pemilik: foto asli alat ukur warna / swatch toleransi / proof di samping layar, screenshot disclaimer warna.
+
 ## Riwayat
+- job05 (Roasting "warna layar = warna cetak"; klip 130 dtk + intro): final_v5 89,9 dtk, 4 sambungan, kartu komentar buram.
+- job04 (Toleransi warna cetak, ΔE 2.0–3.5, swatch min/standar/maks; klip 180 dtk + intro): final_v3 86,5 dtk, 3 sambungan.
 - job03 (Cara Hitung Hardbox; 5 klip = 2 bagian berurutan + 3 take jembatan gagal): final_v4 125,3 dtk, **2 potongan**, urutan rekam,
   penutup profil IG buatan kode. Pemilik atas pratinjau v3: "bagus sih editannya".
 - job02 (Box Lebaran, pengingat pesan packaging Lebaran dari sekarang; 2 take naskah yang sama, 62,8 dtk dan 86,6 dtk): final_v4 52,7 dtk.

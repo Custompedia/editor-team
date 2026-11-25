@@ -182,3 +182,33 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Not verified by anyone but the owner's ears: the two joins (0:52, 1:28), the kept false start "Kita bisa—" (~1:33), the music.
 - Cost: one worker session ~2 h 20 min including three renders (~25 min each for 125 s). A render round is still the expensive unit;
   catching "Ulangi" before render 1 would have saved one.
+
+## job04 + job05 — "Toleransi warna cetak" and "Roasting: warna layar = warna cetak" (Parcelin, one link, two videos, 2026-11-25)
+- Delivered job04 final_v3 (86.5 s, 3 cuts) and job05 final_v5 (89.9 s, 4 cuts), owner's order: hook -> perkenalan -> pembahasan,
+  max 90 s each (ASUMSI: per video), one shared 12 s intro clip. No owner feedback yet at the time of writing.
+- Two workers in parallel (one per video) worked: ~1 h 25 min to the first final, ~2 h 25 min to the second, against ~2 h 20 min for
+  ONE video in job03. Renders queue on the heavy lock; planning and asset search do not. What made the pair look like one series:
+  the lead fixed look, intro in/out, title wording and framing once and relayed each worker's finding to the other within minutes.
+  -> CLAUDE.md: 1 video = 1 worker.
+- The Drive folder held 5 files, the owner said 3 ("yang mentah pake kerudung item"): two were earlier finals. One contact sheet with
+  three frames per clip settled it in a minute. Old finals in the folder are also the only copy of the owner's IG end card images.
+- Owner explicitly ordered a made-up comment capture ("capture coment buatin aja"). Handled as: text = the speaker's own quote,
+  name and avatar blurred from frame 1, no invented account. Her line "ini aku sensor namanya" became a callback on the same card.
+  The general rule (no fake UI as evidence) stays; an owner's order for an illustration of a quoted comment is the exception, and
+  the card never carries a name. Kit: `comment`.
+- Lead review sent both back once, for finish, not for hard tests: (job04) a name in lowercase in the subtitle ("putri"; add names to
+  `keep_case` at Tahap 5) and a 6 s card whose highlight did not follow "minimum, standard, maksimum"; (job05) cream cards that were
+  70% empty because ~1024 px photos had been kept small, six CC BY credits where four CC0 photos existed (already used by the sibling
+  job), and loudness 0.8 dB under the sibling. Rule for workers: a full-screen light card is filled by its picture (>= ~60% of the
+  height above the caption band); if resolution stops that, change the photo, do not shrink it. Rule for the lead: when two jobs run
+  side by side, tell each worker which licensed assets the other already has.
+- Sending the preview while the fix round rendered (job03 lesson) was repeated for both videos.
+- Title component: line 2 is 132 px, so "Owner PT Parcelin" (17 letters) does not fit; small line = role, big line = name.
+- Whisper: second word of the intro unstable ("buat/bagi/biar") -> blanked in both videos and asked; "Parselin" -> Parcelin;
+  word times in the main transcript stretch over pauses (job05 rebuilt them per chunk against the envelope, job04 corrected ten
+  words by hand). Both kept the originals and reported a word-diff table, which made T24 a five-minute check.
+- Kit: ported `compare`, `range`, `swatches` (+ `hi_at`), `closing`, `comment`, and "an insert starting at frame 0 is fully on at
+  frame 0". Typechecked only; both were proven in the job renders. Backlog (not fixed, reported by job05): transcribe.py word-time
+  stretch (job05's fix: work/chunks/run.py, lost with the container), the 4-frame subtitle hold crossing a segment boundary,
+  `keep_case` matching after punctuation is stripped ("A," needs "A$"), `grep warn` on verify logs also drops lines with "warna".
+- Not verified by anyone: the audio of both videos (joins, "mau" at 0:00 and "beb" in job04, both music beds).
