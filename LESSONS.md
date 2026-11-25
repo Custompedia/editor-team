@@ -182,3 +182,61 @@ and the rule that prevents it next time. A rule that applies to all jobs is also
 - Not verified by anyone but the owner's ears: the two joins (0:52, 1:28), the kept false start "Kita bisa—" (~1:33), the music.
 - Cost: one worker session ~2 h 20 min including three renders (~25 min each for 125 s). A render round is still the expensive unit;
   catching "Ulangi" before render 1 would have saved one.
+
+## 2026-11-24 — referensi podcast "Cerita Perintis" Eps 001 (Custompedia, YouTube) — studi belum lengkap
+- Job jenis baru: podcast panjang 16:9 dua orang, bukan A-roll pendek 9:16. Pemilik meminta desainnya disamakan dengan episode 001 di
+  kanalnya sendiri: teaser bersubtitle, bumper, lalu podcast tanpa subtitle; logo acara kiri atas, tanda Custompedia kanan atas,
+  timecode di tengah bawah; grading tipis untuk skin tone.
+- YouTube tetap menolak dari container (yt-dlp dan halaman: bot check). Tanpa login masih terbuka: oEmbed dan empat gambar
+  `i.ytimg.com` (thumbnail + tiga frame asli). Dari situ posisi elemen yang menetap bisa diukur; animasi tidak. Aturan lead: katakan
+  ke pemilik persis mana yang sudah dilihat dan mana yang belum, dan minta file mp4 di pesan yang sama.
+- Kalau referensinya video di kanal pemilik sendiri, minta file ekspor aslinya (dan file proyek/aset: logo, bumper, font) sekaligus:
+  itu lebih tepat daripada meniru dari video terkompresi.
+- Catatan: `docs/reference-studies/cerita-perintis-eps001.md` (bagian 3 = yang belum dilihat; isi sebelum menulis brief).
+
+## job04 — podcast "Cerita Perintis" (Custompedia), 48 menit, 16:9, dua kamera — job pertama di luar A-roll pendek
+- Status saat catatan ini ditulis: final_v1 (48:40) selesai dan sudah direvisi sekali di tingkat segmen; final_v2 menunggu nama, jabatan
+  dan logo tamu dari pemilik. Belum ada penilaian pemilik atas hasil akhir.
+- Yang berjalan baik: (1) aset asli pemilik (bumper, lower third, timecode, logo) + tiga frame referensi cukup untuk mencocokkan semua
+  elemen yang menetap secara terukur (kotak ukur di still pembanding); (2) alur per-segmen: tiap shot satu segmen dengan setelan x264
+  identik, concat tanpa encode ulang. Revisi 38 shot dan tambalan lower third hanya merender segmen yang berubah, bukan 48 menit;
+  (3) preview 2,5 menit sebelum render penuh menangkap dua masalah (subtitle, grade) saat masih murah.
+- Yang ditolak lead, semuanya lolos QA teknis worker lebih dulu:
+  - Subtitle teaser v1 terlalu kecil (±27 px) dan putih di atas meja marmer putih. v2 dilaporkan "satu posisi tetap" tetapi lead mengukur
+    baris teks di still worker sendiri: tiap chunk kedua 84 px lebih tinggi (event ASS tumpang tindih ditumpuk libass). Aturan lead: klaim
+    posisi/ukuran diukur dari piksel (rentang baris teks per still), bukan dibaca dari laporan.
+  - Grade v1 nyaris tidak mengubah apa pun; wajah lebih gelap dari referensi. v2 mengukur luma/hue kulit terhadap frame referensi
+    (studio yang sama) dan bergerak sebagian ke sana. "Grading tipis" tetap butuh sasaran terukur.
+  - Lima sambungan single tamu (crop master) -> single tamu (kamera kedua): ukuran hampir sama, sudut sedikit beda = terlihat meloncat.
+    Aturan "shot bersebelahan tidak pernah sama" di worker membandingkan NAMA kamera, bukan siapa yang tampil. Aturan baru: dua shot
+    bersebelahan harus beda orang atau jelas beda ukuran; bila ragu siapa yang bicara, pakai gambar lebar.
+- Temuan footage: kamera utama mati dua kali di tengah obrolan (±3,4 menit hanya terekam kamera kedua dengan mic kamera). Dipakai,
+  ditandai untuk didengar pemilik. Intro take pertama gagal dan dibuang. 4 potongan isi dalam 48 menit, semuanya di ganti kamera.
+- Teknis (dari worker, sudah dibuktikan di job ini): `eq=saturation` menggeser hue kulit ±5°, `hue=s` tidak; event ASS yang tumpang
+  tindih ditumpuk libass (pakai `\pos` dan akhir ≤ awal berikutnya); `color` + `alphamerge` bisa meloloskan frame pertama tanpa alpha
+  (kotak putih di frame 0 pada 41 segmen: ditangkap QA worker); x264 `faster` ±17 fps untuk komposit 4K → 1080p di 4 vCPU (48 menit ≈ 83
+  menit); deteksi siapa bicara dari gerak mulut di crop wajah bekerja, dari level/spektrum audio mixer mono tidak.
+- Proses lead:
+  - Saya bilang ke pemilik "video tidak bisa diunggah ke Drive" sebelum mencobanya. Alasannya ternyata lain (unggah lewat referensi file
+    ada, batas 10 MB), kesimpulannya sama. Aturan: uji dulu dengan satu file kecil, baru nyatakan batasnya, dengan angka.
+  - Connector Drive yang disambungkan pemilik di tengah sesi langsung aktif di sesi yang sama (dokumentasi bilang butuh sesi baru).
+  - Worker berhenti karena batas pemakaian 5 jam tepat setelah render selesai; STATE.md-nya tertinggal 2,5 jam. Lead memeriksa disk
+    (238 segmen .ok, log EXIT 0) dan menuliskan keadaan itu di pesan resume.
+  - Nama tamu tidak pernah diucapkan lengkap dan jabatannya tidak disebut: minta nama, jabatan, logo tamu di DAFTAR PERTAMA untuk job
+    podcast (sebelum worker mulai), bersama file video referensi.
+- Terbuka: referensi Eps 001 tetap belum dilihat (teaser, subtitle, zoom, musik = ASUMSI); kit belum punya alur 16:9/podcast (script job
+  ada di folder job, belum dipindah ke `editkit/`); pengiriman file 4 GB lewat chat belum diuji.
+
+## job04 — penyerahan (2026-11-25): final_v2 dikirim, belum ada penilaian pemilik
+- Data tamu datang sehari kemudian lewat chat: nama "Tommy Handoko", usaha "Sinar Bahagia", tanpa jabatan, logo PDF lebar (2:1). Lead
+  mengusulkan hanya lambangnya di kotak ikon; pemilik menolak: logo HARUS utuh, kartunya yang dipanjangkan. Aturan: logo pihak lain
+  tidak dipotong tanpa izin; kalau bentuknya tidak muat, ubah wadahnya dan tunjukkan ukurannya (tulisan di logo jadi ±18 px: dilaporkan).
+- Tambalan lower third = render ulang satu segmen (±1 menit) + concat. Alur per-segmen terbukti lagi.
+- Batas kirim, DIUKUR (bukan dari pesan galat): SendUserFile menolak 3724 MiB ("500 MiB limit") dan juga menolak 480 MiB; menerima 364 dan
+  360 MiB. Connector Drive: 10 MB per file lewat referensi `sha256:<hash>:<path>` dan hanya dari scratchpad. Master 3,9 GB dikirim sebagai
+  11 bagian 360 MiB (`split -b 360M`, hash gabungan dicek sama) + petunjuk gabung satu baris untuk Windows dan Mac; laporan teks ke Drive.
+  Aturan lead: uji batas kirim dengan file besar SEBELUM render akhir (preview 175 MiB lolos tidak membuktikan apa-apa untuk 4 GB), dan
+  sebut ke pemilik sejak awal bahwa video panjang tiba sebagai bagian-bagian. Salinan satu-file ≤355 MiB (HEVC ±1 Mbps) dibuat worker kedua.
+- Worker utama memakai ±730 ribu token untuk job ini; tugas mekanis sesudahnya (salinan ringkas) diberikan ke worker baru dengan brief pendek.
+- Untuk job podcast berikutnya: minta di daftar pertama nama + logo tamu dan file referensi; putuskan dari awal cara serah-terima file besar
+  (kredensial unggah Drive di environment akan menghapus langkah gabung manual).
